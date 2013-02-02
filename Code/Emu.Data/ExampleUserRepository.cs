@@ -32,7 +32,8 @@ namespace Emu.Data
         public ExampleUserRepository()
         {
             // Creating the connection to the database, we may want to load this from a config file and user encryption for security
-            DB = new MySqlConnection("Server=localhost;Database=EMU;Uid=emuUser;Pwd=emuPassword;");
+            DB = new MySqlConnection("Server=localhost;Database=EMU;Uid=root;Pwd=emugroup3;");
+            DB.Open();
         }
 
         #endregion
