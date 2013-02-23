@@ -8,7 +8,6 @@ namespace Emu.Common
 {
     public class Software
     {
-        public Guid ID { get; set; }
         public int BarCode { get; set; }
         public string SerialNumber { get; set; }
         public string Description { get; set; }

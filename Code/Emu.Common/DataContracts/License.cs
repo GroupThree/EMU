@@ -8,8 +8,8 @@ namespace Emu.Common
 {
     public class License
     {
-        public Guid ID { get; set; }
-        public Guid SoftwareID { get; set; }
+        public int ID { get; set; }
+        public Software Software { get; set; }
         public string LicenseKey { get; set; }
         public DateTime ExpirationDate { get; set; }
     }

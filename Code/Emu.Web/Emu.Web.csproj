@@ -136,6 +136,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EquipmentModels.cs" />
+    <Compile Include="Models\HomeModels.cs" />
+    <Compile Include="Models\LicensesModels.cs" />
+    <Compile Include="Models\MaintenanceModels.cs" />
+    <Compile Include="Models\NetworkingModels.cs" />
+    <Compile Include="Models\SoftwareModels.cs" />
+    <Compile Include="Models\UsersModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,13 +244,23 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Software\Index.cshtml" />
     <Content Include="Views\Networking\Index.cshtml" />
+    <Content Include="Views\Users\_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emu.Common\Emu.Common.csproj">
+      <Project>{50698dcb-515f-4885-8607-06c8575dba09}</Project>
+      <Name>Emu.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emu.Logic\Emu.Logic.csproj">
+      <Project>{9f6b7b47-a2eb-4bb8-9935-b6e80f334fbc}</Project>
+      <Name>Emu.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

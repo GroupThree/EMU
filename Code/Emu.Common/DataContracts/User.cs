@@ -8,15 +8,21 @@ namespace Emu.Common
 {
     public class User
     {
-        public Guid ID { get; set; }
+        public int ID { get; set; }
         public UserType Type { get; set; }
         public string UserName { get; set; }
-        public bool Active { get; set; }
+
+        List<Equipment> Equipment { get; set; }
+
+        public User()
+        {
+            Equipment = new List<Equipment>();
+        }
     }
 
     public enum UserType : int
     {
-       Staff = 0,
-       Admin = 1
+       BasicUser = 0,
+       AdminUser = 1
     }
 }
