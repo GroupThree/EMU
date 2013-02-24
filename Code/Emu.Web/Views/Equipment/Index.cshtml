@@ -1,5 +1,27 @@
-﻿@{
-    ViewBag.Title = "Equipment";
-}
+﻿@model Emu.Web.Models.EquipmentModel
 
-<h2>Equipment Page</h2>
+<h2>Equipment</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Bar Code</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Warrany Expiration</th>
+            <th>View Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ( var equipment in Model.Equipment )
+        {
+            <tr>
+                <td>@equipment.BarCode</td>
+                <td>@equipment.Description</td>
+                <td>@equipment.Location</td>
+                <td>@equipment.WarrantyExpiration.ToShortDateString()</td>
+                <td>@Html.ActionLink("View Details", "Details")</td>
+            </tr>
+        }
+    </tbody>
+</table>

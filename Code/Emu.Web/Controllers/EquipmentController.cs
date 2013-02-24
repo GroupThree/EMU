@@ -15,7 +15,7 @@ namespace Emu.Web.Controllers
         public ActionResult Index()
         {
             var model = new EquipmentModel();
-            return View();
+            return View(model);
         }
 
         //
@@ -23,7 +23,8 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var model = new EquipmentModel();
+            return View("Edit", model.Equipment.First(equipment => equipment.BarCode == id));
         }
 
         //
@@ -31,7 +32,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View("Edit");
         }
 
         //

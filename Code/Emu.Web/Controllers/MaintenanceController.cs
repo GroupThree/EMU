@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emu.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,8 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new MaintenanceModel();
+            return View(model);
         }
 
         //
@@ -21,7 +23,9 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var model = new MaintenanceModel();
+            // view the ticket that matches this id
+            return View("Details", model.Tickets.First( ticket => ticket.ID == id ));
         }
 
         //
@@ -29,7 +33,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View("Details");
         }
 
         //

@@ -1,0 +1,53 @@
+﻿@model Emu.Common.Equipment
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Equipment</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BarCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BarCode)
+            @Html.ValidationMessageFor(model => model.BarCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WarrantyExpiration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WarrantyExpiration)
+            @Html.ValidationMessageFor(model => model.WarrantyExpiration)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

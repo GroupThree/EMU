@@ -8,7 +8,7 @@ namespace Emu.Web.Models
 {
     public class EquipmentModel
     {
-        List<Equipment> Equipment { get; set; }
+        public List<Equipment> Equipment { get; set; }
 
         public EquipmentModel()
         {

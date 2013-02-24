@@ -1,5 +1,5 @@
-﻿@{
-    ViewBag.Title = "Licenses";
-}
+﻿@model Emu.Web.Models.LicensesModel
 
-<h2>Licenses Page</h2>
+<h2>Licenses</h2>
+
+@Html.Partial( "_List", Model.Licenses )

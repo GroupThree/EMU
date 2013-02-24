@@ -246,6 +246,13 @@
     <Content Include="Views\Software\Index.cshtml" />
     <Content Include="Views\Networking\Index.cshtml" />
     <Content Include="Views\Users\_User.cshtml" />
+    <Content Include="Views\Equipment\Edit.cshtml" />
+    <Content Include="Views\Equipment\Create.cshtml" />
+    <Content Include="Views\Licenses\_List.cshtml" />
+    <Content Include="Views\Maintenance\_List.cshtml" />
+    <Content Include="Views\Maintenance\_Edit.cshtml" />
+    <Content Include="Views\Maintenance\_Create.cshtml" />
+    <Content Include="Views\Maintenance\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
