@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Emu.Common.DataContracts;
 
 namespace Emu.Common
 {
@@ -14,13 +13,21 @@ namespace Emu.Common
         public string Location { get; set; }
         public DateTime WarrantyExpiration { get; set; }
 
-        public List<Software> InstalledSoftware { get; set; }
+
+        public List<License> Licenses { get; set; }
         public List<Ticket> MaintenanceTickets { get; set; }
         public List<NetworkAddress> NetworkAddresses { get; set; }
+        public List<Software> InstalledSoftware
+        {
+            get
+            {
+                return Licenses.Select( lic => lic.Software ).ToList();
+            }
+        }
 
         public Equipment()
         {
-            InstalledSoftware = new List<Software>();
+            Licenses = new List<License>();
             MaintenanceTickets = new List<Ticket>();
             NetworkAddresses = new List<NetworkAddress>();
         }

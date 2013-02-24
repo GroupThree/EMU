@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace Emu.Common.DataContracts
+namespace Emu.Common
 {
     public class NetworkAddress
     {

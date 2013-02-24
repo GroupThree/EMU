@@ -8,10 +8,9 @@ namespace Emu.Common
 {
     public class Ticket
     {
-        public Guid ID { get; set; }
-        public Guid EquipmentID { get; set; }
-        public Guid SoftwareID { get; set; }
-        public Guid LicenseID { get; set; }
+        public int ID { get; set; }
+        public Equipment Equipment { get; set; }
+        public License License { get; set; }
         public TicketType Type { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }

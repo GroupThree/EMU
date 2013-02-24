@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Emu.Web
+namespace Emu.Web.Models
 {
     public class UsersModel
     {
@@ -12,13 +12,7 @@ namespace Emu.Web
 
         public UsersModel()
         {
-            Users = new List<User> 
-            {
-                new User{ ID = 1, UserName = "bnewton@unomaha.edu", Type = UserType.AdminUser },
-                new User{ ID = 2, UserName = "abmedury@unomaha.edu", Type = UserType.AdminUser },
-                new User{ ID = 3, UserName = "twbrown@unomaha.edu", Type = UserType.BasicUser },
-                new User{ ID = 4, UserName = "joerter@unomaha.edu", Type = UserType.BasicUser }
-            };
+            Users = Mockup.Data.Users;
         }
     }
 }

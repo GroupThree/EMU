@@ -11,6 +11,5 @@ namespace Emu.Common
         public int BarCode { get; set; }
         public string SerialNumber { get; set; }
         public string Description { get; set; }
-        public License License { get; set; }
     }
 }

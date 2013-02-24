@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emu.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            var model = new EquipmentModel();
             return View();
         }
 
