@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emu.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,8 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new NetworkingModel();
+            return View( model );
         }
 
         //
@@ -21,7 +23,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var model = new NetworkingModel()
+                .Addresses
+                .First(address => address.ID == id );
+
+            return View( model );
         }
 
         //
@@ -55,7 +61,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = new NetworkingModel()
+                .Addresses
+                .First( address => address.ID == id );
+
+            return View( model );
         }
 
         //
@@ -79,27 +89,27 @@ namespace Emu.Web.Controllers
         //
         // GET: /Networking/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Networking/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

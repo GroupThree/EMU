@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Emu.Common.NetworkAddress>
+
+<table class="table table-hover">
+    <tr>
+        <th>IP Address</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.Encode( item.IP.ToString() )
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink( "Create New", "Create", new { @class = "btn btn-primary" } )
+</p>

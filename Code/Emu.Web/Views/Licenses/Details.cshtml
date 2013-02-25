@@ -1,0 +1,23 @@
+﻿@model Emu.Common.License
+
+<fieldset>
+    <legend>License</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LicenseKey)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LicenseKey)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ExpirationDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ExpirationDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

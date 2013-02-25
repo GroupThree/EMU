@@ -1,0 +1,19 @@
+﻿@model Emu.Common.NetworkAddress
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>NetworkAddress</legend>
+        <p>
+            @Html.TextBoxFor( model => model.IP )
+        </p>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

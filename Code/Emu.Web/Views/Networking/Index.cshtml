@@ -1,5 +1,5 @@
-﻿@{
-    ViewBag.Title = "Networking";
-}
+﻿@model Emu.Web.Models.NetworkingModel
 
-<h2>Networking Page</h2>
+<h2>Networking</h2>
+
+@Html.Partial("List", Model.Addresses)

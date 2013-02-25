@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emu.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,15 +14,20 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new SoftwareModel();
+            return View( model );
         }
 
         //
         // GET: /Software/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int barCode)
         {
-            return View();
+            var model = new SoftwareModel()
+                        .Software
+                        .First( software => software.BarCode == barCode );
+            
+            return View(model);
         }
 
         //
@@ -53,9 +59,13 @@ namespace Emu.Web.Controllers
         //
         // GET: /Software/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int barCode)
         {
-            return View();
+            var model = new SoftwareModel()
+                .Software
+                .First(software => software.BarCode == barCode);
+            
+            return View(model);
         }
 
         //
@@ -79,27 +89,27 @@ namespace Emu.Web.Controllers
         //
         // GET: /Software/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Software/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

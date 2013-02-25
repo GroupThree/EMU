@@ -6,11 +6,11 @@ using System.Web;
 
 namespace Emu.Web.Models
 {
-    public class SoftwareModels
+    public class SoftwareModel
     {
-        List<Software> Software { get; set; }
+        public List<Software> Software { get; set; }
 
-        public SoftwareModels()
+        public SoftwareModel()
         {
             Software = Mockup.Data.Software;
         }

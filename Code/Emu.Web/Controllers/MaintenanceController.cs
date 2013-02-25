@@ -23,9 +23,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new MaintenanceModel();
-            // view the ticket that matches this id
-            return View("Details", model.Tickets.First( ticket => ticket.ID == id ));
+            var model = new MaintenanceModel()
+                .Tickets
+                .First( ticket => ticket.ID == id );
+
+            return View( model );
         }
 
         //
@@ -59,51 +61,55 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = new MaintenanceModel()
+                .Tickets
+                .First( ticket => ticket.ID == id );
+
+            return View( model );
         }
 
         //
         // POST: /Maintenance/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        //
-        // GET: /Maintenance/Delete/5
+        ////
+        //// GET: /Maintenance/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Maintenance/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

@@ -1,0 +1,13 @@
+﻿@model Emu.Common.NetworkAddress
+
+<fieldset>
+    <legend>NetworkAddress</legend>
+</fieldset>
+
+<p>
+    @Html.DisplayFor( model => model.IP )
+</p>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

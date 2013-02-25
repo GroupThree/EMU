@@ -23,8 +23,10 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new LicensesModel();
-            return View("Details", model.Licenses.First(license => license.ID == id));
+            var model = new LicensesModel()
+                        .Licenses
+                        .First( license => license.ID == id );
+            return View(model);
         }
 
         //
@@ -58,7 +60,10 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = new LicensesModel()
+                        .Licenses
+                        .First( license => license.ID == id );
+            return View( model );
         }
 
         //
@@ -82,27 +87,27 @@ namespace Emu.Web.Controllers
         //
         // GET: /Licenses/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Licenses/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

@@ -23,8 +23,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new EquipmentModel();
-            return View("Edit", model.Equipment.First(equipment => equipment.BarCode == id));
+            var model = new EquipmentModel()
+                        .Equipment
+                        .First( equipment => equipment.BarCode == id );
+
+            return View(model);
         }
 
         //
@@ -32,7 +35,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View("Edit");
+            return View();
         }
 
         //
@@ -58,7 +61,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = new EquipmentModel()
+                        .Equipment
+                        .First( equipment => equipment.BarCode == id );
+
+            return View(model);
         }
 
         //
@@ -82,27 +89,27 @@ namespace Emu.Web.Controllers
         //
         // GET: /Equipment/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Equipment/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
