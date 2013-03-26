@@ -9,10 +9,5 @@ namespace Emu.Web.Models
     public class UsersModel
     {
         public List<User> Users { get; set; }
-
-        public UsersModel()
-        {
-            Users = Mockup.Data.Users;
-        }
     }
 }

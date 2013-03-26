@@ -10,10 +10,5 @@ namespace Emu.Web.Models
     public class NetworkingModel
     {
         public List<NetworkAddress> Addresses { get; set; }
-
-        public NetworkingModel()
-        {
-            Addresses = Mockup.Data.Addresses;
-        }
     }
 }

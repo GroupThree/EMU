@@ -9,6 +9,23 @@ namespace Emu.Web.Controllers
 {
     public class HomeController : Controller
     {
+        #region Properties
+
+
+
+        #endregion
+
+        #region Constructor
+
+        public HomeController()
+        {
+
+        }
+
+        #endregion
+
+        #region Methods
+
         //
         // GET: /Home/
 
@@ -102,5 +119,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }

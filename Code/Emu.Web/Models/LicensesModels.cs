@@ -9,10 +9,5 @@ namespace Emu.Web.Models
     public class LicensesModel
     {
         public List<License> Licenses { get; set; }
-
-        public LicensesModel()
-        {
-            Licenses = Mockup.Data.Licenses;
-        }
     }
 }

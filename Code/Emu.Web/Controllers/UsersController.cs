@@ -1,4 +1,6 @@
-﻿using Emu.Web.Models;
+﻿using Emu.Common;
+using Emu.Logic;
+using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,32 @@ namespace Emu.Web.Controllers
 {
     public class UsersController : Controller
     {
+        #region Properties
+
+        public IUsersManager Manager { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public UsersController()
+        {
+            Manager = new UsersManager();
+        }
+
+        #endregion
+
+        #region Method
+        
         //
         // GET: /Users/
 
         public ActionResult Index()
         {
-            var model = new UsersModel();
+            var model = new UsersModel
+            {
+                Users = Manager.GetUsers()
+            };
             return View(model);
         }
 
@@ -23,10 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new UsersModel()
-                            .Users
-                            .First( u => u.ID == id );
-
+            var model = Manager.GetUser( id );
             return View( model );
         }
 
@@ -42,13 +61,19 @@ namespace Emu.Web.Controllers
         // POST: /Users/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(User user)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if( ModelState.IsValid )
+                {
+                    Manager.CreateUser( user );
+                    return RedirectToAction( "Index" );
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
@@ -61,10 +86,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = new UsersModel()
-                            .Users
-                            .First( u => u.ID == id );
-
+            var model = Manager.GetUser( id );
             return View( model );
         }
 
@@ -72,13 +94,20 @@ namespace Emu.Web.Controllers
         // POST: /Users/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(User user)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if( ModelState.IsValid )
+                {
+                    Manager.UpdateUser( user );
+                    return RedirectToAction( "Index" );
+                }
+                else
+                {
+                    return View();
+                }
+                
             }
             catch
             {
@@ -111,5 +140,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }

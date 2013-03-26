@@ -9,10 +9,5 @@ namespace Emu.Web.Models
     public class EquipmentModel
     {
         public List<Equipment> Equipment { get; set; }
-
-        public EquipmentModel()
-        {
-            Equipment = Mockup.Data.Equipment;
-        }
     }
 }

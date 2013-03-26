@@ -1,4 +1,6 @@
-﻿using Emu.Web.Models;
+﻿using Emu.Common;
+using Emu.Logic;
+using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,23 @@ namespace Emu.Web.Controllers
 {
     public class MaintenanceController : Controller
     {
+        #region Properties
+
+        IMaintenanceManager Manager { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public MaintenanceController()
+        {
+            Manager = new MaintenanceManager();
+        }
+
+        #endregion
+
+        #region Methods
+        
         //
         // GET: /Maintenance/
 
@@ -111,5 +130,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }

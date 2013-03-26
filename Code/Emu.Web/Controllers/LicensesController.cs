@@ -1,4 +1,6 @@
-﻿using Emu.Web.Models;
+﻿using Emu.Common;
+using Emu.Logic;
+using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,23 @@ namespace Emu.Web.Controllers
 {
     public class LicensesController : Controller
     {
+        #region Properties
+
+        ILicensesManager Manager { get; set; }
+        
+        #endregion
+
+        #region Constructor
+
+        public LicensesController()
+        {
+            Manager = new LicensesManager();
+        }
+
+        #endregion
+
+        #region Methods
+
         //
         // GET: /Licenses/
 
@@ -109,5 +128,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }

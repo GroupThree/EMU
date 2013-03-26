@@ -1,4 +1,6 @@
-﻿using Emu.Web.Models;
+﻿using Emu.Common;
+using Emu.Logic;
+using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,22 @@ namespace Emu.Web.Controllers
 {
     public class EquipmentController : Controller
     {
-        //
-        // GET: /Equipment/
+        #region Properties
+
+        IEquipmentManager Manager { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public EquipmentController()
+        {
+            Manager = new EquipmentManager();
+        }
+
+        #endregion
+
+        #region Methods
 
         public ActionResult Index()
         {
@@ -111,5 +127,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }

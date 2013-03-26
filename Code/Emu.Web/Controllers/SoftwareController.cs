@@ -1,4 +1,6 @@
-﻿using Emu.Web.Models;
+﻿using Emu.Common;
+using Emu.Logic;
+using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,23 @@ namespace Emu.Web.Controllers
 {
     public class SoftwareController : Controller
     {
+        #region Properties
+
+        public ISoftwareManager Manager { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public SoftwareController()
+        {
+            Manager = new SoftwareManager();
+        }
+
+        #endregion
+
+        #region Methods
+        
         //
         // GET: /Software/
 
@@ -111,5 +130,7 @@ namespace Emu.Web.Controllers
         //        return View();
         //    }
         //}
+
+        #endregion
     }
 }
