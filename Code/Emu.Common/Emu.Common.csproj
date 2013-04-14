@@ -52,6 +52,7 @@
     <Compile Include="Interfaces\IEquipmentManager.cs" />
     <Compile Include="Interfaces\IUsersManager.cs" />
     <Compile Include="Interfaces\ISoftwareManager.cs" />
+    <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

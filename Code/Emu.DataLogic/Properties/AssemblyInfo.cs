@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Emu.Data")]
+[assembly: AssemblyTitle( "Emu.DataLogic" )]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Emu.Data")]
+[assembly: AssemblyProduct( "Emu.DataLogic" )]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("79be6db4-06cc-440d-90d4-99378b8d3cd7")]
+[assembly: Guid("15357b98-c4a0-4753-be55-c398edbf8273")]
 
 // Version information for an assembly consists of the following four values:
 //
