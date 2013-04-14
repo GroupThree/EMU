@@ -1,5 +1,5 @@
 ﻿using Emu.Common;
-using Emu.Logic;
+using Emu.DataLogic;
 using Emu.Web.Models;
 using System;
 using System.Collections.Generic;

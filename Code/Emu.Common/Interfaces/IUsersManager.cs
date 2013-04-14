@@ -12,5 +12,6 @@ namespace Emu.Common
         User GetUser( int id );
         void CreateUser( User user );
         void UpdateUser( User user );
+        User Authenticate( string username, string password );
     }
 }

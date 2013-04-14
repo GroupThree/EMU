@@ -280,6 +280,10 @@
       <Project>{50698dcb-515f-4885-8607-06c8575dba09}</Project>
       <Name>Emu.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Emu.DataLogic\Emu.DataLogic.csproj">
+      <Project>{9f6b7b47-a2eb-4bb8-9935-b6e80f334fbc}</Project>
+      <Name>Emu.DataLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

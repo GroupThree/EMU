@@ -12,5 +12,6 @@ namespace Emu.Common
         NetworkAddress GetAddress( int id );
         void CreateNetworkAddress( NetworkAddress address );
         void UpdateNetworkAddress( NetworkAddress address );
+        void CreateRelationship( NetworkAddress address, Equipment equipment );
     }
 }
