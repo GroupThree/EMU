@@ -8,76 +8,135 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class UsersControl : IUsersManager
-    {
-        #region Properties
-        
-        MySqlConnection Connection { get; set; }
+	public class UsersControl : IUsersManager
+	{
+		#region Properties
+		
+		MySqlConnection Connection { get; set; }
 
-        struct SQL
-        {
-            public const string GetAll = "select * from asdfasdfa";
-            public const string GetByBarcode = "select * from asdfasdf where";
-            public const string Create = "insert into asdfasdf() values ()";
-            public const string Update = "update asdfasdf set  fdsadfds where  fdsawer";
-        }
+		struct SQL
+		{
+			public const string GetAll = "select * from EmuUser";
+			public const string GetByID = "select * from EmuUser where ID = @ID";
+			public const string Create = "insert into EmuUser(Type, Username, Password) values (@Type, @Username, @Password)";
+			public const string Update = "update EmuUser set Type = @Type, Username = @Username, Password = @Password where ID = @ID";
+		}
 
-        #endregion
-        #region Constructor
+		#endregion
+		#region Constructor
 
-        public UsersControl()
-        {
-            Connection = new MySqlConnection( "connection_string" ); 
-        }
+		public UsersControl()
+		{
+			Connection = new MySqlConnection( "connection_string" ); 
+		}
 
-        #endregion
-        #region Methods
-        
-        public List<User> Get()
-        {
-            var result = new List<User>();
-            
-            return result;
-        }
+		#endregion
+		#region Methods
+		
+		public List<User> Get()
+		{
+			var result = new List<User>();
 
-        public User Get( int id )
-        {
-            #region Validate Arguments
-            
-            #endregion
+			using (var cmd = new MySqlCommand(SQL.GetAll, Connection))
+			{
+				using (var reader = cmd.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						// populate an equipment record
+					}
+				}
+			}
 
-            User result = null;
-            
-            return result;
-        }
+			return result;
+		}
 
-        public void Create( User user )
-        {
-            #region Validate Arguments
-            
-            #endregion
+		public User Get( int id )
+		{
+			#region Validate Arguments
 
-        }
+			if (id.IsPositive() == false)
+			{
+				throw new ArgumentException("Barcode argument must be a positive integer.", "barcode");
+			}
 
-        public void Update( User user )
-        {
-            #region Validate Arguments
+			#endregion
 
-            #endregion
+			User result = null;
 
-        }
+			using (var cmd = new MySqlCommand(SQL.GetByID, Connection))
+			{
+				cmd.Parameters.AddWithValue("@ID", id);
 
-        public User Authenticate( string userName, string password )
-        {
-            #region Validate Arguments
+				using (var reader = cmd.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						result = new User
+						{
+							ID = Convert.ToInt32(reader["ID"]),
+							Type = Convert.ToInt32(reader["Type"].ToString()).ToEnum(UserType.BasicUser),
+							UserName = reader["Username"].ToString(),
+							PasswordHash = reader["Password"].ToString()
+						};
 
-            #endregion
+						// populate the relationships of an Equipment record too
+					}
+				}
+			}
+			
+			return result;
+		}
 
-            User result = null;
+		public void Create( User user )
+		{
+			#region Validate Arguments
+			
+			#endregion
 
-            return result;
-        }
+			using (var cmd = new MySqlCommand(SQL.Create, Connection))
+			{
+				cmd.Parameters.AddWithValue("@ID", user.ID);
+				cmd.Parameters.AddWithValue("@Type", user.Type);
+				cmd.Parameters.AddWithValue("@Username", user.UserName);
+				cmd.Parameters.AddWithValue("@Password", user.PasswordHash);
 
-        #endregion
-    }
+				// run the update statement
+				cmd.ExecuteNonQuery();
+			}
+
+		}
+
+		public void Update( User user )
+		{
+			#region Validate Arguments
+
+			#endregion
+
+			using (var cmd = new MySqlCommand(SQL.Update, Connection))
+			{
+				cmd.Parameters.AddWithValue("@ID", user.ID);
+				cmd.Parameters.AddWithValue("@Type", user.Type);
+				cmd.Parameters.AddWithValue("@Username", user.UserName);
+				cmd.Parameters.AddWithValue("@Password", user.PasswordHash);
+
+				// run the update statement
+				cmd.ExecuteNonQuery();
+			}
+
+		}
+
+		public User Authenticate( string userName, string password )
+		{
+			#region Validate Arguments
+
+			#endregion
+
+			User result = null;
+
+			return result;
+		}
+
+		#endregion
+	}
 }

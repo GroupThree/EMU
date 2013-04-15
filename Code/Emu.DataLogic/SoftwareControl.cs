@@ -16,10 +16,10 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = "select * from asdfasdfa";
-            public const string GetByBarcode = "select * from asdfasdf where";
-            public const string Create = "insert into asdfasdf() values ()";
-            public const string Update = "update asdfasdf set  fdsadfds where  fdsawer";
+            public const string GetAll = "select * from Software";
+            public const string GetByBarcode = "select * from Software where BarCode = @BarCode";
+            public const string Create = "insert into Software(BarCode, SerialNumber, Description) values (@BarCode, @SerialNumber, @Description)";
+            public const string Update = "update Software set SerialNumber = @SerialNumber, Description = @Description where BarCode = @BarCode";
         }
 
         #endregion
@@ -27,16 +27,27 @@ namespace Emu.DataLogic
 
         public SoftwareControl()
         {
-            Connection = new MySqlConnection( "connection_string" ); 
+            Connection = new MySqlConnection( "connection_string" );
         }
 
         #endregion
         #region Methods
-        
+
         public List<Software> Get()
         {
             var results = new List<Software>();
-            
+
+            using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
+            {
+                using( var reader = cmd.ExecuteReader() )
+                {
+                    while( reader.Read() )
+                    {
+                        // populate an equipment record
+                    }
+                }
+            }
+
             return results;
         }
 
@@ -47,7 +58,27 @@ namespace Emu.DataLogic
             #endregion
 
             Software result = null;
-            
+
+            using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@BarCode", barcode );
+
+                using( var reader = cmd.ExecuteReader() )
+                {
+                    while( reader.Read() )
+                    {
+                        result = new Software
+                        {
+                            BarCode = Convert.ToInt32( reader[ "BarCode" ] ),
+                            SerialNumber = reader[ "SerialNumber" ].ToString(),
+                            Description = reader[ "Description" ].ToString()
+                        };
+
+                        // populate the relationships of an Equipment record too
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -57,6 +88,16 @@ namespace Emu.DataLogic
 
             #endregion
 
+            using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );
+                cmd.Parameters.AddWithValue( "@SerialNumber", software.SerialNumber );
+                cmd.Parameters.AddWithValue( "@Description", software.Description );
+
+                // run the update statement
+                cmd.ExecuteNonQuery();
+            }
+
         }
 
         public void Update( Software software )
@@ -64,6 +105,16 @@ namespace Emu.DataLogic
             #region Validate Arguments
 
             #endregion
+
+            using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );
+                cmd.Parameters.AddWithValue( "@SerialNumber", software.SerialNumber );
+                cmd.Parameters.AddWithValue( "@Description", software.Description );
+
+                // run the update statement
+                cmd.ExecuteNonQuery();
+            }
 
         }
 
