@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public UsersController()
         {
-            Manager = new UsersManager();
+            Manager = new UsersControl();
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace Emu.Web.Controllers
         {
             var model = new UsersModel
             {
-                Users = Manager.GetUsers()
+                Users = Manager.Get()
             };
             return View(model);
         }
@@ -45,7 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = Manager.GetUser( id );
+            var model = Manager.Get( id );
             return View( model );
         }
 
@@ -67,7 +67,7 @@ namespace Emu.Web.Controllers
             {
                 if( ModelState.IsValid )
                 {
-                    Manager.CreateUser( user );
+                    Manager.Create( user );
                     return RedirectToAction( "Index" );
                 }
                 else
@@ -86,7 +86,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Manager.GetUser( id );
+            var model = Manager.Get( id );
             return View( model );
         }
 
@@ -100,7 +100,7 @@ namespace Emu.Web.Controllers
             {
                 if( ModelState.IsValid )
                 {
-                    Manager.UpdateUser( user );
+                    Manager.Update( user );
                     return RedirectToAction( "Index" );
                 }
                 else

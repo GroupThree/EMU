@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class NetworkingManager : INetworkingManager
+    public class NetworkingControl : INetworkingManager
     {
         #region Properties
         
@@ -25,7 +25,7 @@ namespace Emu.DataLogic
         #endregion
         #region Constructor
 
-        public NetworkingManager()
+        public NetworkingControl()
         {
             Connection = new MySqlConnection( "connection_string" ); 
         }
@@ -33,14 +33,14 @@ namespace Emu.DataLogic
         #endregion
         #region Methods
 
-        public List<NetworkAddress> GetAddresses()
+        public List<NetworkAddress> Get()
         {
             var results = new List<NetworkAddress>();
             
             return results;
         }
 
-        public NetworkAddress GetAddress( int id )
+        public NetworkAddress Get( int id )
         {
             #region Validate Arguments
 
@@ -51,7 +51,7 @@ namespace Emu.DataLogic
             return result;
         }
 
-        public void CreateNetworkAddress( NetworkAddress address )
+        public void Create( NetworkAddress address )
         {
             #region Validate Arguments
 
@@ -59,7 +59,7 @@ namespace Emu.DataLogic
 
         }
 
-        public void UpdateNetworkAddress( NetworkAddress address )
+        public void Update( NetworkAddress address )
         {
             #region Validate Arguments
 

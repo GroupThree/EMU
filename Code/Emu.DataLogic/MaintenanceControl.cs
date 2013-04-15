@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class MaintenanceManager : IMaintenanceManager
+    public class MaintenanceControl : IMaintenanceManager
     {
         #region Properties
         
@@ -25,7 +25,7 @@ namespace Emu.DataLogic
         #endregion
         #region Constructor
 
-        public MaintenanceManager()
+        public MaintenanceControl()
         {
             Connection = new MySqlConnection( "connection_string" );
         }
@@ -33,14 +33,14 @@ namespace Emu.DataLogic
         #endregion
         #region Methods
         
-        public List<Ticket> GetTickets()
+        public List<Ticket> Get()
         {
             var results = new List<Ticket>();
 
             return results;
         }
 
-        public Ticket GetTicket(int id)
+        public Ticket Get(int id)
         {
             #region Validate Arguments
 
@@ -51,7 +51,7 @@ namespace Emu.DataLogic
             return result;
         }
 
-        public void CreateTicket( Ticket ticket )
+        public void Create( Ticket ticket )
         {
             #region Validate Arguments
 
@@ -59,7 +59,7 @@ namespace Emu.DataLogic
 
         }
 
-        public void UpdateTicket( Ticket ticket )
+        public void Update( Ticket ticket )
         {
             #region Validate Arguments
 

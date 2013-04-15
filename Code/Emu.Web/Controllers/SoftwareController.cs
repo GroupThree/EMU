@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public SoftwareController()
         {
-            Manager = new SoftwareManager();
+            Manager = new SoftwareControl();
         }
 
         #endregion
@@ -33,19 +33,19 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = new SoftwareModel();
+            var model = new SoftwareModel
+            {
+                Software = Manager.Get()
+            };
             return View( model );
         }
 
         //
         // GET: /Software/Details/5
 
-        public ActionResult Details(int barCode)
+        public ActionResult Details(int barcode)
         {
-            var model = new SoftwareModel()
-                        .Software
-                        .First( software => software.BarCode == barCode );
-            
+            var model = Manager.Get( barcode );            
             return View(model);
         }
 
@@ -61,11 +61,11 @@ namespace Emu.Web.Controllers
         // POST: /Software/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Software software)
         {
             try
             {
-                // TODO: Add insert logic here
+                Manager.Create( software );
 
                 return RedirectToAction("Index");
             }
@@ -80,10 +80,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int barCode)
         {
-            var model = new SoftwareModel()
-                .Software
-                .First(software => software.BarCode == barCode);
-            
+            var model = Manager.Get( barCode );            
             return View(model);
         }
 
@@ -91,11 +88,11 @@ namespace Emu.Web.Controllers
         // POST: /Software/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Software software)
         {
             try
             {
-                // TODO: Add update logic here
+                Manager.Update( software );
 
                 return RedirectToAction("Index");
             }

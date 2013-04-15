@@ -8,9 +8,9 @@ namespace Emu.Common
 {
     public interface IMaintenanceManager
     {
-        List<Ticket> GetTickets();
-        Ticket GetTicket(int id);
-        void CreateTicket( Ticket ticket );
-        void UpdateTicket( Ticket ticket );
+        List<Ticket> Get();
+        Ticket Get(int id);
+        void Create( Ticket ticket );
+        void Update( Ticket ticket );
     }
 }

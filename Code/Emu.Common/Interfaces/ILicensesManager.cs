@@ -8,10 +8,10 @@ namespace Emu.Common
 {
     public interface ILicensesManager
     {
-        List<License> GetLicenses();
-        License GetLicense( int barcode );
-        void CreateLicense( License license );
-        void UpdateLicense( License license );
+        List<License> Get();
+        License Get( int barcode );
+        void Create( License license );
+        void Update( License license );
         void CreateRelationship( License license, Equipment equipment );
     }
 }

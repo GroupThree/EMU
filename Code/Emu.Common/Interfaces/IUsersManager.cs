@@ -8,10 +8,10 @@ namespace Emu.Common
 {
     public interface IUsersManager
     {
-        List<User> GetUsers();
-        User GetUser( int id );
-        void CreateUser( User user );
-        void UpdateUser( User user );
+        List<User> Get();
+        User Get( int id );
+        void Create( User user );
+        void Update( User user );
         User Authenticate( string username, string password );
     }
 }

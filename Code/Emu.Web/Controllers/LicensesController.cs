@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public LicensesController()
         {
-            Manager = new LicensesManager();
+            Manager = new LicensesControl();
         }
 
         #endregion
@@ -33,7 +33,10 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = new LicensesModel();
+            var model = new LicensesModel
+            {
+                Licenses = Manager.Get()
+            };
             return View(model);
         }
 
@@ -42,9 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new LicensesModel()
-                        .Licenses
-                        .First( license => license.ID == id );
+            var model = Manager.Get( id );
             return View(model);
         }
 
@@ -60,11 +61,11 @@ namespace Emu.Web.Controllers
         // POST: /Licenses/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(License license)
         {
             try
             {
-                // TODO: Add insert logic here
+                Manager.Create( license );
 
                 return RedirectToAction("Index");
             }
@@ -79,9 +80,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = new LicensesModel()
-                        .Licenses
-                        .First( license => license.ID == id );
+            var model = Manager.Get( id );
             return View( model );
         }
 
@@ -89,11 +88,11 @@ namespace Emu.Web.Controllers
         // POST: /Licenses/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, License license)
         {
             try
             {
-                // TODO: Add update logic here
+                Manager.Update( license );
 
                 return RedirectToAction("Index");
             }

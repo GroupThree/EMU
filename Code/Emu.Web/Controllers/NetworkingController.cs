@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public NetworkingController()
         {
-            Manager = new NetworkingManager();
+            Manager = new NetworkingControl();
         }
 
         #endregion
@@ -33,7 +33,10 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = new NetworkingModel();
+            var model = new NetworkingModel
+            {
+                Addresses = Manager.Get()
+            };
             return View( model );
         }
 
@@ -42,10 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new NetworkingModel()
-                .Addresses
-                .First(address => address.ID == id );
-
+            var model = Manager.Get( id );
             return View( model );
         }
 
@@ -61,11 +61,11 @@ namespace Emu.Web.Controllers
         // POST: /Networking/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(NetworkAddress address)
         {
             try
             {
-                // TODO: Add insert logic here
+                Manager.Create( address );
 
                 return RedirectToAction("Index");
             }
@@ -80,9 +80,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = new NetworkingModel()
-                .Addresses
-                .First( address => address.ID == id );
+            var model = Manager.Get( id );
 
             return View( model );
         }
@@ -91,11 +89,11 @@ namespace Emu.Web.Controllers
         // POST: /Networking/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, NetworkAddress address)
         {
             try
             {
-                // TODO: Add update logic here
+                Manager.Update( address );
 
                 return RedirectToAction("Index");
             }

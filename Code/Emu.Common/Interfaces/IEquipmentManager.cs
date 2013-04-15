@@ -8,10 +8,10 @@ namespace Emu.Common
 {
     public interface IEquipmentManager
     {
-        List<Equipment> GetEquipment();
-        Equipment GetEquipment( int barcode );
-        void CreateEquipment( Equipment equipment );
-        void UpdateEquipment( Equipment equipment );
+        List<Equipment> Get();
+        Equipment Get( int barcode );
+        void Create( Equipment equipment );
+        void Update( Equipment equipment );
         void CreateRelationship( Equipment equipment, User user );
     }
 }

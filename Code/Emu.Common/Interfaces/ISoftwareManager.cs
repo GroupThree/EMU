@@ -8,9 +8,9 @@ namespace Emu.Common
 {
     public interface ISoftwareManager
     {
-        List<Software> GetSoftware();
-        Software GetSoftware( int barcode );
-        void CreateSoftware( Software software );
-        void UpdateSoftware( Software software );
+        List<Software> Get();
+        Software Get( int barcode );
+        void Create( Software software );
+        void Update( Software software );
     }
 }

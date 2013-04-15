@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public EquipmentController()
         {
-            Manager = new EquipmentManager();
+            Manager = new EquipmentControl();
         }
 
         #endregion
@@ -30,19 +30,19 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = new EquipmentModel();
+            var model = new EquipmentModel
+            {
+                Equipment = Manager.Get()
+            };
             return View(model);
         }
 
         //
         // GET: /Equipment/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int barcode)
         {
-            var model = new EquipmentModel()
-                        .Equipment
-                        .First( equipment => equipment.BarCode == id );
-
+            var model = Manager.Get( barcode );
             return View(model);
         }
 
@@ -58,11 +58,11 @@ namespace Emu.Web.Controllers
         // POST: /Equipment/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Equipment equipment)
         {
             try
             {
-                // TODO: Add insert logic here
+                Manager.Create( equipment );
 
                 return RedirectToAction("Index");
             }
@@ -75,12 +75,9 @@ namespace Emu.Web.Controllers
         //
         // GET: /Equipment/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int barcode)
         {
-            var model = new EquipmentModel()
-                        .Equipment
-                        .First( equipment => equipment.BarCode == id );
-
+            var model = Manager.Get( barcode );
             return View(model);
         }
 
@@ -88,11 +85,11 @@ namespace Emu.Web.Controllers
         // POST: /Equipment/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Equipment equipment)
         {
             try
             {
-                // TODO: Add update logic here
+                Manager.Update( equipment );
 
                 return RedirectToAction("Index");
             }

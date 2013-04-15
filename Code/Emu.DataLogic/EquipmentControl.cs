@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class EquipmentManager : IEquipmentManager
+    public class EquipmentControl : IEquipmentManager
     {
         #region Properties
 
@@ -25,7 +25,7 @@ namespace Emu.DataLogic
         #endregion
         #region Constructor
 
-        public EquipmentManager()
+        public EquipmentControl()
         {
             Connection = new MySqlConnection( "connection_string" ); 
         }
@@ -33,7 +33,9 @@ namespace Emu.DataLogic
         #endregion
         #region Methods
 
-        public List<Equipment> GetEquipment()
+        
+
+        public List<Equipment> Get()
         {
             var results = new List<Equipment>();
 
@@ -43,7 +45,14 @@ namespace Emu.DataLogic
                 {
                     while( reader.Read() )
                     {
-                        // populate an equipment record
+                        var equipment = new Equipment
+                        {
+                            BarCode = Convert.ToInt32( reader[ "BarCode" ].ToString() ),
+                            Description = reader[ "Description" ].ToString(),
+                            Location = reader[ "Location" ].ToString(),
+                            WarrantyExpiration = DateTime.Parse( reader[ "WarrantyExpiration" ].ToString() )
+                        };
+                        results.Add( equipment );
                     }
                 }
             }
@@ -51,11 +60,11 @@ namespace Emu.DataLogic
             return results;
         }
 
-        public Equipment GetEquipment( int barcode )
+        public Equipment Get( int barcode )
         {
             #region Validate Arguments
 
-            if ( barcode.Positive() == false )
+            if ( barcode.IsPositive() == false )
             {
                 throw new ArgumentException( "Barcode argument must be a positive integer.", "barcode" );
             }
@@ -80,7 +89,6 @@ namespace Emu.DataLogic
                             WarrantyExpiration = DateTime.Parse(reader["WarrantyExpiration"].ToString())
                         };
 
-                        // populate the relationships of an Equipment record too
                     }
                 }
             }
@@ -88,7 +96,7 @@ namespace Emu.DataLogic
             return result;
         }
 
-        public void CreateEquipment( Equipment equipment )
+        public void Create( Equipment equipment )
         {
             #region Validate Arguments
             
@@ -96,7 +104,7 @@ namespace Emu.DataLogic
             {
                 throw new ArgumentException( "Equipment argument must not be null.", "equipment" );
             }
-            if ( equipment.BarCode.Positive() == false )
+            if ( equipment.BarCode.IsPositive() == false )
             {
                 throw new ArgumentException( "Equipment barcode must be a positive integer.", "barcode" );
             }
@@ -115,7 +123,7 @@ namespace Emu.DataLogic
             }
         }
 
-        public void UpdateEquipment( Equipment equipment )
+        public void Update( Equipment equipment )
         {
             #region Validate Arguments
 
@@ -123,7 +131,7 @@ namespace Emu.DataLogic
             {
                 throw new ArgumentException( "Equipment argument must not be null.", "equipment" );
             }
-            if ( equipment.BarCode.Positive() == false )
+            if ( equipment.BarCode.IsPositive() == false )
             {
                 throw new ArgumentException( "Equipment barcode must be a positive integer.", "barcode" );
             }

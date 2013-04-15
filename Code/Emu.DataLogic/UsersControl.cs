@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class LicensesManager : ILicensesManager
+    public class UsersControl : IUsersManager
     {
         #region Properties
         
@@ -25,29 +25,41 @@ namespace Emu.DataLogic
         #endregion
         #region Constructor
 
-        public LicensesManager()
+        public UsersControl()
         {
             Connection = new MySqlConnection( "connection_string" ); 
         }
 
         #endregion
         #region Methods
-
-        public List<License> GetLicenses()
+        
+        public List<User> Get()
         {
-            var results = new List<License>();
-            
-            return results;
-        }
-
-        public License GetLicense( int barcode )
-        {
-            License result = null;
+            var result = new List<User>();
             
             return result;
         }
 
-        public void CreateLicense( License license )
+        public User Get( int id )
+        {
+            #region Validate Arguments
+            
+            #endregion
+
+            User result = null;
+            
+            return result;
+        }
+
+        public void Create( User user )
+        {
+            #region Validate Arguments
+            
+            #endregion
+
+        }
+
+        public void Update( User user )
         {
             #region Validate Arguments
 
@@ -55,19 +67,15 @@ namespace Emu.DataLogic
 
         }
 
-        public void UpdateLicense( License license )
+        public User Authenticate( string userName, string password )
         {
             #region Validate Arguments
 
             #endregion
 
-        }
+            User result = null;
 
-        public void CreateRelationship( License license, Equipment equipment )
-        {
-            #region Validate Arguments
-
-            #endregion
+            return result;
         }
 
         #endregion

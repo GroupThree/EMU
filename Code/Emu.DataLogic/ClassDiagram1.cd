@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Emu.DataLogic.EquipmentControl" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.EquipmentControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EquipmentControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAAAAAAAAEAAAAAAAAAAABA=</HashCode>
+      <FileName>EquipmentControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Emu.DataLogic.LicensesControl" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.LicensesControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LicensesControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAAAAAAAAEAAAAAAAAAAABA=</HashCode>
+      <FileName>LicensesControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Emu.DataLogic.MaintenanceControl" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.MaintenanceControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MaintenanceControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>MaintenanceControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Emu.DataLogic.NetworkingControl" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="3" Width="2" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.NetworkingControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>NetworkingControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAAAAAAAAEAAAAAAAAAAABA=</HashCode>
+      <FileName>NetworkingControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Emu.DataLogic.SoftwareControl" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="3" Width="1.75" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.SoftwareControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SoftwareControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>SoftwareControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Emu.DataLogic.UsersControl" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3" Width="1.75" />
+    <NestedTypes>
+      <Struct Name="Emu.DataLogic.UsersControl.SQL" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UsersControl.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAFAAAAAAAIAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsersControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Tahoma" Size="8.4" />
+</ClassDiagram>

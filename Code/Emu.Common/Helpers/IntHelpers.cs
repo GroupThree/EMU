@@ -9,7 +9,7 @@ namespace Emu.Common
     public static class IntHelpers
     {
 
-        public static bool Positive( this int This )
+        public static bool IsPositive( this int This )
         {
             return This > 0;
         }

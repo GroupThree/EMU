@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public MaintenanceController()
         {
-            Manager = new MaintenanceManager();
+            Manager = new MaintenanceControl();
         }
 
         #endregion
@@ -33,7 +33,10 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = new MaintenanceModel();
+            var model = new MaintenanceModel
+            {
+                Tickets = Manager.Get()
+            };
             return View(model);
         }
 
@@ -42,9 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new MaintenanceModel()
-                .Tickets
-                .First( ticket => ticket.ID == id );
+            var model = Manager.Get( id );
 
             return View( model );
         }
@@ -61,11 +62,11 @@ namespace Emu.Web.Controllers
         // POST: /Maintenance/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Ticket ticket)
         {
             try
             {
-                // TODO: Add insert logic here
+                Manager.Create( ticket );
 
                 return RedirectToAction("Index");
             }
@@ -80,9 +81,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = new MaintenanceModel()
-                .Tickets
-                .First( ticket => ticket.ID == id );
+            var model = Manager.Get( id );
 
             return View( model );
         }
@@ -90,20 +89,20 @@ namespace Emu.Web.Controllers
         //
         // POST: /Maintenance/Edit/5
 
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
+        [HttpPost]
+        public ActionResult Edit( int id, Ticket ticket )
+        {
+            try
+            {
+                Manager.Update( ticket );
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+                return RedirectToAction( "Index" );
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         ////
         //// GET: /Maintenance/Delete/5

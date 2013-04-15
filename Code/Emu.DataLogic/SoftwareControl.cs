@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class UsersManager : IUsersManager
+    public class SoftwareControl : ISoftwareManager
     {
         #region Properties
-        
+
         MySqlConnection Connection { get; set; }
 
         struct SQL
@@ -25,7 +25,7 @@ namespace Emu.DataLogic
         #endregion
         #region Constructor
 
-        public UsersManager()
+        public SoftwareControl()
         {
             Connection = new MySqlConnection( "connection_string" ); 
         }
@@ -33,33 +33,25 @@ namespace Emu.DataLogic
         #endregion
         #region Methods
         
-        public List<User> GetUsers()
+        public List<Software> Get()
         {
-            var result = new List<User>();
+            var results = new List<Software>();
+            
+            return results;
+        }
+
+        public Software Get( int barcode )
+        {
+            #region Validate Arguments
+
+            #endregion
+
+            Software result = null;
             
             return result;
         }
 
-        public User GetUser( int id )
-        {
-            #region Validate Arguments
-            
-            #endregion
-
-            User result = null;
-            
-            return result;
-        }
-
-        public void CreateUser( User user )
-        {
-            #region Validate Arguments
-            
-            #endregion
-
-        }
-
-        public void UpdateUser( User user )
+        public void Create( Software software )
         {
             #region Validate Arguments
 
@@ -67,15 +59,12 @@ namespace Emu.DataLogic
 
         }
 
-        public User Authenticate( string userName, string password )
+        public void Update( Software software )
         {
             #region Validate Arguments
 
             #endregion
 
-            User result = null;
-
-            return result;
         }
 
         #endregion
