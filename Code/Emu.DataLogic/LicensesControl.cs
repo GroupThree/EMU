@@ -20,6 +20,7 @@ namespace Emu.DataLogic
             public const string GetByBarcode = "select * from License where ID = @ID";
             public const string Create = "insert into License(SoftwareBarCode, LicenseKey, ExpirationDate) values (@SoftwareBarCode, @LicenseKey, @ExpirationDate)";
             public const string Update = "update License set SoftwareBarCode = @SoftwareBarCode, LicenseKey = @LicenseKey, ExpirationDate = @ExpirationDate where ID = @ID";
+            public const string Relate = "insert into RelateEquipmentLicense(EquipmentBarCode, LicenseID) values (@EquipmentBarCode, @LicenseID)";
         }
 
         #endregion
@@ -43,23 +44,18 @@ namespace Emu.DataLogic
                 {
                     while( reader.Read() )
                     {
-                        // populate a License record
-                        var license = new License
+                        results.Add( new License
                         {
                             ID = Convert.ToInt32( reader[ "ID" ].ToString() ),
                             LicenseKey = reader[ "LicenseKey" ].ToString(),
                             ExpirationDate = DateTime.Parse( reader[ "ExpirationDate" ].ToString() ),
                             Software = new Software
                             {
-                                BarCode = Convert.ToInt32(reader["BarCode"].ToString()),
-                                Description = reader["Description"].ToString(),
-                                SerialNumber = reader["SerialNumber"].ToString()
+                                BarCode = Convert.ToInt32( reader[ "BarCode" ].ToString() ),
+                                Description = reader[ "Description" ].ToString(),
+                                SerialNumber = reader[ "SerialNumber" ].ToString()
                             }
-                        };
-
-                        // need to add the software the license is for
-
-                        results.Add( license );
+                        } );
                     }
                 }
             }
@@ -105,22 +101,22 @@ namespace Emu.DataLogic
 
             if( license == null )
             {
-                throw new ArgumentException( "License argument must not be null", "License" );
-            }
-
-            if( license.Software == null )
-            {
-                throw new ArgumentException( "The Software associated with the license must not be null", "Software" );
+                throw new ArgumentException( "License argument must not be null.", "License" );
             }
 
             if( license.ID.IsPositive() == false )
             {
-                throw new ArgumentException( "The License ID must be positive", "License ID" );
+                throw new ArgumentException( "The License ID must be positive.", "License ID" );
+            }
+
+            if( license.Software == null )
+            {
+                throw new ArgumentException( "The Software associated with the license must not be null.", "software" );
             }
 
             if( license.Software.BarCode.IsPositive() == false )
             {
-                throw new ArgumentException( "The BarCode associated with the Software must be positive", "Software BarCode" );
+                throw new ArgumentException( "The BarCode associated with the Software must be positive.", "Software BarCode" );
             }
 
             #endregion
@@ -141,7 +137,25 @@ namespace Emu.DataLogic
         {
             #region Validate Arguments
 
-            Validate( license );
+            if( license == null )
+            {
+                throw new ArgumentException( "License argument must not be null.", "License" );
+            }
+
+            if( license.ID.IsPositive() == false )
+            {
+                throw new ArgumentException( "The License ID must be positive.", "License ID" );
+            }
+
+            if( license.Software == null )
+            {
+                throw new ArgumentException( "The Software associated with the license must not be null.", "software" );
+            }
+
+            if( license.Software.BarCode.IsPositive() == false )
+            {
+                throw new ArgumentException( "The BarCode associated with the Software must be positive.", "Software BarCode" );
+            }
 
             #endregion
 
@@ -163,29 +177,51 @@ namespace Emu.DataLogic
         {
             #region Validate Arguments
 
-            #endregion
-        }
-
-        private static void Validate( License license )
-        {
             if( license == null )
             {
-                throw new ArgumentException( "License argument must not be null", "License" );
-            }
-
-            if( license.Software == null )
-            {
-                throw new ArgumentException( "The Software associated with the license must not be null", "Software" );
+                throw new ArgumentException( "License argument must not be null.", "License" );
             }
 
             if( license.ID.IsPositive() == false )
             {
-                throw new ArgumentException( "The License ID must be positive", "License ID" );
+                throw new ArgumentException( "The License ID must be positive.", "License ID" );
+            }
+
+            if( license.Software == null )
+            {
+                throw new ArgumentException( "The Software associated with the license must not be null.", "software" );
             }
 
             if( license.Software.BarCode.IsPositive() == false )
             {
-                throw new ArgumentException( "The BarCode associated with the Software must be positive", "Software BarCode" );
+                throw new ArgumentException( "The BarCode associated with the Software must be positive.", "Software BarCode" );
+            }
+
+            if( equipment == null )
+            {
+                throw new ArgumentException( "The equipment argument must not be null.", "equipment" );
+            }
+
+            if( equipment.BarCode.IsPositive() == false )
+            {
+                throw new ArgumentException( "The equipment barcode argument must be positive.", "equipment.BarCode" );
+            }
+
+            if( equipment.Licenses != null
+                && equipment.Licenses.Exists( l => l.ID == license.ID ) )
+            {
+                throw new ArgumentException( "This license is already associated with this equipment.", "license" );
+            }
+
+            #endregion
+
+            using( var cmd = new MySqlCommand( SQL.Relate, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@ID", license.ID);
+                cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode);
+
+                // run the update statement
+                cmd.ExecuteNonQuery();
             }
         }
 

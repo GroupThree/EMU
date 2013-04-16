@@ -31,9 +31,7 @@ namespace Emu.DataLogic
         }
 
         #endregion
-        #region Methods
-
-        
+        #region Methods        
 
         public List<Equipment> Get()
         {
@@ -45,14 +43,13 @@ namespace Emu.DataLogic
                 {
                     while( reader.Read() )
                     {
-                        var equipment = new Equipment
+                        results.Add( new Equipment
                         {
                             BarCode = Convert.ToInt32( reader[ "BarCode" ].ToString() ),
                             Description = reader[ "Description" ].ToString(),
                             Location = reader[ "Location" ].ToString(),
                             WarrantyExpiration = DateTime.Parse( reader[ "WarrantyExpiration" ].ToString() )
-                        };
-                        results.Add( equipment );
+                        } );
                     }
                 }
             }
@@ -60,11 +57,11 @@ namespace Emu.DataLogic
             return results;
         }
 
-        public Equipment Get( int barcode )
+        public Equipment Get( int barCode )
         {
             #region Validate Arguments
 
-            if ( barcode.IsPositive() == false )
+            if ( barCode.IsPositive() == false )
             {
                 throw new ArgumentException( "Barcode argument must be a positive integer.", "barcode" );
             }
@@ -75,7 +72,7 @@ namespace Emu.DataLogic
 
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
-                cmd.Parameters.AddWithValue( "@BarCode", barcode );
+                cmd.Parameters.AddWithValue( "@BarCode", barCode );
 
                 using( var reader = cmd.ExecuteReader() )
                 {
@@ -92,6 +89,8 @@ namespace Emu.DataLogic
                     }
                 }
             }
+
+            // need to load all related lists for Equipment
 
             return result;
         }

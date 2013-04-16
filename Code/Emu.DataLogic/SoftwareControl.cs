@@ -43,7 +43,12 @@ namespace Emu.DataLogic
                 {
                     while( reader.Read() )
                     {
-                        // populate an equipment record
+                        results.Add( new Software
+                        {
+                            BarCode = Convert.ToInt32(reader["BarCode"].ToString()),
+                            Description = reader["Description"].ToString(),
+                            SerialNumber = reader["SerialNumber"].ToString()
+                        } );
                     }
                 }
             }
@@ -51,9 +56,14 @@ namespace Emu.DataLogic
             return results;
         }
 
-        public Software Get( int barcode )
+        public Software Get( int barCode )
         {
             #region Validate Arguments
+
+            if( barCode.IsPositive() == false )
+            {
+                throw new ArgumentException( "Barcode argument must be a positive integer.", "barcode" );
+            }
 
             #endregion
 
@@ -61,7 +71,7 @@ namespace Emu.DataLogic
 
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
-                cmd.Parameters.AddWithValue( "@BarCode", barcode );
+                cmd.Parameters.AddWithValue( "@BarCode", barCode );
 
                 using( var reader = cmd.ExecuteReader() )
                 {
@@ -69,12 +79,10 @@ namespace Emu.DataLogic
                     {
                         result = new Software
                         {
-                            BarCode = Convert.ToInt32( reader[ "BarCode" ] ),
+                            BarCode = Convert.ToInt32( reader[ "BarCode" ].ToString() ),
                             SerialNumber = reader[ "SerialNumber" ].ToString(),
                             Description = reader[ "Description" ].ToString()
                         };
-
-                        // populate the relationships of an Equipment record too
                     }
                 }
             }
@@ -85,6 +93,16 @@ namespace Emu.DataLogic
         public void Create( Software software )
         {
             #region Validate Arguments
+
+            if( software == null )
+            {
+                throw new ArgumentException( "Software argument must not be null.", "software" );
+            }
+            
+            if( software.BarCode.IsPositive() == false )
+            {
+                throw new ArgumentException( "Software barcode must be a positive integer.", "barCode" );
+            }
 
             #endregion
 
@@ -103,6 +121,16 @@ namespace Emu.DataLogic
         public void Update( Software software )
         {
             #region Validate Arguments
+
+            if( software == null )
+            {
+                throw new ArgumentException( "Software argument must not be null.", "software" );
+            }
+
+            if( software.BarCode.IsPositive() == false )
+            {
+                throw new ArgumentException( "Software barcode must be a positive integer.", "barCode" );
+            }
 
             #endregion
 

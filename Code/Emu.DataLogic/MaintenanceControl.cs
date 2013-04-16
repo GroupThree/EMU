@@ -16,10 +16,83 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = "select * from asdfasdfa";
-            public const string GetByBarcode = "select * from asdfasdf where";
-            public const string Create = "insert into asdfasdf() values ()";
-            public const string Update = "update asdfasdf set  fdsadfds where  fdsawer";
+            public const string GetAll = @"select
+                                                    t.ID as 'TicketID',
+                                                    t.Type as 'TicketType',
+                                                    t.Description as 'TicketDescription',
+                                                    t.DateCreated as 'TicketDateCreated',
+                                                    t.DateClosed as 'TicketDateClosed',
+                                                    e.BarCode as 'EquipmentBarCode',
+                                                    e.SerialNumber as 'EquipmentSerialNumber',
+                                                    e.Description as 'EquipmentDescription',
+                                                    e.Location as 'EquipmentLocation',
+                                                    e.WarrantyExpiration as 'EquipmentWarrantyExpiration',
+                                                    s.BarCode as 'SoftwareBarCode',
+                                                    s.SerialNumber as 'SoftwareSerialNumber',
+                                                    s.Description as 'SoftwareDescription',
+                                                    u.ID as 'UserID',
+                                                    u.Username as 'UserUserName',
+                                                    u.Type as 'UserType'		
+                                            from Ticket as t
+                                            left join Equipment as e on t.EquipmentBarCode = e.BarCode
+                                            left join License as l on t.LicenseID = l.ID
+                                            left join Software as s on l.SoftwareBarCode = s.BarCode
+                                            left join EmuUser as u on u.ID = t.UserID";
+            public const string GetByBarcode = @"select
+                                                    t.ID as 'TicketID',
+                                                    t.Type as 'TicketType',
+                                                    t.Description as 'TicketDescription',
+                                                    t.DateCreated as 'TicketDateCreated',
+                                                    t.DateClosed as 'TicketDateClosed',
+                                                    e.BarCode as 'EquipmentBarCode',
+                                                    e.SerialNumber as 'EquipmentSerialNumber',
+                                                    e.Description as 'EquipmentDescription',
+                                                    e.Location as 'EquipmentLocation',
+                                                    e.WarrantyExpiration as 'EquipmentWarrantyExpiration',
+                                                    s.BarCode as 'SoftwareBarCode',
+                                                    s.SerialNumber as 'SoftwareSerialNumber',
+                                                    s.Description as 'SoftwareDescription',
+                                                    u.ID as 'UserID',
+                                                    u.Username as 'UserUserName',
+                                                    u.Type as 'UserType'		
+                                            from Ticket as t
+                                            left join Equipment as e on t.EquipmentBarCode = e.BarCode
+                                            left join License as l on t.LicenseID = l.ID
+                                            left join Software as s on l.SoftwareBarCode = s.BarCode
+                                            left join EmuUser as u on u.ID = t.UserID
+                                            where ticket.ID = @ID";
+            public const string Create = @"insert into Ticket
+                                            (
+                                                UserID, 
+                                                EquipmentBarCode,
+                                                LicenseID, 
+                                                Type, 
+                                                Description, 
+                                                DateCreated, 
+                                                DateClosed
+                                            )
+                                                values 
+                                            (
+                                                @UserID, 
+                                                @EquipmentBarCode, 
+                                                @LicenseID, 
+                                                @Type, 
+                                                @Description, 
+                                                @DateCreated,
+                                                @DateClosed
+                                            )";
+            public const string Update = @"update 
+                                                   Ticket
+                                           set
+                                                   UserID = @UserID,
+                                                   EquipmentBarCode = @EquipmentBarCode, 
+                                                   LicenseID = @LicenseID,
+                                                   Type = @Type,
+                                                   Description = @Description,
+                                                   DateCreated = @DateCreated,
+                                                   DateClosed = @DateClosed 
+                                           where
+                                                   ID = @ID";
         }
 
         #endregion
