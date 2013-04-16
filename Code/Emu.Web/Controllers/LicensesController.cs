@@ -45,7 +45,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = Manager.Get( id );
+            var model = new LicensesModel 
+            {
+                Licenses = new List<License>{  Manager.Get( id ) },
+                Software = new List<Software>()
+            };
             return View(model);
         }
 
@@ -54,6 +58,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            var model = new LicensesModel 
+            {
+                // add code to get available software
+                Software = new List<Software>() 
+            };
             return View();
         }
 

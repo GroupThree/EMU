@@ -12,6 +12,5 @@ namespace Emu.Common
         License Get( int barcode );
         void Create( License license );
         void Update( License license );
-        void CreateRelationship( License license, Equipment equipment );
     }
 }

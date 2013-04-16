@@ -16,11 +16,67 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = "select * from License inner join Software on SoftwareBarCode = BarCode";
-            public const string GetByBarcode = "select * from License where ID = @ID";
-            public const string Create = "insert into License(SoftwareBarCode, LicenseKey, ExpirationDate) values (@SoftwareBarCode, @LicenseKey, @ExpirationDate)";
-            public const string Update = "update License set SoftwareBarCode = @SoftwareBarCode, LicenseKey = @LicenseKey, ExpirationDate = @ExpirationDate where ID = @ID";
-            public const string Relate = "insert into RelateEquipmentLicense(EquipmentBarCode, LicenseID) values (@EquipmentBarCode, @LicenseID)";
+            public const string GetAll = @"SELECT
+                                                    ID,
+                                                    EquipmentBarCode,
+                                                    SoftwareBarCode,
+                                                    LicenseKey,
+                                                    ExpirationDate,
+                                                    BarCode,
+                                                    SerialNumber,
+                                                    Description
+                                            FROM 
+                                                    License
+                                            LEFT JOIN
+                                                    Software
+                                            ON
+                                                    License.SoftwareBarCode = Software.BarCode";
+            
+            public const string GetByID = @"SELECT
+                                                    ID,
+                                                    EquipmentBarCode,
+                                                    SoftwareBarCode,
+                                                    LicenseKey,
+                                                    ExpirationDate,
+                                                    BarCode,
+                                                    SerialNumber,
+                                                    Description
+                                            FROM 
+                                                    License
+                                            LEFT JOIN
+                                                    Software
+                                            ON
+                                                    License.SoftwareBarCode = Software.BarCode
+                                            WHERE
+                                                    ID = @ID";
+
+            public const string Create = @" INSERT INTO License
+                                            (
+                                                    ID,
+                                                    EquipmentBarCode,
+                                                    SoftwareBarCode,
+                                                    LicenseKey,
+                                                    ExpirationDate
+                                            )
+                                            VALUES
+                                            (
+                                                    @ID,
+                                                    @EquipmentBarCode,
+                                                    @SoftwareBarCode,
+                                                    @LicenseKey,
+                                                    @ExpirationDate
+                                            )";
+
+            public const string Update = @" UPDATE
+                                                    License
+                                            SET
+                                                    EquipmentBarCode = @EquipmentBarCode,
+                                                    SoftwareBarCode = @SoftwareBarCode,
+                                                    LicenseKey = @LicenseKey,
+                                                    ExpirationDate = @ExpirationDate
+                                            WHERE
+                                                    ID = @ID";
+
         }
 
         #endregion
@@ -67,7 +123,7 @@ namespace Emu.DataLogic
         {
             License result = null;
 
-            using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
+            using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", id );
 
@@ -165,60 +221,6 @@ namespace Emu.DataLogic
                 cmd.Parameters.AddWithValue( "@SoftwareBarCode", license.Software.BarCode );
                 cmd.Parameters.AddWithValue( "@LicenseKey", license.LicenseKey );
                 cmd.Parameters.AddWithValue( "@ExpirationDate", license.ExpirationDate );
-
-                // run the update statement
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        
-
-        public void CreateRelationship( License license, Equipment equipment )
-        {
-            #region Validate Arguments
-
-            if( license == null )
-            {
-                throw new ArgumentException( "License argument must not be null.", "License" );
-            }
-
-            if( license.ID.IsPositive() == false )
-            {
-                throw new ArgumentException( "The License ID must be positive.", "License ID" );
-            }
-
-            if( license.Software == null )
-            {
-                throw new ArgumentException( "The Software associated with the license must not be null.", "software" );
-            }
-
-            if( license.Software.BarCode.IsPositive() == false )
-            {
-                throw new ArgumentException( "The BarCode associated with the Software must be positive.", "Software BarCode" );
-            }
-
-            if( equipment == null )
-            {
-                throw new ArgumentException( "The equipment argument must not be null.", "equipment" );
-            }
-
-            if( equipment.BarCode.IsPositive() == false )
-            {
-                throw new ArgumentException( "The equipment barcode argument must be positive.", "equipment.BarCode" );
-            }
-
-            if( equipment.Licenses != null
-                && equipment.Licenses.Exists( l => l.ID == license.ID ) )
-            {
-                throw new ArgumentException( "This license is already associated with this equipment.", "license" );
-            }
-
-            #endregion
-
-            using( var cmd = new MySqlCommand( SQL.Relate, Connection ) )
-            {
-                cmd.Parameters.AddWithValue( "@ID", license.ID);
-                cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode);
 
                 // run the update statement
                 cmd.ExecuteNonQuery();

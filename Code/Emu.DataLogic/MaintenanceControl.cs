@@ -16,83 +16,99 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = @"select
-                                                    t.ID as 'TicketID',
-                                                    t.Type as 'TicketType',
-                                                    t.Description as 'TicketDescription',
-                                                    t.DateCreated as 'TicketDateCreated',
-                                                    t.DateClosed as 'TicketDateClosed',
-                                                    e.BarCode as 'EquipmentBarCode',
-                                                    e.SerialNumber as 'EquipmentSerialNumber',
-                                                    e.Description as 'EquipmentDescription',
-                                                    e.Location as 'EquipmentLocation',
-                                                    e.WarrantyExpiration as 'EquipmentWarrantyExpiration',
-                                                    s.BarCode as 'SoftwareBarCode',
-                                                    s.SerialNumber as 'SoftwareSerialNumber',
-                                                    s.Description as 'SoftwareDescription',
-                                                    u.ID as 'UserID',
-                                                    u.Username as 'UserUserName',
-                                                    u.Type as 'UserType'		
-                                            from Ticket as t
-                                            left join Equipment as e on t.EquipmentBarCode = e.BarCode
-                                            left join License as l on t.LicenseID = l.ID
-                                            left join Software as s on l.SoftwareBarCode = s.BarCode
-                                            left join EmuUser as u on u.ID = t.UserID";
-            public const string GetByBarcode = @"select
-                                                    t.ID as 'TicketID',
-                                                    t.Type as 'TicketType',
-                                                    t.Description as 'TicketDescription',
-                                                    t.DateCreated as 'TicketDateCreated',
-                                                    t.DateClosed as 'TicketDateClosed',
-                                                    e.BarCode as 'EquipmentBarCode',
-                                                    e.SerialNumber as 'EquipmentSerialNumber',
-                                                    e.Description as 'EquipmentDescription',
-                                                    e.Location as 'EquipmentLocation',
-                                                    e.WarrantyExpiration as 'EquipmentWarrantyExpiration',
-                                                    s.BarCode as 'SoftwareBarCode',
-                                                    s.SerialNumber as 'SoftwareSerialNumber',
-                                                    s.Description as 'SoftwareDescription',
-                                                    u.ID as 'UserID',
-                                                    u.Username as 'UserUserName',
-                                                    u.Type as 'UserType'		
-                                            from Ticket as t
-                                            left join Equipment as e on t.EquipmentBarCode = e.BarCode
-                                            left join License as l on t.LicenseID = l.ID
-                                            left join Software as s on l.SoftwareBarCode = s.BarCode
-                                            left join EmuUser as u on u.ID = t.UserID
-                                            where ticket.ID = @ID";
-            public const string Create = @"insert into Ticket
+            public const string GetAll = @"     SELECT
+                                                            Ticket.ID AS 'TicketID',
+                                                            Ticket.Type AS 'TicketType',
+                                                            Ticket.Description AS 'TicketDescription',
+                                                            Ticket.DateCreated AS 'TicketDateCreated',
+                                                            Ticket.DateClosed AS 'TicketDateClosed',
+                                                            Equipment.BarCode AS 'EquipmentBarCode',
+                                                            Equipment.SerialNumber AS 'EquipmentSerialNumber',
+                                                            Equipment.Description AS 'EquipmentDescription',
+                                                            Equipment.Location AS 'EquipmentLocation',
+                                                            Equipment.WarrantyExpiration AS 'EquipmentWarrantyExpiration',
+                                                            License.ID AS 'LicenseID',
+                                                            License.LicenseKey AS 'LicenseKey',
+                                                            License.ExpirationDate AS 'LicenseExpirationDate',
+                                                            Software.BarCode AS 'SoftwareBarCode',
+                                                            Software.SerialNumber AS 'SerialNumber',
+                                                            Software.Description AS 'SoftwareDescription'
+                                                FROM 
+                                                            Ticket
+                                                LEFT JOIN
+                                                            EmuUser ON EmuUser.ID = Ticket.UserID
+                                                LEFT JOIN 
+                                                            Equipment ON Equipment.BarCode = Ticket.EquipmentBarCode
+                                                LEFT JOIN 
+                                                            License ON License.ID = Ticket.LicenseID
+                                                LEFT JOIN 
+                                                            Software ON License.SoftwareBarCode = Software.BarCode";
+
+            public const string GetByID = @"    SELECT
+                                                            Ticket.ID AS 'TicketID',
+                                                            Ticket.Type AS 'TicketType',
+                                                            Ticket.Description AS 'TicketDescription',
+                                                            Ticket.DateCreated AS 'TicketDateCreated',
+                                                            Ticket.DateClosed AS 'TicketDateClosed',
+                                                            Equipment.BarCode AS 'EquipmentBarCode',
+                                                            Equipment.SerialNumber AS 'EquipmentSerialNumber',
+                                                            Equipment.Description AS 'EquipmentDescription',
+                                                            Equipment.Location AS 'EquipmentLocation',
+                                                            Equipment.WarrantyExpiration AS 'EquipmentWarrantyExpiration',
+                                                            License.ID AS 'LicenseID',
+                                                            License.LicenseKey AS 'LicenseKey',
+                                                            License.ExpirationDate AS 'LicenseExpirationDate',
+                                                            Software.BarCode AS 'SoftwareBarCode',
+                                                            Software.SerialNumber AS 'SerialNumber',
+                                                            Software.Description AS 'SoftwareDescription'
+                                                FROM 
+                                                            Ticket
+                                                LEFT JOIN
+                                                            EmuUser ON EmuUser.ID = Ticket.UserID
+                                                LEFT JOIN 
+                                                            Equipment ON Equipment.BarCode = Ticket.EquipmentBarCode
+                                                LEFT JOIN 
+                                                            License ON License.ID = Ticket.LicenseID
+                                                LEFT JOIN 
+                                                            Software ON License.SoftwareBarCode = Software.BarCode
+                                                WHERE 
+                                                            Ticket.ID = @ID";
+
+            public const string Create = @" INSERT INTO Ticket
                                             (
-                                                UserID, 
-                                                EquipmentBarCode,
-                                                LicenseID, 
-                                                Type, 
-                                                Description, 
-                                                DateCreated, 
-                                                DateClosed
+                                                    ID,
+                                                    UserID,
+                                                    EquipmentBarCode,
+                                                    LicenseID,
+                                                    Type,
+                                                    Description,
+                                                    DateCreated,
+                                                    DateClosed
                                             )
-                                                values 
+                                            VALUES
                                             (
-                                                @UserID, 
-                                                @EquipmentBarCode, 
-                                                @LicenseID, 
-                                                @Type, 
-                                                @Description, 
-                                                @DateCreated,
-                                                @DateClosed
+                                                    @ID,
+                                                    @UserID,
+                                                    @EquipmentBarCode,
+                                                    @LicenseID,
+                                                    @Type,
+                                                    @Description,
+                                                    @DateCreated,
+                                                    @DateClosed
                                             )";
-            public const string Update = @"update 
-                                                   Ticket
-                                           set
-                                                   UserID = @UserID,
-                                                   EquipmentBarCode = @EquipmentBarCode, 
-                                                   LicenseID = @LicenseID,
-                                                   Type = @Type,
-                                                   Description = @Description,
-                                                   DateCreated = @DateCreated,
-                                                   DateClosed = @DateClosed 
-                                           where
-                                                   ID = @ID";
+            public const string Update = @" UPDATE
+                                                    Ticket 
+                                            SET
+                                                    UserID = @UserID,
+                                                    EquipmentBarCode = @EquipmentBarCode,
+                                                    LicenseID = @LicenseID,
+                                                    Type = @Type,
+                                                    Description = @Description,
+                                                    DateCreated = @DateCreated,
+                                                    DateClosed = @DateClosed
+                                            WHERE
+                                                    ID = @ID";
+
         }
 
         #endregion
@@ -130,6 +146,18 @@ namespace Emu.DataLogic
 
             #endregion
 
+            using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@ID", ticket.ID );
+                cmd.Parameters.AddWithValue( "@UserID", 1 ); // TODO: Fix This
+                cmd.Parameters.AddWithValue( "@LicenseID", 1 ); // TODO: Fix This
+                cmd.Parameters.AddWithValue( "@Description", ticket.Description );
+                cmd.Parameters.AddWithValue( "@DateCreated", ticket.DateClosed );
+                cmd.Parameters.AddWithValue( "@DateClosed", ticket.DateClosed );
+
+                // run the update statement
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public void Update( Ticket ticket )
@@ -138,6 +166,18 @@ namespace Emu.DataLogic
 
             #endregion
 
+            using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
+            {
+                cmd.Parameters.AddWithValue( "@ID", ticket.ID );
+                cmd.Parameters.AddWithValue( "@UserID", 1 ); // TODO: Fix This
+                cmd.Parameters.AddWithValue( "@LicenseID", 1 ); // TODO: Fix This
+                cmd.Parameters.AddWithValue( "@Description", ticket.Description );
+                cmd.Parameters.AddWithValue( "@DateCreated", ticket.DateClosed );
+                cmd.Parameters.AddWithValue( "@DateClosed", ticket.DateClosed );
+
+                // run the update statement
+                cmd.ExecuteNonQuery();
+            }
         }
 
         #endregion

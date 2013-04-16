@@ -16,10 +16,59 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = "select * from Equipment";
-            public const string GetByBarcode = "select * from Equipment where BarCode = @BarCode";
-            public const string Create = "insert into Equipment(BarCode, Description, WarrantyExpiration, Location) values (@BarCode, @Description, @WarrantyExpiration, @Location)";
-            public const string Update = "update Equipment set Description = @Description, WarrantyExpiration = @WarrantyExpiration, Location = @Location where BarCode = @BarCode";
+            
+            public const string GetAll = @"SELECT 
+                                                    BarCode,
+                                                    SerialNumber,
+                                                    UserID,
+                                                    Description,
+                                                    Location,
+                                                    WarrantyExpiration 
+                                            FROM
+                                                    Equipment";
+
+            
+            public const string GetByBarcode = @"SELECT
+                                                            BarCode,
+                                                            SerialNumber,
+                                                            UserID,
+                                                            Description,
+                                                            Location,
+                                                            WarrantyExpiration
+                                                 FROM
+                                                            Equipment
+                                                 WHERE
+                                                            BarCode = @BarCode";
+            
+            public const string Create = @" INSERT INTO Equipment 
+                                            (
+                                                BarCode,
+                                                SerialNumber,
+                                                UserID,
+                                                Description,
+                                                Location,
+                                                WarrantyExpiration
+                                            ) 
+                                            VALUES
+                                            (
+                                                @BarCode,
+                                                @SerialNumber,
+                                                @UserID,
+                                                @Description,
+                                                @Location,
+                                                @WarrantyExpiration
+                                            )";
+
+            public const string Update = @" UPDATE
+                                                    Equipment 
+                                            SET
+                                                    SerialNumber = @SerialNumber,
+                                                    UserID = @UserID,
+                                                    Description = @Description,
+                                                    Location = @Location,
+                                                    WarrantyExpiration = @WarrantyExpiration
+                                            WHERE
+                                                    BarCode = @BarCode";
         }
 
         #endregion
@@ -31,7 +80,7 @@ namespace Emu.DataLogic
         }
 
         #endregion
-        #region Methods        
+        #region Methods
 
         public List<Equipment> Get()
         {
