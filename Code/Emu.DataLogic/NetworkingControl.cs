@@ -15,12 +15,52 @@ namespace Emu.DataLogic
         
         MySqlConnection Connection { get; set; }
 
+        /*
+         * 
+         * 
+         * 
+         * 
+         */
+
         struct SQL
         {
-            public const string GetAll = "select * from asdfasdfa";
-            public const string GetByID = "select * from asdfasdf where";
-            public const string Create = "insert into asdfasdf() values ()";
-            public const string Update = "update asdfasdf set  fdsadfds where  fdsawer";
+            public const string GetAll = @"SELECT
+	                                                ID,
+	                                                IP,
+	                                                EquipmentBarCode
+                                           FROM 
+                                                    NETWORKADDRESS";
+
+            public const string GetByID = @"SELECT
+		                                            ID,
+		                                            IP,
+		                                            EquipmentBarCode
+                                            FROM 
+                                                    NETWORKADDRESS
+                                            WHERE 
+		                                            ID = @ID";
+
+            public const string Create = @"INSERT INTO NETWORKADDRESS
+                                                    (
+                                                    ID,
+                                                    IP,
+                                                    EquipmentBarCode 
+                                                    )
+                                            VALUES 
+                                                    (
+                                                    @ID, 
+                                                    @IP, 
+                                                    @EquipmentBarCode
+                                                    )";
+
+            public const string Update =  @"UPDATE 
+                                                    NETWORKADDRESS 
+                                            SET
+                                                    ID = @ID,
+		                                            IP = @IP,
+		                                            EquipmentBarCode = @EquipmentBarCode
+                                            WHERE
+		                                            ID = @ID";
         }
 
         #endregion
