@@ -1,4 +1,5 @@
 ﻿using Emu.Common;
+using Emu.DataLogic.Properties;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Emu.DataLogic
 
         public SoftwareControl()
         {
-            Connection = new MySqlConnection( "connection_string" );
+            Connection = new MySqlConnection( Settings.Default.ConnectionString ); 
         }
 
         #endregion
@@ -36,7 +37,8 @@ namespace Emu.DataLogic
         public List<Software> Get()
         {
             var results = new List<Software>();
-
+            
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -52,6 +54,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
 
             return results;
         }
@@ -69,6 +72,7 @@ namespace Emu.DataLogic
 
             Software result = null;
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", barCode );
@@ -86,6 +90,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
 
             return result;
         }
@@ -106,6 +111,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );
@@ -115,7 +121,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
-
+            Connection.Close();
         }
 
         public void Update( Software software )
@@ -134,6 +140,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );
@@ -143,7 +150,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
-
+            Connection.Close();
         }
 
         #endregion

@@ -12,6 +12,5 @@ namespace Emu.Common
         Equipment Get( int barcode );
         void Create( Equipment equipment );
         void Update( Equipment equipment );
-        void CreateRelationship( Equipment equipment, User user );
     }
 }

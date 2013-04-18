@@ -1,4 +1,5 @@
 ﻿using Emu.Common;
+using Emu.DataLogic.Properties;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Emu.DataLogic
                                                     ID,
                                                     Type,
                                                     Username,
-                                                    Password 
+                                                    PasswordHash 
                                             FROM 
                                                     EmuUser";
             
@@ -29,7 +30,7 @@ namespace Emu.DataLogic
                                                     ID,
                                                     Type,
                                                     Username,
-                                                    Password 
+                                                    PasswordHash
                                             FROM 
                                                     EmuUser 
                                             WHERE 
@@ -39,7 +40,7 @@ namespace Emu.DataLogic
                                                             ID,
                                                             Type,
                                                             Username,
-                                                            Password 
+                                                            PasswordHash
                                                     FROM 
                                                             EmuUser 
                                                     WHERE 
@@ -49,13 +50,13 @@ namespace Emu.DataLogic
                                             (
                                                     Type,
                                                     Username,
-                                                    Password
+                                                    PasswordHash
                                             ) 
                                             VALUES 
                                             (
                                                     @Type, 
                                                     @Username, 
-                                                    @Password
+                                                    @PasswordHash
                                             )";
             
             public const string Update  = @"UPDATE 
@@ -63,7 +64,7 @@ namespace Emu.DataLogic
                                             SET 
                                                     Type = @Type, 
                                                     Username = @Username, 
-                                                    Password = @Password 
+                                                    PasswordHash = @PasswordHash
                                             WHERE 
                                                     ID = @ID";
         }
@@ -73,7 +74,7 @@ namespace Emu.DataLogic
 
         public UsersControl()
         {
-            Connection = new MySqlConnection( "connection_string" ); 
+            Connection = new MySqlConnection( Settings.Default.ConnectionString ); 
         }
 
         #endregion
@@ -83,6 +84,7 @@ namespace Emu.DataLogic
         {
             var result = new List<User>();
 
+            Connection.Open();
             using (var cmd = new MySqlCommand(SQL.GetAll, Connection))
             {
                 using (var reader = cmd.ExecuteReader())
@@ -99,6 +101,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
 
             return result;
         }
@@ -116,6 +119,7 @@ namespace Emu.DataLogic
 
             User result = null;
 
+            Connection.Open();
             using (var cmd = new MySqlCommand(SQL.GetByID, Connection))
             {
                 cmd.Parameters.AddWithValue("@ID", id);
@@ -134,6 +138,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
             
             return result;
         }
@@ -146,16 +151,18 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using (var cmd = new MySqlCommand(SQL.Create, Connection))
             {
                 cmd.Parameters.AddWithValue("@ID", user.ID);
                 cmd.Parameters.AddWithValue("@Type", user.Type);
                 cmd.Parameters.AddWithValue("@Username", user.UserName);
-                cmd.Parameters.AddWithValue("@Password", user.PasswordHash);
+                cmd.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
 
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+            Connection.Close();
 
         }
 
@@ -165,17 +172,18 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using (var cmd = new MySqlCommand(SQL.Update, Connection))
             {
                 cmd.Parameters.AddWithValue("@ID", user.ID);
                 cmd.Parameters.AddWithValue("@Type", user.Type);
                 cmd.Parameters.AddWithValue("@Username", user.UserName);
-                cmd.Parameters.AddWithValue("@Password", user.PasswordHash);
+                cmd.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
 
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
-
+            Connection.Close();
         }
 
         public User Authenticate( string userName, string password )
@@ -186,6 +194,7 @@ namespace Emu.DataLogic
 
             User user = null;
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@Username", userName );
@@ -204,6 +213,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
 
             #region compare database hash to computed password hash
 
@@ -226,8 +236,6 @@ namespace Emu.DataLogic
             var hashedBytes = sha1.ComputeHash( saltedBytes );
             return BitConverter.ToString(hashedBytes).Replace("-", string.Empty);
         }
-
-
 
         #endregion
     }

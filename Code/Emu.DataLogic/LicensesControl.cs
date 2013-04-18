@@ -1,4 +1,5 @@
 ﻿using Emu.Common;
+using Emu.DataLogic.Properties;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace Emu.DataLogic
 
         public LicensesControl()
         {
-            Connection = new MySqlConnection( "connection_string" ); 
+            Connection = new MySqlConnection( Settings.Default.ConnectionString ); 
         }
 
         #endregion

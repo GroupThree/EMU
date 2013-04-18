@@ -1,4 +1,5 @@
 ﻿using Emu.Common;
+using Emu.DataLogic.Properties;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -76,7 +77,7 @@ namespace Emu.DataLogic
 
         public EquipmentControl()
         {
-            Connection = new MySqlConnection( "connection_string" ); 
+            Connection = new MySqlConnection( Settings.Default.ConnectionString );
         }
 
         #endregion
@@ -86,6 +87,7 @@ namespace Emu.DataLogic
         {
             var results = new List<Equipment>();
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -102,6 +104,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Close();
 
             return results;
         }
