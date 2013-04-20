@@ -40,9 +40,9 @@ namespace Emu.Web.Controllers
         //
         // GET: /Equipment/Details/5
 
-        public ActionResult Details(int barcode)
+        public ActionResult Details(int id /* barcode */)
         {
-            var model = Manager.Get( barcode );
+            var model = Manager.Get( id );
             return View(model);
         }
 
@@ -75,9 +75,9 @@ namespace Emu.Web.Controllers
         //
         // GET: /Equipment/Edit/5
 
-        public ActionResult Edit(int barcode)
+        public ActionResult Edit(int id)
         {
-            var model = Manager.Get( barcode );
+            var model = Manager.Get( id );
             return View(model);
         }
 
