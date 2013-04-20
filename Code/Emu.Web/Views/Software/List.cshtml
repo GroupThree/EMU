@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Emu.Common.Software>
 
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.BarCode)
@@ -35,5 +35,5 @@
 </table>
 
 <p>
-    @Html.ActionLink( "Create New", "Create", new { @class = "btn btn-primary" } )
+    @Html.ActionLink( "Create New", "Create", null, new { @class = "btn btn-primary" } )
 </p>
