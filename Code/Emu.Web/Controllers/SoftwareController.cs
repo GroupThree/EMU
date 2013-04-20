@@ -43,9 +43,9 @@ namespace Emu.Web.Controllers
         //
         // GET: /Software/Details/5
 
-        public ActionResult Details(int barcode)
+        public ActionResult Details(int id /* barcode */)
         {
-            var model = Manager.Get( barcode );            
+            var model = Manager.Get( id );            
             return View(model);
         }
 
@@ -78,9 +78,9 @@ namespace Emu.Web.Controllers
         //
         // GET: /Software/Edit/5
 
-        public ActionResult Edit(int barCode)
+        public ActionResult Edit(int id /* barcode */)
         {
-            var model = Manager.Get( barCode );            
+            var model = Manager.Get( id );            
             return View(model);
         }
 
@@ -88,7 +88,7 @@ namespace Emu.Web.Controllers
         // POST: /Software/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, Software software)
+        public ActionResult Edit(int id /* barcode */, Software software)
         {
             try
             {
