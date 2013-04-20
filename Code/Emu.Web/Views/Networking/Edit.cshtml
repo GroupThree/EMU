@@ -7,8 +7,8 @@
         <legend>NetworkAddress</legend>
 
         @Html.HiddenFor( model => model.ID )
-        @Html.Encode( Model.IP.ToString() )
-
+        @Html.TextBoxFor(model => model.IP)
+        
         <p>
             <input type="submit" value="Save" />
         </p>

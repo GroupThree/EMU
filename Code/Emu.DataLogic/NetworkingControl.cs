@@ -25,19 +25,33 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = @"SELECT
-	                                                ID,
-	                                                IP,
-	                                                EquipmentBarCode
-                                           FROM 
-                                                    NETWORKADDRESS";
+            public const string Get = @"SELECT
+		                                        ID,
+		                                        IP,
+		                                        EquipmentBarCode,
+		                                        SerialNumber,
+		                                        Description,
+		                                        Location
+                                        FROM 
+		                                        NetworkAddress
+                                        LEFT JOIN 
+		                                        Equipment
+                                        ON
+		                                        EquipmentBarCode = BarCode";
 
             public const string GetByID = @"SELECT
 		                                            ID,
 		                                            IP,
-		                                            EquipmentBarCode
+		                                            EquipmentBarCode,
+		                                            SerialNumber,
+		                                            Description,
+		                                            Location
                                             FROM 
                                                     NETWORKADDRESS
+                                            LEFT JOIN 
+		                                            Equipment
+                                            ON
+		                                            EquipmentBarCode = BarCode
                                             WHERE 
 		                                            ID = @ID";
 
@@ -78,7 +92,32 @@ namespace Emu.DataLogic
         public List<NetworkAddress> Get()
         {
             var results = new List<NetworkAddress>();
-            
+
+            Connection.Open();
+
+            using( var cmd = new MySqlCommand(SQL.Get, Connection) )
+            {
+                using( var reader = cmd.ExecuteReader() )
+                {
+                    while( reader.Read() )
+                    {
+                        results.Add(new NetworkAddress
+                        {
+                            ID = Convert.ToInt32(reader["ID"].ToString()),
+                            IP = IPAddress.Parse(reader["IP"].ToString()),
+                            InstalledOn = new Equipment
+                            {
+                                BarCode = Convert.ToInt32(reader["EquipmentBarCode"].ToString()),
+                                Description = reader["Description"].ToString(),
+                                Location = reader["Location"].ToString()
+                            }
+                        });
+                    }
+                }
+            }
+
+            Connection.Close();
+
             return results;
         }
 
@@ -95,8 +134,10 @@ namespace Emu.DataLogic
 
             NetworkAddress result = null;
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
+                cmd.Parameters.AddWithValue( "@ID", id );
                 using( var reader = cmd.ExecuteReader() )
                 {
                     while( reader.Read() )
@@ -107,15 +148,15 @@ namespace Emu.DataLogic
                             IP = IPAddress.Parse( reader[ "IP" ].ToString() ),
                             InstalledOn = new Equipment 
                             {
-                                BarCode = Convert.ToInt32(reader["BarCode"].ToString()),
+                                BarCode = Convert.ToInt32(reader["EquipmentBarCode"].ToString()),
                                 Description = reader["Description"].ToString(),
-                                Location = reader["Location"].ToString(),
-                                WarrantyExpiration = DateTime.Parse(reader["WarrantyExpiration"].ToString())
+                                Location = reader["Location"].ToString()
                             }
                         };
                     }
                 }
             }
+            Connection.Close();
 
             return result;
         }
@@ -137,6 +178,8 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
+
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", address.ID );
@@ -145,6 +188,8 @@ namespace Emu.DataLogic
                 
                 cmd.ExecuteNonQuery();
             }
+
+            Connection.Close();
         }
 
         public void Update( NetworkAddress address )
@@ -152,6 +197,8 @@ namespace Emu.DataLogic
             #region Validate Arguments
 
             #endregion
+
+            Connection.Open();
 
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
@@ -161,17 +208,10 @@ namespace Emu.DataLogic
 
                 cmd.ExecuteNonQuery();
             }
+
+            Connection.Close();
         }
-
-        public void CreateRelationship( NetworkAddress address, Equipment equipment )
-        {
-            #region Validate Arguments
-
-            #endregion
-
-
-        }
-
+        
         #endregion
     }
 }

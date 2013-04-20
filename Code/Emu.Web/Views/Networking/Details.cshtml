@@ -4,10 +4,20 @@
     <legend>NetworkAddress</legend>
 </fieldset>
 
+<div class="row">
+    <div class="span2">
+        <span>IP Address:</span>
+        @Html.DisplayText("IP")
+    </div>
+    <div class="span2">
+       <span>On Machine:</span>
+        @Html.DisplayText("InstalledOn.Description")
+    </div>
+</div>
 <p>
-    @Html.DisplayFor( model => model.IP )
+    &nbsp;
 </p>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }, new { @class = "btn btn-primary" } )
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" } )
+</div>
