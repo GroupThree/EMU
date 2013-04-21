@@ -17,7 +17,7 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = @"     SELECT
+            public const string Get = @"     SELECT
                                                             Ticket.ID AS 'TicketID',
                                                             Ticket.Type AS 'TicketType',
                                                             Ticket.Description AS 'TicketDescription',
@@ -136,10 +136,10 @@ namespace Emu.DataLogic
                     while( reader.Read() )
                     {
                         // TODO: finish this loading code
-                        results.Add(new Ticket
+                        /*results.Add(new Ticket
                         {
                             ID = Convert.ToInt32( reader[ "ID" ].ToString() )
-                        });
+                        });*/
                     }
                 }
             }

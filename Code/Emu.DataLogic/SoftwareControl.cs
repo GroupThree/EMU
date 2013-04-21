@@ -17,7 +17,7 @@ namespace Emu.DataLogic
 
         struct SQL
         {
-            public const string GetAll = "select * from Software";
+            public const string Get = "select * from Software";
             public const string GetByBarcode = "select * from Software where BarCode = @BarCode";
             public const string Create = "insert into Software(BarCode, SerialNumber, Description) values (@BarCode, @SerialNumber, @Description)";
             public const string Update = "update Software set SerialNumber = @SerialNumber, Description = @Description where BarCode = @BarCode";
@@ -39,7 +39,7 @@ namespace Emu.DataLogic
             var results = new List<Software>();
             
             Connection.Open();
-            using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
+            using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
                 {

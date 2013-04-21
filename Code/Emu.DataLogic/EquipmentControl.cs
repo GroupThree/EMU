@@ -18,7 +18,7 @@ namespace Emu.DataLogic
         struct SQL
         {
             
-            public const string GetAll = @"SELECT 
+            public const string Get = @"SELECT 
                                                     BarCode,
                                                     SerialNumber,
                                                     UserID,
@@ -88,7 +88,7 @@ namespace Emu.DataLogic
             var results = new List<Equipment>();
 
             Connection.Open();
-            using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
+            using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
                 {
