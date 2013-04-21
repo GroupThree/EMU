@@ -122,6 +122,8 @@ namespace Emu.DataLogic
 
             Equipment result = null;
 
+            Connection.Open();
+
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", barCode );
@@ -141,6 +143,8 @@ namespace Emu.DataLogic
                     }
                 }
             }
+
+            Connection.Close();
 
             // need to load all related lists for Equipment
 
@@ -162,6 +166,8 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
+
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
@@ -172,6 +178,8 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+
+            Connection.Close();
         }
 
         public void Update( Equipment equipment )
@@ -189,6 +197,8 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
+
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
@@ -199,6 +209,8 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+
+            Connection.Close();
         }
 
         public void CreateRelationship( Equipment equipment, User user ) 
