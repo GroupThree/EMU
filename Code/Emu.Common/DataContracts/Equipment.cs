@@ -9,6 +9,7 @@ namespace Emu.Common
     public class Equipment
     {
         public int BarCode { get; set; }
+        public string SerialNumber { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
         public DateTime WarrantyExpiration { get; set; }

@@ -135,11 +135,40 @@ namespace Emu.DataLogic
                 {
                     while( reader.Read() )
                     {
-                        // TODO: finish this loading code
-                        /*results.Add(new Ticket
+                        results.Add( new Ticket
                         {
-                            ID = Convert.ToInt32( reader[ "ID" ].ToString() )
-                        });*/
+                            ID = Convert.ToInt32( reader[ "TicketID" ].ToString() ),
+                            Type = Convert.ToInt32( reader[ "TicketType" ].ToString() ).ToEnum<TicketType>(),
+                            Description = reader[ "TicketDescription" ].ToString(),
+                            DateCreated = DateTime.Parse( reader[ "TicketDateCreated" ].ToString() ),
+                            DateClosed = reader[ "TicketDateClosed" ] == DBNull.Value ? DateTime.MinValue : DateTime.Parse( reader[ "TicketDateClosed" ].ToString() ),
+                            Requestor = new User
+                            {
+                                ID = Convert.ToInt32(reader["UserID"].ToString()),
+                                Type = Convert.ToInt32(reader["UserType"].ToString()).ToEnum<UserType>(UserType.BasicUser),
+                                UserName = reader["Username"].ToString()
+                            },
+                            Equipment = new Equipment
+                            {
+                                BarCode = Convert.ToInt32(reader[ "EquipmentBarCode" ].ToString()),
+                                Description = reader["EquipmentDescription"].ToString(),
+                                SerialNumber = reader[ "EquipmentSerialNumber" ].ToString(),
+                                Location = reader[ "EquipmentLocation" ].ToString(),
+                                WarrantyExpiration = DateTime.Parse(reader["EquipmentWarrantyExpiration"].ToString())
+                            },
+                            License = new License
+                            {
+                                ID = Convert.ToInt32(reader["LicenseID"].ToString()),
+                                LicenseKey = reader["LicenseKey"].ToString(),
+                                ExpirationDate = DateTime.Parse( reader[ "LicenseExpirationDate" ].ToString() ),
+                                Software = new Software
+                                {
+                                    BarCode = Convert.ToInt32(reader["SoftwareBarCode"].ToString()),
+                                    Description = reader["SoftwareDescription"].ToString(),
+                                    SerialNumber = reader["SoftwareSerialNumber"].ToString()
+                                }
+                            }                            
+                        } );
                     }
                 }
             }
@@ -174,7 +203,37 @@ namespace Emu.DataLogic
                         // TODO: finish this loading
                         result = new Ticket
                         {
-                            ID = Convert.ToInt32(reader["ID"].ToString())
+                            ID = Convert.ToInt32( reader[ "TicketID" ].ToString() ),
+                            Type = Convert.ToInt32( reader[ "TicketType" ].ToString() ).ToEnum<TicketType>(),
+                            Description = reader[ "TicketDescription" ].ToString(),
+                            DateCreated = DateTime.Parse( reader[ "TicketDateCreated" ].ToString() ),
+                            DateClosed = reader[ "TicketDateClosed" ] == DBNull.Value ? DateTime.MinValue : DateTime.Parse( reader[ "TicketDateClosed" ].ToString() ),
+                            Requestor = new User
+                            {
+                                ID = Convert.ToInt32( reader[ "UserID" ].ToString() ),
+                                Type = Convert.ToInt32( reader[ "UserType" ].ToString() ).ToEnum<UserType>( UserType.BasicUser ),
+                                UserName = reader[ "Username" ].ToString()
+                            },
+                            Equipment = new Equipment
+                            {
+                                BarCode = Convert.ToInt32( reader[ "EquipmentBarCode" ].ToString() ),
+                                Description = reader[ "EquipmentDescription" ].ToString(),
+                                SerialNumber = reader[ "EquipmentSerialNumber" ].ToString(),
+                                Location = reader[ "EquipmentLocation" ].ToString(),
+                                WarrantyExpiration = DateTime.Parse( reader[ "EquipmentWarrantyExpiration" ].ToString() )
+                            },
+                            License = new License
+                            {
+                                ID = Convert.ToInt32( reader[ "LicenseID" ].ToString() ),
+                                LicenseKey = reader[ "LicenseKey" ].ToString(),
+                                ExpirationDate = DateTime.Parse( reader[ "LicenseExpirationDate" ].ToString() ),
+                                Software = new Software
+                                {
+                                    BarCode = Convert.ToInt32( reader[ "SoftwareBarCode" ].ToString() ),
+                                    Description = reader[ "SoftwareDescription" ].ToString(),
+                                    SerialNumber = reader[ "SoftwareSerialNumber" ].ToString()
+                                }
+                            }
                         };
                     }
                 }
@@ -226,6 +285,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", ticket.ID );
@@ -239,6 +299,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+            Connection.Close();
         }
 
         public void Update( Ticket ticket )
@@ -283,6 +344,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", ticket.ID );
@@ -296,6 +358,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+            Connection.Close();
         }
 
         #endregion
