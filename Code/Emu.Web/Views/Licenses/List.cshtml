@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Emu.Common.License>
 
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LicenseKey)
@@ -29,5 +29,5 @@
 </table>
 
 <p>
-    @Html.ActionLink( "Create New", "Create", new { @class = "btn btn-primary" } )
+    @Html.ActionLink( "Create New", "Create", null, new { @class = "btn btn-primary" } )
 </p>

@@ -147,7 +147,14 @@ namespace Emu.DataLogic
         {
             #region Validate Arguments
 
-            // TODO : validation
+            if( user == null )
+            {
+                throw new ArgumentException( "User argument must not be null.", "user" );
+            }
+            if( user.ID.IsPositive() == false )
+            {
+                throw new ArgumentException("User ID must be a positive integer.", "id");
+            }
 
             #endregion
 
@@ -169,6 +176,15 @@ namespace Emu.DataLogic
         public void Update( User user )
         {
             #region Validate Arguments
+            
+            if( user == null )
+            {
+                throw new ArgumentException("User argument must not be null.", "user");
+            }
+            if( user.ID.IsPositive() == false )
+            {
+                throw new ArgumentException("User ID must be a positive integer.", "id");
+            }
 
             #endregion
 
@@ -189,6 +205,15 @@ namespace Emu.DataLogic
         public User Authenticate( string userName, string password )
         {
             #region Validate Arguments
+
+            if( String.IsNullOrWhiteSpace(userName) )
+            {
+                throw new ArgumentException("User Name argument must not be null.", "userName");
+            }
+            if( String.IsNullOrWhiteSpace(password) )
+            {
+                throw new ArgumentException("Password Name argument must not be null.", "passwrd");
+            }
 
             #endregion
 
