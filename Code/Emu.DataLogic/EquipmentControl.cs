@@ -155,6 +155,7 @@ namespace Emu.DataLogic
             {
                 throw new ArgumentException( "Equipment argument must not be null.", "equipment" );
             }
+
             if ( equipment.BarCode.IsPositive() == false )
             {
                 throw new ArgumentException( "Equipment barcode must be a positive integer.", "barcode" );
@@ -199,13 +200,6 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
-        }
-
-        public void CreateRelationship( Equipment equipment, User user ) 
-        {
-            #region Validate Arguments
-
-            #endregion
         }
 
         #endregion

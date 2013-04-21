@@ -95,6 +95,7 @@ namespace Emu.DataLogic
         {
             var results = new List<License>();
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetAll, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -116,14 +117,25 @@ namespace Emu.DataLogic
                     }
                 }
             }
-            
+            Connection.Close();
+
             return results;
         }
 
         public License Get( int id )
         {
+            #region Validate Arguments
+
+            if( id.IsPositive() == false )
+            {
+                throw new ArgumentException( "The id parameter must be positive.", "id" );
+            }
+
+            #endregion
+
             License result = null;
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", id );
@@ -148,6 +160,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
+            Connection.Open();
 
             return result;
         }
@@ -178,6 +191,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", license.ID );
@@ -188,6 +202,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+            Connection.Close();
         }
 
         public void Update( License license )
@@ -216,6 +231,7 @@ namespace Emu.DataLogic
 
             #endregion
 
+            Connection.Open();
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", license.ID );
@@ -226,6 +242,7 @@ namespace Emu.DataLogic
                 // run the update statement
                 cmd.ExecuteNonQuery();
             }
+            Connection.Close();
         }
 
         #endregion
