@@ -14,7 +14,7 @@ namespace Emu.Common
         public string Location { get; set; }
         public DateTime WarrantyExpiration { get; set; }
 
-
+        public User UsedBy { get; set; }
         public List<License> Licenses { get; set; }
         public List<Ticket> MaintenanceTickets { get; set; }
         public List<NetworkAddress> NetworkAddresses { get; set; }

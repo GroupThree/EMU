@@ -10,4 +10,10 @@ namespace Emu.Web.Models
     {
         public List<Equipment> Equipment { get; set; }
     }
+
+    public class EquipmentEditModel
+    {
+        public Equipment Equipment { get; set; }
+        public List<User> AvailableUsers { get; set; }
+    }
 }

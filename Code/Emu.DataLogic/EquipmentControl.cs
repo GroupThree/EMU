@@ -18,26 +18,36 @@ namespace Emu.DataLogic
         struct SQL
         {
             
-            public const string Get = @"SELECT 
-                                                    BarCode,
-                                                    SerialNumber,
-                                                    UserID,
-                                                    Description,
-                                                    Location,
-                                                    WarrantyExpiration 
+            public const string Get = @"    SELECT 
+                                                        BarCode,
+                                                        SerialNumber,
+                                                        Description,
+                                                        Location,
+                                                        WarrantyExpiration,
+                                                        UserID,
+                                                        Username
                                             FROM
-                                                    Equipment";
+                                                        Equipment
+                                            LEFT JOIN
+                                                        EmuUser
+                                            ON
+                                                        EmuUser.UserID = Equipment.UserID";
 
             
             public const string GetByBarcode = @"SELECT
                                                             BarCode,
                                                             SerialNumber,
-                                                            UserID,
                                                             Description,
                                                             Location,
-                                                            WarrantyExpiration
+                                                            WarrantyExpiration,
+                                                            UserID,
+                                                            Username
                                                  FROM
                                                             Equipment
+                                                 LEFT JOIN
+                                                            EmuUser
+                                                 ON
+                                                            EmuUser.UserID = Equipment.UserID
                                                  WHERE
                                                             BarCode = @BarCode";
             
@@ -96,10 +106,16 @@ namespace Emu.DataLogic
                     {
                         results.Add( new Equipment
                         {
-                            BarCode = Convert.ToInt32( reader[ "BarCode" ].ToString() ),
+                            BarCode = int.Parse( reader[ "BarCode" ].ToString() ),
+                            SerialNumber = reader[ "SerialNumber" ].ToString(),
                             Description = reader[ "Description" ].ToString(),
                             Location = reader[ "Location" ].ToString(),
-                            WarrantyExpiration = DateTime.Parse( reader[ "WarrantyExpiration" ].ToString() )
+                            WarrantyExpiration = DateTime.Parse( reader[ "WarrantyExpiration" ].ToString() ),
+                            UsedBy = new User
+                            {
+                                ID = int.Parse(reader["UserID"].ToString()),
+                                UserName = reader["Username"].ToString()
+                            }
                         } );
                     }
                 }
@@ -135,9 +151,15 @@ namespace Emu.DataLogic
                         result = new Equipment 
                         {
                             BarCode = Convert.ToInt32(reader["BarCode"]),
+                            SerialNumber = reader[ "SerialNumber" ].ToString(),
                             Description = reader["Description"].ToString(),
                             Location = reader["Location"].ToString(),
-                            WarrantyExpiration = DateTime.Parse(reader["WarrantyExpiration"].ToString())
+                            WarrantyExpiration = DateTime.Parse(reader["WarrantyExpiration"].ToString()),
+                            UsedBy = new User
+                            {
+                                ID = int.Parse( reader[ "UserID" ].ToString() ),
+                                UserName = reader[ "Username" ].ToString()
+                            }
                         };
 
                     }
@@ -172,6 +194,7 @@ namespace Emu.DataLogic
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
+                cmd.Parameters.AddWithValue( "@SerialNumber", equipment.SerialNumber );
                 cmd.Parameters.AddWithValue( "@Description", equipment.Description );
                 cmd.Parameters.AddWithValue( "@Location", equipment.Location );
                 cmd.Parameters.AddWithValue( "@WarrantyExpiration", equipment.WarrantyExpiration );
@@ -203,6 +226,7 @@ namespace Emu.DataLogic
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
+                cmd.Parameters.AddWithValue( "@SerialNumber", equipment.SerialNumber );
                 cmd.Parameters.AddWithValue( "@Description", equipment.Description );
                 cmd.Parameters.AddWithValue( "@Location", equipment.Location );
                 cmd.Parameters.AddWithValue( "@WarrantyExpiration", equipment.WarrantyExpiration );
