@@ -3,28 +3,41 @@
 <fieldset>
     <legend>Ticket</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
+    <div class="row">
+        <div class="span4">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.Description)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DateCreated)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DateCreated)
-    </div>
+        <div class="span2">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.DateCreated)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DateCreated)
+            </div>
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DateClosed)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DateClosed)
+        <div class="span2">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.DateClosed)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DateClosed)
+            </div>
+        </div>
     </div>
 </fieldset>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }, new { @class = "btn btn-primary" ) |
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+    &nbsp;
 </p>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+</div>
