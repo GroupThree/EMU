@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class MaintenanceControl : IMaintenanceManager
+    public class MaintenanceControl : IMaintenanceControl
     {
         #region Properties
         

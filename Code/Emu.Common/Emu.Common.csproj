@@ -47,12 +47,12 @@
     <Compile Include="DataContracts\Ticket.cs" />
     <Compile Include="DataContracts\User.cs" />
     <Compile Include="Helpers\EnumHelpers.cs" />
-    <Compile Include="Interfaces\ILicensesManager.cs" />
-    <Compile Include="Interfaces\INetworkingManager.cs" />
-    <Compile Include="Interfaces\IMaintenanceManager.cs" />
-    <Compile Include="Interfaces\IEquipmentManager.cs" />
-    <Compile Include="Interfaces\IUsersManager.cs" />
-    <Compile Include="Interfaces\ISoftwareManager.cs" />
+    <Compile Include="Interfaces\ILicensesControl.cs" />
+    <Compile Include="Interfaces\INetworkingControl.cs" />
+    <Compile Include="Interfaces\IMaintenanceControl.cs" />
+    <Compile Include="Interfaces\IEquipmentControl.cs" />
+    <Compile Include="Interfaces\IUsersControl.cs" />
+    <Compile Include="Interfaces\ISoftwareControl.cs" />
     <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

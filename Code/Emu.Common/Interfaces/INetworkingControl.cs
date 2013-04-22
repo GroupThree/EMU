@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface INetworkingManager
+    public interface INetworkingControl
     {
         List<NetworkAddress> Get();
         NetworkAddress Get( int id );

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class EquipmentControl : IEquipmentManager
+    public class EquipmentControl : IEquipmentControl
     {
         #region Properties
 

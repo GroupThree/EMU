@@ -13,7 +13,7 @@ namespace Emu.Web.Controllers
     {
         #region Properties
 
-        ILicensesManager Manager { get; set; }
+        ILicensesControl Control { get; set; }
         
         #endregion
 
@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public LicensesController()
         {
-            Manager = new LicensesControl();
+            Control = Controls.LicensesControl;
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace Emu.Web.Controllers
         {
             var model = new LicensesModel
             {
-                Licenses = Manager.Get()
+                Licenses = Control.Get()
             };
             return View(model);
         }
@@ -47,7 +47,7 @@ namespace Emu.Web.Controllers
         {
             var model = new LicensesModel 
             {
-                Licenses = new List<License>{  Manager.Get( id ) },
+                Licenses = new List<License>{  Control.Get( id ) },
                 Software = new List<Software>()
             };
             return View(model);
@@ -74,7 +74,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Create( license );
+                Control.Create( license );
 
                 return RedirectToAction("Index");
             }
@@ -89,7 +89,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
             return View( model );
         }
 
@@ -101,7 +101,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Update( license );
+                Control.Update( license );
 
                 return RedirectToAction("Index");
             }

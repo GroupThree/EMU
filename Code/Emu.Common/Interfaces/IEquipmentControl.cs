@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface IEquipmentManager
+    public interface IEquipmentControl
     {
         List<Equipment> Get();
         Equipment Get( int barcode );

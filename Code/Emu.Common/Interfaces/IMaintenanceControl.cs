@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface IMaintenanceManager
+    public interface IMaintenanceControl
     {
         List<Ticket> Get();
         Ticket Get(int id);

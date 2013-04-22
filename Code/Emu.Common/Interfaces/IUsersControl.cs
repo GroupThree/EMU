@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface IUsersManager
+    public interface IUsersControl
     {
         List<User> Get();
         User Get( int id );

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface ISoftwareManager
+    public interface ISoftwareControl
     {
         List<Software> Get();
         Software Get( int barcode );

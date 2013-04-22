@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class NetworkingControl : INetworkingManager
+    public class NetworkingControl : INetworkingControl
     {
         #region Properties
         

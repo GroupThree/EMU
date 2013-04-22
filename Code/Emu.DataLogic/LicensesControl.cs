@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class LicensesControl : ILicensesManager
+    public class LicensesControl : ILicensesControl
     {
         #region Properties
         

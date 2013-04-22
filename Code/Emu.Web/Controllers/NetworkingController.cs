@@ -14,7 +14,7 @@ namespace Emu.Web.Controllers
     {
         #region Properties
 
-        public INetworkingManager Manager { get; set; }
+        public INetworkingControl Control { get; set; }
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace Emu.Web.Controllers
 
         public NetworkingController()
         {
-            Manager = new NetworkingControl();
+            Control = Controls.NetworkingControl;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace Emu.Web.Controllers
         {
             var model = new NetworkingModel
             {
-                Addresses = Manager.Get()
+                Addresses = Control.Get()
             };
             return View( model );
         }
@@ -46,7 +46,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
             return View( model );
         }
 
@@ -75,7 +75,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Create( address );
+                Control.Create( address );
 
                 return RedirectToAction("Index");
             }
@@ -90,7 +90,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
 
             return View( model );
         }
@@ -109,7 +109,7 @@ namespace Emu.Web.Controllers
             };
             try
             {
-                Manager.Update( address );
+                Control.Update( address );
 
                 return RedirectToAction("Index");
             }

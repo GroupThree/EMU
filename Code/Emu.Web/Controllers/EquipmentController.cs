@@ -13,7 +13,7 @@ namespace Emu.Web.Controllers
     {
         #region Properties
 
-        IEquipmentManager Manager { get; set; }
+        IEquipmentControl Control { get; set; }
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public EquipmentController()
         {
-            Manager = new EquipmentControl();
+            Control = Controls.EquipmentControl;
         }
 
         #endregion
@@ -32,7 +32,7 @@ namespace Emu.Web.Controllers
         {
             var model = new EquipmentModel
             {
-                Equipment = Manager.Get()
+                Equipment = Control.Get()
             };
             return View(model);
         }
@@ -42,7 +42,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id /* barcode */)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
             return View(model);
         }
 
@@ -62,7 +62,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Create( equipment );
+                Control.Create( equipment );
 
                 return RedirectToAction("Index");
             }
@@ -77,7 +77,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
             return View(model);
         }
 
@@ -89,7 +89,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Update( equipment );
+                Control.Update( equipment );
 
                 return RedirectToAction("Index");
             }

@@ -13,7 +13,7 @@ namespace Emu.Web.Controllers
     {
         #region Properties
 
-        public ISoftwareManager Manager { get; set; }
+        public ISoftwareControl Control { get; set; }
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public SoftwareController()
         {
-            Manager = new SoftwareControl();
+            Control = Controls.SoftwareControl;
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace Emu.Web.Controllers
         {
             var model = new SoftwareModel
             {
-                Software = Manager.Get()
+                Software = Control.Get()
             };
             return View( model );
         }
@@ -45,7 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id /* barcode */)
         {
-            var model = Manager.Get( id );            
+            var model = Control.Get( id );            
             return View(model);
         }
 
@@ -65,7 +65,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Create( software );
+                Control.Create( software );
 
                 return RedirectToAction("Index");
             }
@@ -80,7 +80,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id /* barcode */)
         {
-            var model = Manager.Get( id );            
+            var model = Control.Get( id );            
             return View(model);
         }
 
@@ -92,7 +92,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Update( software );
+                Control.Update( software );
 
                 return RedirectToAction("Index");
             }

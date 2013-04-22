@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Emu.DataLogic
 {
-    public class UsersControl : IUsersManager
+    public class UsersControl : IUsersControl
     {
         #region Properties
         

@@ -133,6 +133,7 @@
     <Compile Include="Controllers\NetworkingController.cs" />
     <Compile Include="Controllers\SoftwareController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controls.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -13,7 +13,7 @@ namespace Emu.Web.Controllers
     {
         #region Properties
 
-        IMaintenanceManager Manager { get; set; }
+        IMaintenanceControl Control { get; set; }
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Emu.Web.Controllers
 
         public MaintenanceController()
         {
-            Manager = new MaintenanceControl();
+            Control = Controls.MaintenanceControl;
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace Emu.Web.Controllers
         {
             var model = new MaintenanceModel
             {
-                Tickets = Manager.Get()
+                Tickets = Control.Get()
             };
             return View(model);
         }
@@ -45,7 +45,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
 
             return View( model );
         }
@@ -66,7 +66,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Create( ticket );
+                Control.Create( ticket );
 
                 return RedirectToAction("Index");
             }
@@ -81,7 +81,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Manager.Get( id );
+            var model = Control.Get( id );
 
             return View( model );
         }
@@ -94,7 +94,7 @@ namespace Emu.Web.Controllers
         {
             try
             {
-                Manager.Update( ticket );
+                Control.Update( ticket );
 
                 return RedirectToAction( "Index" );
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emu.Common
 {
-    public interface ILicensesManager
+    public interface ILicensesControl
     {
         List<License> Get();
         License Get( int barcode );
