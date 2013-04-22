@@ -21,13 +21,11 @@
             @Html.EditorFor(model => model.ExpirationDate)
             @Html.ValidationMessageFor(model => model.ExpirationDate)
         </div>
+        
+        <div>
+            <input type="submit" class="btn btn-primary" value="Create" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
 
-        <p>
-            <input type="submit" class="btn" value="Create" />
-        </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>

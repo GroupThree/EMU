@@ -3,28 +3,41 @@
 <fieldset>
     <legend>Software</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.BarCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BarCode)
-    </div>
+    <div class="row">
+        <div class="span2">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.BarCode)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.BarCode)
+            </div>
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SerialNumber)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SerialNumber)
-    </div>
+        <div class="span2">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.SerialNumber)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.SerialNumber)
+            </div>
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
+        <div class="span2">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.Description)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </div>
     </div>
 </fieldset>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }, new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+    &nbsp;
 </p>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.BarCode }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+</div>

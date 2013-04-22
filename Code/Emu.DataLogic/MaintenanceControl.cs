@@ -35,7 +35,7 @@ namespace Emu.DataLogic
                                                             License.LicenseKey AS 'LicenseKey',
                                                             License.ExpirationDate AS 'LicenseExpirationDate',
                                                             Software.BarCode AS 'SoftwareBarCode',
-                                                            Software.SerialNumber AS 'SerialNumber',
+                                                            Software.SerialNumber AS 'SoftwareSerialNumber',
                                                             Software.Description AS 'SoftwareDescription'
                                                 FROM 
                                                             Ticket
@@ -66,7 +66,7 @@ namespace Emu.DataLogic
                                                             License.LicenseKey AS 'LicenseKey',
                                                             License.ExpirationDate AS 'LicenseExpirationDate',
                                                             Software.BarCode AS 'SoftwareBarCode',
-                                                            Software.SerialNumber AS 'SerialNumber',
+                                                            Software.SerialNumber AS 'SoftwareSerialNumber',
                                                             Software.Description AS 'SoftwareDescription'
                                                 FROM 
                                                             Ticket

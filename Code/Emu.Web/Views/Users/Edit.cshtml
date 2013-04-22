@@ -22,13 +22,10 @@
         <div class="editor-field">
             @Html.Encode(Model.Type.ToString())
         </div>
-
-        <p>
-            <input type="submit" class="btn" value="Save" />
-        </p>
+        
+        <div>
+            <input type="submit" class="btn btn-primary" value="Save" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>

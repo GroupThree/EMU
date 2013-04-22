@@ -46,12 +46,9 @@
             @Html.ValidationMessageFor(model => model.WarrantyExpiration)
         </div>
 
-        <p>
-            <input type="submit" class="btn" value="Create" />
-        </p>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Create" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>
