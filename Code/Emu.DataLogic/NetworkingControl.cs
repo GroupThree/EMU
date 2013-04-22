@@ -16,13 +16,6 @@ namespace Emu.DataLogic
         
         MySqlConnection Connection { get; set; }
 
-        /*
-         * 
-         * 
-         * 
-         * 
-         */
-
         struct SQL
         {
             public const string Get = @"SELECT
@@ -55,15 +48,21 @@ namespace Emu.DataLogic
                                             WHERE 
 		                                            ID = @ID";
 
+            public const string GetAvailable = @"SELECT
+                                                        ID,
+                                                        IP,
+                                                        Description,
+                                                        Location
+                                                 WHERE
+                                                        EquipmentBarCode = 1"; // (not used yet)
+
             public const string Create = @"INSERT INTO NETWORKADDRESS
                                                     (
-                                                    ID,
                                                     IP,
                                                     EquipmentBarCode 
                                                     )
                                             VALUES 
                                                     (
-                                                    @ID, 
                                                     @IP, 
                                                     @EquipmentBarCode
                                                     )";
@@ -71,7 +70,6 @@ namespace Emu.DataLogic
             public const string Update =  @"UPDATE 
                                                     NETWORKADDRESS 
                                             SET
-                                                    ID = @ID,
 		                                            IP = @IP,
 		                                            EquipmentBarCode = @EquipmentBarCode
                                             WHERE
@@ -161,7 +159,7 @@ namespace Emu.DataLogic
             return result;
         }
 
-        public void Create( NetworkAddress address )
+        public void Create( NetworkAddress address)
         {
             #region Validate Arguments
 
@@ -182,9 +180,8 @@ namespace Emu.DataLogic
 
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
-                cmd.Parameters.AddWithValue( "@ID", address.ID );
                 cmd.Parameters.AddWithValue( "@IP", address.IP );
-                cmd.Parameters.AddWithValue( "@InstalledOn",  address.InstalledOn != null ? (object)address.InstalledOn.BarCode : DBNull.Value );
+                cmd.Parameters.AddWithValue( "@EquipmentBarCode",  1 /* system placeholder */);
                 
                 cmd.ExecuteNonQuery();
             }
@@ -204,7 +201,7 @@ namespace Emu.DataLogic
             {
                 cmd.Parameters.AddWithValue( "@ID", address.ID );
                 cmd.Parameters.AddWithValue( "@IP", address.IP );
-                cmd.Parameters.AddWithValue( "@InstalledOn", address.InstalledOn != null ? (object)address.InstalledOn.BarCode : DBNull.Value );
+                cmd.Parameters.AddWithValue( "@EquipmentBarCode", address.InstalledOn.BarCode );
 
                 cmd.ExecuteNonQuery();
             }

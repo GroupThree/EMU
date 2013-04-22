@@ -15,6 +15,18 @@ namespace Emu.Web.Controllers
 
         public IUsersManager Manager { get; set; }
 
+        User DefaultUser 
+        { 
+            get 
+            {
+                return new User 
+                { 
+                    UserName = "", 
+                    Type = UserType.BasicUser 
+                };
+            } 
+        }
+
         #endregion
 
         #region Constructor
@@ -54,7 +66,9 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var model = DefaultUser;
+
+            return View( model );
         }
 
         //
@@ -72,12 +86,14 @@ namespace Emu.Web.Controllers
                 }
                 else
                 {
-                    return View();
+                    var model = DefaultUser;
+                    return View( model );
                 }
             }
             catch
             {
-                return View();
+                var model = DefaultUser;
+                return View( model );
             }
         }
 

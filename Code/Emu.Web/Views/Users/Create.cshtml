@@ -14,17 +14,18 @@
             @Html.ValidationMessageFor(model => model.UserName)
         </div>
 
-        <div class="editor-field">
-            @Html.EditorFor( model => model.Type )
-            @Html.ValidationMessageFor(model => model.Type)            
+        <div class="editor-label">
+            @Html.LabelFor( model => model.Type, "User Type")
         </div>
 
-        <p>
-            <input type="submit" class="btn" value="Create" />
-        </p>
+        <div class="editor-field">
+            @Html.DropDownList("Type", @Emu.Common.EnumHelpers.ToSelectList( Model.Type ) )
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Create" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>

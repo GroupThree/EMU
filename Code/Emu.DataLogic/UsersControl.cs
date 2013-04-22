@@ -151,9 +151,10 @@ namespace Emu.DataLogic
             {
                 throw new ArgumentException( "User argument must not be null.", "user" );
             }
-            if( user.ID.IsPositive() == false )
+
+            if( string.IsNullOrWhiteSpace( user.UserName ) )
             {
-                throw new ArgumentException("User ID must be a positive integer.", "id");
+                throw new ArgumentException( "Username cannot be null or empty", "username" );
             }
 
             #endregion
@@ -161,10 +162,9 @@ namespace Emu.DataLogic
             Connection.Open();
             using (var cmd = new MySqlCommand(SQL.Create, Connection))
             {
-                cmd.Parameters.AddWithValue("@ID", user.ID);
                 cmd.Parameters.AddWithValue("@Type", user.Type);
                 cmd.Parameters.AddWithValue("@Username", user.UserName);
-                cmd.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
+                cmd.Parameters.AddWithValue("@PasswordHash", "no password yet");
 
                 // run the update statement
                 cmd.ExecuteNonQuery();

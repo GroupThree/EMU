@@ -8,13 +8,15 @@
 
         @Html.HiddenFor( model => model.ID )
         @Html.TextBoxFor(model => model.IP)
+        @Html.HiddenFor(model => model.InstalledOn.BarCode)
         
-        <p>
-            <input type="submit" class="btn" value="Save" />
-        </p>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Save" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+    
 </div>

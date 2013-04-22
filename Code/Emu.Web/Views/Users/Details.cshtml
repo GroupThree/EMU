@@ -2,12 +2,26 @@
 
 <fieldset>
     <legend>User</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserName)
+    <div class="row">
+        <div class="span4">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.UserName)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserName)
+    <div class="row">
+        <div class="span4">
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Type)
+            </div>
+
+            <div class ="display-field">
+                @Html.DisplayFor(model => model.Type)
+            </div>
+        </div>
     </div>
 </fieldset>
 

@@ -4,6 +4,7 @@ using Emu.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -54,6 +55,15 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            var model = new NetworkAddress 
+            {
+                IP = IPAddress.None,
+                InstalledOn = new Equipment
+                {
+                    BarCode = 1
+                }
+            };
+
             return View();
         }
 
@@ -89,8 +99,14 @@ namespace Emu.Web.Controllers
         // POST: /Networking/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, NetworkAddress address)
+        public ActionResult Edit(int id, FormCollection formValues)
         {
+            var address = new NetworkAddress
+            {
+                ID = int.Parse( formValues[ "ID" ] ),
+                IP = IPAddress.Parse( formValues[ "IP" ] ),
+                InstalledOn = new Equipment { BarCode = int.Parse( formValues[ "InstalledOn.BarCode" ] ) }
+            };
             try
             {
                 Manager.Update( address );
