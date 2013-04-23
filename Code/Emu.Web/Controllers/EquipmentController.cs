@@ -43,7 +43,14 @@ namespace Emu.Web.Controllers
         public ActionResult Details(int id /* barcode */)
         {
             var model = Control.Get( id );
-            return View(model);
+            if( model == null )
+            {
+                return HttpNotFound();
+            }
+            else
+            { 
+                return View(model);
+            }
         }
 
         //
@@ -51,7 +58,8 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var model = new Equipment { };
+            return View(model);
         }
 
         //
@@ -60,6 +68,7 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Equipment equipment)
         {
+            equipment.UsedBy = new User { ID = 1 };
             try
             {
                 Control.Create( equipment );
@@ -68,7 +77,7 @@ namespace Emu.Web.Controllers
             }
             catch
             {
-                return View();
+                return View(equipment);
             }
         }
 
@@ -77,25 +86,54 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Control.Get( id );
-            return View(model);
+            var equipment = Control.Get( id );
+            if( equipment == null)
+            {
+                return HttpNotFound();
+            }
+            var selectList = (from user in Controls.UsersControl.Get()
+                             select new SelectListItem 
+                             {
+                                 Text = user.UserName,
+                                 Value = user.ID.ToString(),
+                                 Selected = user.ID == equipment.UsedBy.ID
+                             }).ToList();
+            var model = new EquipmentCreateEditModel
+            {
+                Equipment = equipment,
+                AvailableUsers = selectList
+            };
+
+            return View( model );
         }
 
         //
         // POST: /Equipment/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, Equipment equipment)
+        public ActionResult Edit(FormCollection formValues)
         {
+            var equipment = new Equipment
+            {
+                BarCode = int.Parse(formValues[ "Equipment.BarCode" ]),
+                SerialNumber = formValues[ "Equipment.SerialNumber" ],
+                Description = formValues[ "Equipment.Description" ],
+                Location = formValues["Equipment.Location"],
+                WarrantyExpiration = DateTime.Parse(formValues["Equipment.WarrantyExpiration"]),
+                UsedBy = new User
+                {
+                    ID = int.Parse(formValues["UsedBy.ID"])
+                }
+            };
             try
             {
                 Control.Update( equipment );
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View(equipment);
             }
         }
 

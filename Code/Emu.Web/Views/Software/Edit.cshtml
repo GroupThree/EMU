@@ -10,7 +10,8 @@
             @Html.LabelFor(model => model.BarCode)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.BarCode)
+            @Html.DisplayFor(model => model.BarCode)
+            @Html.HiddenFor(model => model.BarCode)
             @Html.ValidationMessageFor(model => model.BarCode)
         </div>
 

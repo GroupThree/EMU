@@ -31,7 +31,7 @@ namespace Emu.DataLogic
                                             LEFT JOIN
                                                         EmuUser
                                             ON
-                                                        EmuUser.UserID = Equipment.UserID";
+                                                        EmuUser.ID = Equipment.UserID";
 
             
             public const string GetByBarcode = @"SELECT
@@ -47,7 +47,7 @@ namespace Emu.DataLogic
                                                  LEFT JOIN
                                                             EmuUser
                                                  ON
-                                                            EmuUser.UserID = Equipment.UserID
+                                                            EmuUser.ID = Equipment.UserID
                                                  WHERE
                                                             BarCode = @BarCode";
             
@@ -97,7 +97,9 @@ namespace Emu.DataLogic
         {
             var results = new List<Equipment>();
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); } }
+            
+            
             using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -138,7 +140,7 @@ namespace Emu.DataLogic
 
             Equipment result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
@@ -189,13 +191,14 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
                 cmd.Parameters.AddWithValue( "@SerialNumber", equipment.SerialNumber );
                 cmd.Parameters.AddWithValue( "@Description", equipment.Description );
+                cmd.Parameters.AddWithValue( "@UserID", 1 /* system placeholder */);
                 cmd.Parameters.AddWithValue( "@Location", equipment.Location );
                 cmd.Parameters.AddWithValue( "@WarrantyExpiration", equipment.WarrantyExpiration );
 
@@ -221,13 +224,14 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
                 cmd.Parameters.AddWithValue( "@SerialNumber", equipment.SerialNumber );
                 cmd.Parameters.AddWithValue( "@Description", equipment.Description );
+                cmd.Parameters.AddWithValue( "@UserID", equipment.UsedBy.ID);
                 cmd.Parameters.AddWithValue( "@Location", equipment.Location );
                 cmd.Parameters.AddWithValue( "@WarrantyExpiration", equipment.WarrantyExpiration );
 

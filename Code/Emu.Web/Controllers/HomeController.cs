@@ -31,7 +31,23 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var isLoggedIn = true;
+
+            if( isLoggedIn == false )
+            {
+                RedirectToAction( "Login", "Home" );
+            }
+
+            var isAdmin = true;
+
+            if( isAdmin == false)
+            {
+                return RedirectToAction( "Create", "Maintenance" );
+            }
+            else
+            { 
+                return RedirectToAction( "Index", "Maintenance" );
+            }
         }
 
         //

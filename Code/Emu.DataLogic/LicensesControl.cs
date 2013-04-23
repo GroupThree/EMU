@@ -95,7 +95,7 @@ namespace Emu.DataLogic
         {
             var results = new List<License>();
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -135,7 +135,7 @@ namespace Emu.DataLogic
 
             License result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", id );
@@ -160,7 +160,7 @@ namespace Emu.DataLogic
                     }
                 }
             }
-            Connection.Open();
+            Connection.Close();
 
             return result;
         }
@@ -191,7 +191,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", license.ID );
@@ -231,7 +231,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", license.ID );

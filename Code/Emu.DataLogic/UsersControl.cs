@@ -84,7 +84,7 @@ namespace Emu.DataLogic
         {
             var result = new List<User>();
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using (var cmd = new MySqlCommand(SQL.Get, Connection))
             {
                 using (var reader = cmd.ExecuteReader())
@@ -119,7 +119,7 @@ namespace Emu.DataLogic
 
             User result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using (var cmd = new MySqlCommand(SQL.GetByID, Connection))
             {
                 cmd.Parameters.AddWithValue("@ID", id);
@@ -159,7 +159,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using (var cmd = new MySqlCommand(SQL.Create, Connection))
             {
                 cmd.Parameters.AddWithValue("@Type", user.Type);
@@ -188,7 +188,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using (var cmd = new MySqlCommand(SQL.Update, Connection))
             {
                 cmd.Parameters.AddWithValue("@ID", user.ID);
@@ -219,7 +219,7 @@ namespace Emu.DataLogic
 
             User user = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@Username", userName );

@@ -1,4 +1,4 @@
-﻿@model Emu.Common.NetworkAddress
+﻿@model Emu.Web.Models.NetworkingEditModel
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -6,9 +6,11 @@
     <fieldset>
         <legend>NetworkAddress</legend>
 
-        @Html.HiddenFor( model => model.ID )
-        @Html.TextBoxFor(model => model.IP)
-        @Html.HiddenFor(model => model.InstalledOn.BarCode)
+        @Html.HiddenFor( model => model.Address.ID )
+        @Html.TextBoxFor(model => model.Address.IP)
+        @Html.HiddenFor(model => model.Address.InstalledOn.BarCode)
+        @Html.DropDownList("InstalledOn.BarCode", Model.AvailableEquipment)
+        
         
         <div>
             <input type="submit" class="btn btn-primary" value="Save" />

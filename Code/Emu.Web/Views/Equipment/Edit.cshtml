@@ -1,4 +1,4 @@
-﻿@model Emu.Common.Equipment
+﻿@model Emu.Web.Models.EquipmentCreateEditModel
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -6,38 +6,35 @@
     <fieldset>
         <legend>Equipment</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BarCode)
-        </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.BarCode)
-            @Html.ValidationMessageFor(model => model.BarCode)
+            @Html.HiddenFor(model => model.Equipment.WarrantyExpiration)
+            @Html.HiddenFor(model => model.Equipment.BarCode)
+            @Html.HiddenFor(model => model.Equipment.SerialNumber)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
+            @Html.LabelFor(model => model.Equipment.Description)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
+            @Html.EditorFor(model => model.Equipment.Description)
+            @Html.ValidationMessageFor(model => model.Equipment.Description)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Location)
+            @Html.LabelFor(model => model.Equipment.Location)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)
+            @Html.EditorFor(model => model.Equipment.Location)
+            @Html.ValidationMessageFor(model => model.Equipment.Location)
         </div>
-
+        
         <div class="editor-label">
-            @Html.LabelFor(model => model.WarrantyExpiration)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.WarrantyExpiration)
-            @Html.ValidationMessageFor(model => model.WarrantyExpiration)
+            @Html.LabelFor(model => model.Equipment.UsedBy, "Used By")
         </div>
 
+        <div class="editor-field">
+            @Html.DropDownList("UsedBy.ID", @Model.AvailableUsers)
+        </div>
         <div>
             <input type="submit" class="btn btn-primary" value="Save" />
             @Html.ActionLink("Back to List", "Index", null, new { @class ="btn" })

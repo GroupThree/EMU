@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Emu.Web.Models
 {
@@ -11,9 +12,9 @@ namespace Emu.Web.Models
         public List<Equipment> Equipment { get; set; }
     }
 
-    public class EquipmentEditModel
+    public class EquipmentCreateEditModel
     {
         public Equipment Equipment { get; set; }
-        public List<User> AvailableUsers { get; set; }
+        public List<SelectListItem> AvailableUsers { get; set; }
     }
 }

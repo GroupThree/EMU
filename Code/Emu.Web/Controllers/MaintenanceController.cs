@@ -47,6 +47,11 @@ namespace Emu.Web.Controllers
         {
             var model = Control.Get( id );
 
+            if( model == null )
+            {
+                return HttpNotFound();
+            }
+
             return View( model );
         }
 
@@ -55,15 +60,36 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            return View("Details");
+            var model = new MaintenanceCreateModel
+            {
+                Ticket = new Ticket(),
+                AvailableEquipment = Controls.EquipmentControl.Get().Select( e => new SelectListItem { Text = e.Description, Value = e.BarCode.ToString() } ).ToList()
+            };
+            return View( model );
         }
 
         //
         // POST: /Maintenance/Create
 
         [HttpPost]
-        public ActionResult Create(Ticket ticket)
+        public ActionResult Create(FormCollection formValues)
         {
+            var userInfo = ( HttpContext.Session[ "UserInfo" ] as User ) ?? new User { ID = 1 };
+            var ticket = new Ticket 
+            {
+                Description = formValues["Ticket.Description"],
+                Type = TicketType.UserRequested,
+                DateCreated = DateTime.Now,
+                Requestor = new Common.User
+                {
+                    ID = userInfo.ID
+                },
+                Equipment = new Equipment 
+                {
+                    BarCode = int.Parse(formValues[ "Equipment.BarCode" ] )
+                }
+            };
+
             try
             {
                 Control.Create( ticket );
@@ -72,7 +98,12 @@ namespace Emu.Web.Controllers
             }
             catch
             {
-                return View();
+                var model = new MaintenanceCreateModel
+                {
+                    Ticket = ticket,
+                    AvailableEquipment = Controls.EquipmentControl.Get().Select( e => new SelectListItem { Text = e.Description, Value = e.BarCode.ToString() } ).ToList()
+                };
+                return View( model );
             }
         }
 
@@ -81,7 +112,24 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Control.Get( id );
+            var ticket = Control.Get( id );
+
+            if( ticket == null )
+            {
+                return HttpNotFound();
+            }
+
+            var model = new MaintenanceEditModel
+            {
+                Ticket = ticket,
+                AvailableLicense = (from license in Controls.LicensesControl.Get()
+                                    where license.ExpirationDate > DateTime.Today
+                                    select new SelectListItem
+                                    {
+                                       Text = license.Software.Description,
+                                       Value = license.ID.ToString()
+                                    }).ToList()
+            };
 
             return View( model );
         }
@@ -90,8 +138,25 @@ namespace Emu.Web.Controllers
         // POST: /Maintenance/Edit/5
 
         [HttpPost]
-        public ActionResult Edit( int id, Ticket ticket )
+        public ActionResult Edit( FormCollection formValues )
         {
+            var ticket = new Ticket
+            {
+                ID = int.Parse( formValues[ "Ticket.ID" ] ),
+                Description = formValues[ "Ticket.Description" ],
+                Type = int.Parse( formValues[ "Ticket.Type" ] ).ToEnum<TicketType>(),
+                DateCreated = DateTime.Parse( formValues[ "Ticket.DateCreated" ] ),
+                DateClosed = DateTime.Parse( formValues[ "Ticket.DateClosed" ] ),
+                Equipment = new Equipment
+                {
+                    BarCode = int.Parse( formValues[ "Equipment.BarCode" ] )
+                },
+                License = new License
+                {
+                    ID = int.Parse(formValues["License.ID"])
+                }
+            };
+
             try
             {
                 Control.Update( ticket );

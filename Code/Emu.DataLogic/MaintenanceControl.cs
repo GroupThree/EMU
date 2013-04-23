@@ -83,7 +83,6 @@ namespace Emu.DataLogic
 
             public const string Create = @" INSERT INTO Ticket
                                             (
-                                                    ID,
                                                     UserID,
                                                     EquipmentBarCode,
                                                     LicenseID,
@@ -94,7 +93,6 @@ namespace Emu.DataLogic
                                             )
                                             VALUES
                                             (
-                                                    @ID,
                                                     @UserID,
                                                     @EquipmentBarCode,
                                                     @LicenseID,
@@ -106,12 +104,8 @@ namespace Emu.DataLogic
             public const string Update = @" UPDATE
                                                     Ticket 
                                             SET
-                                                    UserID = @UserID,
-                                                    EquipmentBarCode = @EquipmentBarCode,
                                                     LicenseID = @LicenseID,
-                                                    Type = @Type,
                                                     Description = @Description,
-                                                    DateCreated = @DateCreated,
                                                     DateClosed = @DateClosed
                                             WHERE
                                                     ID = @ID";
@@ -133,7 +127,7 @@ namespace Emu.DataLogic
         {
             var results = new List<Ticket>();
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
@@ -197,7 +191,7 @@ namespace Emu.DataLogic
 
             Ticket result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
@@ -259,11 +253,6 @@ namespace Emu.DataLogic
                 throw new ArgumentException( "The ticket parameter must not be null", "ticket" );
             }
 
-            if( ticket.ID.IsPositive() == false )
-            {
-                throw new ArgumentException( "The ticket id parameter must be positive.", "id" );
-            }
-
             if( ticket.Type == TicketType.UserRequested && ticket.Requestor == null)
             {
                 throw new ArgumentException( "The requestor must not be null on tickets that are user requested", "Requestor" );
@@ -291,10 +280,10 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
-                cmd.Parameters.AddWithValue( "@ID", ticket.ID );
+                cmd.Parameters.AddWithValue( "@Type", ticket.Type );
                 cmd.Parameters.AddWithValue( "@UserID", ticket.Requestor == null ? 1 /* system placeholder */ : ticket.Requestor.ID );
                 cmd.Parameters.AddWithValue( "@EquipmentBarCode", ticket.Equipment.BarCode );
                 cmd.Parameters.AddWithValue( "@LicenseID", ticket.License == null ? 1 /* system placeholder */ : ticket.License.ID );
@@ -350,15 +339,12 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", ticket.ID );
-                cmd.Parameters.AddWithValue( "@UserID", ticket.Requestor == null ? 1 /* system placeholder */ : ticket.Requestor.ID );
-                cmd.Parameters.AddWithValue( "@EquipmentBarCode", ticket.Equipment.BarCode );
                 cmd.Parameters.AddWithValue( "@LicenseID", ticket.License == null ? 1 /* system placeholder */ : ticket.License.ID );
                 cmd.Parameters.AddWithValue( "@Description", ticket.Description );
-                cmd.Parameters.AddWithValue( "@DateCreated", ticket.DateCreated );
                 cmd.Parameters.AddWithValue( "@DateClosed", ticket.DateClosed == DateTime.MinValue ? DBNull.Value : (object)ticket.DateClosed );
 
                 // run the update statement

@@ -45,12 +45,15 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var model = new LicensesModel 
+            var model = Control.Get( id );
+            if( model == null )
             {
-                Licenses = new List<License>{  Control.Get( id ) },
-                Software = new List<Software>()
-            };
-            return View(model);
+                return HttpNotFound();
+            }
+            else
+            { 
+                return View(model);
+            }
         }
 
         //
@@ -58,20 +61,28 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            var model = new LicensesModel 
+            var model = new License
             {
-                // add code to get available software
-                Software = new List<Software>() 
+                Software = new Software { BarCode = 1 }
             };
-            return View();
+            return View( model );
         }
 
         //
         // POST: /Licenses/Create
 
         [HttpPost]
-        public ActionResult Create(License license)
+        public ActionResult Create(FormCollection formValues)
         {
+            var license = new License
+            {
+                LicenseKey = formValues[ "LicenseKey" ].ToString(),
+                ExpirationDate = DateTime.Parse( formValues[ "ExpirationDate" ].ToString() ),
+                Software = new Software
+                {
+                    BarCode = int.Parse( formValues[ "Software.BarCode" ].ToString() )
+                }
+            };
             try
             {
                 Control.Create( license );

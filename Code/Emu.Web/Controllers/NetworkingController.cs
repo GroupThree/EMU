@@ -71,8 +71,12 @@ namespace Emu.Web.Controllers
         // POST: /Networking/Create
 
         [HttpPost]
-        public ActionResult Create(NetworkAddress address)
+        public ActionResult Create(FormCollection formValues)
         {
+            var address = new NetworkAddress
+            {
+                IP = IPAddress.Parse(formValues["IP"]),
+            };
             try
             {
                 Control.Create( address );
@@ -90,7 +94,24 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = Control.Get( id );
+            var networkAddress = Control.Get( id );
+
+            if( networkAddress == null )
+            {
+                return HttpNotFound();
+            }
+
+            var model = new NetworkingEditModel
+            {
+                Address = networkAddress,
+                AvailableEquipment = ( from equipment in Controls.EquipmentControl.Get()
+                                       select new SelectListItem 
+                                       {
+                                        Selected = equipment.BarCode == networkAddress.InstalledOn.BarCode,
+                                        Text = equipment.Description,
+                                        Value = equipment.BarCode.ToString()
+                                       } ).ToList()
+            };
 
             return View( model );
         }
@@ -103,8 +124,8 @@ namespace Emu.Web.Controllers
         {
             var address = new NetworkAddress
             {
-                ID = int.Parse( formValues[ "ID" ] ),
-                IP = IPAddress.Parse( formValues[ "IP" ] ),
+                ID = int.Parse( formValues[ "Address.ID" ] ),
+                IP = IPAddress.Parse( formValues[ "Address.IP" ] ),
                 InstalledOn = new Equipment { BarCode = int.Parse( formValues[ "InstalledOn.BarCode" ] ) }
             };
             try

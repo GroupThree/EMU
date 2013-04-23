@@ -38,7 +38,7 @@ namespace Emu.DataLogic
         {
             var results = new List<Software>();
             
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Get, Connection ) )
             {
                 using( var reader = cmd.ExecuteReader() )
@@ -72,7 +72,7 @@ namespace Emu.DataLogic
 
             Software result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.GetByBarcode, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", barCode );
@@ -111,7 +111,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );
@@ -140,7 +140,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@BarCode", software.BarCode );

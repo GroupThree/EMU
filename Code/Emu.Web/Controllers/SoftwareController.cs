@@ -45,7 +45,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id /* barcode */)
         {
-            var model = Control.Get( id );            
+            var model = Control.Get( id );
+
+            if( model == null )
+            {
+                return HttpNotFound();
+            }
+
             return View(model);
         }
 
@@ -80,7 +86,11 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id /* barcode */)
         {
-            var model = Control.Get( id );            
+            var model = Control.Get( id );
+            if( model == null )
+            {
+                return HttpNotFound();
+            }
             return View(model);
         }
 

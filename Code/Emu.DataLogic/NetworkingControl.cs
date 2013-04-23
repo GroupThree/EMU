@@ -91,7 +91,7 @@ namespace Emu.DataLogic
         {
             var results = new List<NetworkAddress>();
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand(SQL.Get, Connection) )
             {
@@ -132,7 +132,7 @@ namespace Emu.DataLogic
 
             NetworkAddress result = null;
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
             using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@ID", id );
@@ -176,7 +176,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
@@ -195,7 +195,7 @@ namespace Emu.DataLogic
 
             #endregion
 
-            Connection.Open();
+            if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Update, Connection ) )
             {
