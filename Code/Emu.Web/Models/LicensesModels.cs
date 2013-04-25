@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Emu.Web.Models
 {
@@ -14,6 +15,6 @@ namespace Emu.Web.Models
     public class LicensesEditModel
     {
         public License License { get; set; }
-        public List<Software> Software { get; set; }
+        public List<SelectListItem> Software { get; set; }
     }
 }

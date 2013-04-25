@@ -129,15 +129,6 @@ namespace Emu.DataLogic
 
         public Equipment Get( int barCode )
         {
-            #region Validate Arguments
-
-            if ( barCode.IsPositive() == false )
-            {
-                throw new ArgumentException( "Barcode argument must be a positive integer.", "barcode" );
-            }
-
-            #endregion
-
             Equipment result = null;
 
             if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
@@ -184,18 +175,13 @@ namespace Emu.DataLogic
                 throw new ArgumentException( "Equipment argument must not be null.", "equipment" );
             }
 
-            if ( equipment.BarCode.IsPositive() == false )
-            {
-                throw new ArgumentException( "Equipment barcode must be a positive integer.", "barcode" );
-            }
-
             #endregion
 
             if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
 
             using( var cmd = new MySqlCommand( SQL.Create, Connection ) )
             {
-                cmd.Parameters.AddWithValue( "@BarCode", equipment.BarCode );
+                cmd.Parameters.AddWithValue("@BarCode", equipment.BarCode);
                 cmd.Parameters.AddWithValue( "@SerialNumber", equipment.SerialNumber );
                 cmd.Parameters.AddWithValue( "@Description", equipment.Description );
                 cmd.Parameters.AddWithValue( "@UserID", 1 /* system placeholder */);

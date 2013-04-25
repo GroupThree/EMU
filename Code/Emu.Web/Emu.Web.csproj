@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Authentication.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LicensesController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\EquipmentModels.cs" />
     <Compile Include="Models\HomeModels.cs" />
     <Compile Include="Models\LicensesModels.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MaintenanceModels.cs" />
     <Compile Include="Models\NetworkingModels.cs" />
     <Compile Include="Models\SoftwareModels.cs" />
@@ -269,6 +271,7 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

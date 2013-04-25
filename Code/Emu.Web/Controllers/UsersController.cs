@@ -45,6 +45,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+            
             var model = new UsersModel
             {
                 Users = Control.Get()
@@ -57,6 +64,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
             return View( model );
         }
@@ -66,8 +80,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
             var model = DefaultUser;
-
             return View( model );
         }
 
@@ -77,6 +96,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             try
             {
                 if( ModelState.IsValid )
@@ -102,7 +128,18 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
+            if( model == null )
+            {
+                return HttpNotFound();
+            }
             return View( model );
         }
 
@@ -112,16 +149,31 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(User user)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             try
             {
                 if( ModelState.IsValid )
                 {
-                    Control.Update( user );
+                    try
+                    {
+                        Control.Update(user);
+                    }
+                    catch( Exception ex )
+                    {
+                        ViewBag.Error = ex.Message;
+                        return View(user);
+                    }
                     return RedirectToAction( "Index" );
                 }
                 else
                 {
-                    return View();
+                    return View(user);
                 }
                 
             }

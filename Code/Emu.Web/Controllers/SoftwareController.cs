@@ -33,6 +33,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = new SoftwareModel
             {
                 Software = Control.Get()
@@ -45,6 +52,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id /* barcode */)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
 
             if( model == null )
@@ -60,6 +74,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             return View();
         }
 
@@ -69,6 +90,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Software software)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             try
             {
                 Control.Create( software );
@@ -86,6 +114,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id /* barcode */)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
             if( model == null )
             {
@@ -100,6 +135,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id /* barcode */, Software software)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             try
             {
                 Control.Update( software );

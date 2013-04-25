@@ -19,10 +19,15 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
-        <div class="editor-field">
+@*        <div class="editor-field">
             @Html.Encode(Model.Type.ToString())
-        </div>
+        </div>*@
         
+        <div class="editor-field">
+            @Html.DropDownList("Type", @Emu.Common.EnumHelpers.ToSelectList( Model.Type ) )
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
         <div>
             <input type="submit" class="btn btn-primary" value="Save" />
             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })

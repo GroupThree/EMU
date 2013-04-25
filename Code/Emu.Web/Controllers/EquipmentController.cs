@@ -30,6 +30,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = new EquipmentModel
             {
                 Equipment = Control.Get()
@@ -42,6 +49,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id /* barcode */)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
             if( model == null )
             {
@@ -58,7 +72,14 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            var model = new Equipment { };
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
+            var model = new Equipment { BarCode = Control.Get().Max(e => e.BarCode) + 1 };
             return View(model);
         }
 
@@ -68,6 +89,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Equipment equipment)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             equipment.UsedBy = new User { ID = 1 };
             try
             {
@@ -86,6 +114,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var equipment = Control.Get( id );
             if( equipment == null)
             {
@@ -113,6 +148,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(FormCollection formValues)
         {
+            #region Authorization 
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var equipment = new Equipment
             {
                 BarCode = int.Parse(formValues[ "Equipment.BarCode" ]),

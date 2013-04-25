@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,29 +9,17 @@ namespace Emu.Common
 {
     public class Equipment
     {
+        [Required]
         public int BarCode { get; set; }
+        [Required]
         public string SerialNumber { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Location { get; set; }
+        [Required, DataType(DataType.Date)]
         public DateTime WarrantyExpiration { get; set; }
 
         public User UsedBy { get; set; }
-        public List<License> Licenses { get; set; }
-        public List<Ticket> MaintenanceTickets { get; set; }
-        public List<NetworkAddress> NetworkAddresses { get; set; }
-        public List<Software> InstalledSoftware
-        {
-            get
-            {
-                return Licenses.Select( lic => lic.Software ).ToList();
-            }
-        }
-
-        public Equipment()
-        {
-            Licenses = new List<License>();
-            MaintenanceTickets = new List<Ticket>();
-            NetworkAddresses = new List<NetworkAddress>();
-        }
     }
 }

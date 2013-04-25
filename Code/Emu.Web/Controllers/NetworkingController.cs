@@ -34,6 +34,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = new NetworkingModel
             {
                 Addresses = Control.Get()
@@ -46,6 +53,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = Control.Get( id );
             return View( model );
         }
@@ -55,6 +69,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var model = new NetworkAddress 
             {
                 IP = IPAddress.None,
@@ -64,7 +85,7 @@ namespace Emu.Web.Controllers
                 }
             };
 
-            return View();
+            return View(model);
         }
 
         //
@@ -73,19 +94,37 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection formValues)
         {
-            var address = new NetworkAddress
+            #region Authorization
+            if( Authentication.IsAdmin == false )
             {
-                IP = IPAddress.Parse(formValues["IP"]),
-            };
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
+            NetworkAddress address = null;
             try
             {
+                address = new NetworkAddress
+                {
+                    IP = IPAddress.Parse(formValues["IP"]),
+                };
+
                 Control.Create( address );
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                var model = new NetworkAddress
+                {
+                    IP = IPAddress.None,
+                    InstalledOn = new Equipment
+                    {
+                        BarCode = 1
+                    }
+                };
+                return View(model);
             }
         }
 
@@ -94,6 +133,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
             var networkAddress = Control.Get( id );
 
             if( networkAddress == null )
@@ -122,14 +168,24 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection formValues)
         {
-            var address = new NetworkAddress
+            #region Authorization
+            if( Authentication.IsAdmin == false )
             {
-                ID = int.Parse( formValues[ "Address.ID" ] ),
-                IP = IPAddress.Parse( formValues[ "Address.IP" ] ),
-                InstalledOn = new Equipment { BarCode = int.Parse( formValues[ "InstalledOn.BarCode" ] ) }
-            };
+                return RedirectToAction("Index", "Home");
+            }
+            #endregion
+
+            NetworkAddress address = null;
+            
             try
             {
+                address = new NetworkAddress
+                {
+                    ID = int.Parse(formValues["Address.ID"]),
+                    IP = IPAddress.Parse(formValues["Address.IP"]),
+                    InstalledOn = new Equipment { BarCode = int.Parse(formValues["InstalledOn.BarCode"]) }
+                };
+
                 Control.Update( address );
 
                 return RedirectToAction("Index");

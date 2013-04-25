@@ -194,7 +194,6 @@ namespace Emu.DataLogic
                 cmd.Parameters.AddWithValue("@ID", user.ID);
                 cmd.Parameters.AddWithValue("@Type", user.Type);
                 cmd.Parameters.AddWithValue("@Username", user.UserName);
-                cmd.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
 
                 // run the update statement
                 cmd.ExecuteNonQuery();
@@ -220,7 +219,7 @@ namespace Emu.DataLogic
             User user = null;
 
             if( Connection.State == System.Data.ConnectionState.Closed ) { Connection.Open(); }
-            using( var cmd = new MySqlCommand( SQL.GetByID, Connection ) )
+            using( var cmd = new MySqlCommand( SQL.GetByUsername, Connection ) )
             {
                 cmd.Parameters.AddWithValue( "@Username", userName );
 
@@ -242,7 +241,8 @@ namespace Emu.DataLogic
 
             #region compare database hash to computed password hash
 
-            if( user != null && user.PasswordHash != ComputeHash(password) )
+            var computedHash = ComputeHash(password).ToLower();
+            if( user != null && user.PasswordHash !=  computedHash)
             { 
                 // incorrect password, return null
                 user = null;

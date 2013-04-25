@@ -31,16 +31,12 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
-            var isLoggedIn = true;
-
-            if( isLoggedIn == false )
+            if( Authentication.IsAuthenticated == false )
             {
-                RedirectToAction( "Login", "Home" );
+                return RedirectToAction( "Login", "Home" );
             }
 
-            var isAdmin = true;
-
-            if( isAdmin == false)
+            if( Authentication.IsAdmin == false )
             {
                 return RedirectToAction( "Create", "Maintenance" );
             }
@@ -50,6 +46,57 @@ namespace Emu.Web.Controllers
             }
         }
 
+
+        public ActionResult Login()
+        {
+            var model = new LoginModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Login( string username, string password )
+        {
+            Exception err = null;
+            Common.User user = null;
+            try
+            {
+                user = Controls.UsersControl.Authenticate(username, password);
+            }
+            catch( Exception e )
+            {
+                err = e;
+            }
+
+            var model = new LoginModel
+            {
+                Username = username,
+                Password = password
+            };
+
+
+            if( user == null )
+            {
+                ViewBag.Error = "Username or password was invalid";
+                
+                return View(model);
+            }
+            else if( err != null )
+            {
+                ViewBag.Error = err.Message;
+                return View(model);
+            }
+            else
+            {
+                Authentication.CurrentUser = user;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult LogOut()
+        {
+            Authentication.CurrentUser = null;
+            return RedirectToAction("Login");
+        }
         //
         // GET: /Home/Details/5
 

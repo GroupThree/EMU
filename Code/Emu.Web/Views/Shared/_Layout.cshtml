@@ -29,7 +29,9 @@
               <li>@Html.ActionLink("Maintenance", "Index", "Maintenance")</li>
               <li>@Html.ActionLink("Users", "Index", "Users")</li>
               <li>@Html.ActionLink("Software", "Index", "Software")</li>
+              <li>@Html.ActionLink("Licenses","Index", "Licenses")</li>
               <li>@Html.ActionLink("Networking", "Index", "Networking")</li>
+              <li>@Html.ActionLink("Log Out", "LogOut", "Home")</li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -37,6 +39,14 @@
     </div>
 
     <div class="container">
+
+        <br />
+        @if( ViewBag.Error != null )
+        {
+            <div class="alert alert-error">
+                @ViewBag.Error
+            </div>
+        }
 
         @RenderBody()
 
