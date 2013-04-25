@@ -3,6 +3,9 @@
 <table class="table table-hover table-bordered">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Requestor.UserName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
@@ -16,6 +19,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requestor.UserName)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>

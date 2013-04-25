@@ -4,6 +4,19 @@
     <legend>Ticket</legend>
 
     <div class="row">
+
+        <div class="span4">
+
+            <div class="display-label">
+                @Html.LabelFor(model => model.Requestor)
+            </div>
+        
+            <div class="display-field">
+                @Model.Requestor.UserName
+            </div>
+
+        </div>
+
         <div class="span4">
             <div class="display-label">
                  @Html.DisplayNameFor(model => model.Description)
