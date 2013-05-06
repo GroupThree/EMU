@@ -1,0 +1,65 @@
+﻿@model Emu.Common.Ticket
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Ticket</legend>
+
+        @Html.HiddenFor(model => model.TicketID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RequestorId, "Requestor")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RequestorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RequestorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AssignedToId, "AssignedTo")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AssignedToId", String.Empty)
+            @Html.ValidationMessageFor(model => model.AssignedToId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TicketDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TicketDescription)
+            @Html.ValidationMessageFor(model => model.TicketDescription)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TicketCreated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TicketCreated)
+            @Html.ValidationMessageFor(model => model.TicketCreated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TicketClosed)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TicketClosed)
+            @Html.ValidationMessageFor(model => model.TicketClosed)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

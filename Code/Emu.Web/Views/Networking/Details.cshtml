@@ -1,0 +1,22 @@
+﻿@model Emu.Common.NetworkAddress
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>NetworkAddress</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.NetworkAddressId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

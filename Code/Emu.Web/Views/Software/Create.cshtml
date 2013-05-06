@@ -1,0 +1,51 @@
+﻿@model Emu.Common.Software
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Software</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SoftwareBarCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SoftwareBarCode)
+            @Html.ValidationMessageFor(model => model.SoftwareBarCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SoftwareSerialNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SoftwareSerialNumber)
+            @Html.ValidationMessageFor(model => model.SoftwareSerialNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SoftwareDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SoftwareDescription)
+            @Html.ValidationMessageFor(model => model.SoftwareDescription)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

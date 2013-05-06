@@ -9,6 +9,17 @@ namespace Emu.Web
 {
     public class EmuDb : DbContext
     {
+        static EmuDb()
+        {
+            _Instance = new EmuDb();
+        }
+
+        private static EmuDb _Instance;
+        public static EmuDb Instance
+        {
+            get { return _Instance; }
+        }
+
         public EmuDb() : base("DefaultConnection") { }
 
         public DbSet<Equipment> Equipments { get; set; }

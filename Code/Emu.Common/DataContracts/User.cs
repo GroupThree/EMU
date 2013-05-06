@@ -26,9 +26,9 @@ namespace Emu.Common
 
         public User()
         {
-            Equipments = new List<Equipment>();
-            RequestedTickets = new List<Ticket>();
-            AssignedTickets = new List<Ticket>();
+            //Equipments = new List<Equipment>();
+            //RequestedTickets = new List<Ticket>();
+            //AssignedTickets = new List<Ticket>();
         }
     }
 

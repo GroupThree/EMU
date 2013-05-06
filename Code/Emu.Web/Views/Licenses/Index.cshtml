@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Emu.Common.User>
+﻿@model IEnumerable<Emu.Common.SoftwareLicense>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,10 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.LicenseKey)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.ExpirationDate)
         </th>
         <th></th>
     </tr>
@@ -23,15 +23,15 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserName)
+            @Html.DisplayFor(modelItem => item.LicenseKey)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @Html.DisplayFor(modelItem => item.ExpirationDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.SoftwareLicenseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SoftwareLicenseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SoftwareLicenseId })
         </td>
     </tr>
 }

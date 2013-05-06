@@ -24,7 +24,7 @@ namespace Emu.Common
 
         public Software()
         {
-            Licenses = new List<SoftwareLicense>();
+            //Licenses = new List<SoftwareLicense>();
         }
     }
 }

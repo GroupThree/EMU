@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Emu.Common.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="indexList">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Requestor.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedTo.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketClosed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Requestor.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedTo.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketClosed)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.TicketID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.TicketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.TicketID })
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+@section scripts{
+@*This will go below jquery in the shared layout page*@
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#indexList').dataTable({
+            "bPaginate": true,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": false,
+            "bAutoWidth": true
+        });
+    });
+</script>
+}

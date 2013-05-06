@@ -1,0 +1,41 @@
+﻿@model Emu.Common.SoftwareLicense
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SoftwareLicense</legend>
+
+        @Html.HiddenFor(model => model.SoftwareLicenseId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LicenseKey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LicenseKey)
+            @Html.ValidationMessageFor(model => model.LicenseKey)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExpirationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExpirationDate)
+            @Html.ValidationMessageFor(model => model.ExpirationDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

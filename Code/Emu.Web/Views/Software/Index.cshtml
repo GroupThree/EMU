@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Emu.Common.Software>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SoftwareBarCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoftwareSerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoftwareDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoftwareBarCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoftwareSerialNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoftwareDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SoftwareId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SoftwareId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SoftwareId })
+        </td>
+    </tr>
+}
+
+</table>

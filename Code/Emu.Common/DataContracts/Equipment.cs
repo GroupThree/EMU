@@ -31,9 +31,9 @@ namespace Emu.Common
 
         public Equipment()
         {
-            UsedBy = new List<User>();
-            NetworkAddresses = new List<NetworkAddress>();
-            SoftwareLicenses = new List<SoftwareLicense>();
+            //UsedBy = new List<User>();
+            //NetworkAddresses = new List<NetworkAddress>();
+            //SoftwareLicenses = new List<SoftwareLicense>();
         }
     }
 
