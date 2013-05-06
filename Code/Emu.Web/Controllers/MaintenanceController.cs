@@ -38,10 +38,20 @@ namespace Emu.Web.Controllers
         //
         // GET: /Maintenance/Create
 
+        SelectList AvailableRequestors
+        {
+            get { return new SelectList(db.Users, "UserId", "UserName"); }
+        }
+
+        SelectList AvailableAssignees
+        {
+            get { return new SelectList(db.Users.Where(u => u.UserType == UserType.Admin), "UserId", "UserName"); }
+        }
+
         public ActionResult Create()
         {
-            ViewBag.RequestorId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.AssignedToId = new SelectList(db.Users, "UserId", "UserName");
+            ViewBag.RequestorId = AvailableRequestors;
+            ViewBag.AssignedToId = AvailableAssignees;
             return View();
         }
 
@@ -58,8 +68,8 @@ namespace Emu.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RequestorId = new SelectList(db.Users, "UserId", "UserName", ticket.RequestorId);
-            ViewBag.AssignedToId = new SelectList(db.Users, "UserId", "UserName", ticket.AssignedToId);
+            ViewBag.RequestorId = AvailableRequestors;
+            ViewBag.AssignedToId = AvailableAssignees;
             return View(ticket);
         }
 
@@ -73,8 +83,8 @@ namespace Emu.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RequestorId = new SelectList(db.Users, "UserId", "UserName", ticket.RequestorId);
-            ViewBag.AssignedToId = new SelectList(db.Users, "UserId", "UserName", ticket.AssignedToId);
+            ViewBag.RequestorId = AvailableRequestors;
+            ViewBag.AssignedToId = AvailableAssignees;
             return View(ticket);
         }
 
@@ -90,8 +100,8 @@ namespace Emu.Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RequestorId = new SelectList(db.Users, "UserId", "UserName", ticket.RequestorId);
-            ViewBag.AssignedToId = new SelectList(db.Users, "UserId", "UserName", ticket.AssignedToId);
+            ViewBag.RequestorId = AvailableRequestors;
+            ViewBag.AssignedToId = AvailableAssignees;
             return View(ticket);
         }
 

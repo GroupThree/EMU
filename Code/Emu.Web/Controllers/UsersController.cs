@@ -34,11 +34,22 @@ namespace Emu.Web.Controllers
             return View(user);
         }
 
+        List<SelectListItem> GetUserTypeList(UserType userType)
+        {
+
+            return new List<SelectListItem>(new List<SelectListItem> 
+                {
+                    new SelectListItem { Value = ((int)UserType.Basic).ToString(), Text = "Basic", Selected = UserType.Basic == userType },
+                    new SelectListItem { Value = ((int)UserType.Admin).ToString(), Text = "Admin", Selected = UserType.Admin == userType } 
+                });
+        }
+
         //
         // GET: /Users/Create
 
         public ActionResult Create()
         {
+            ViewBag.UserType = GetUserTypeList(UserType.Basic);
             return View();
         }
 
@@ -55,6 +66,7 @@ namespace Emu.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.UserType = GetUserTypeList(user != null ? user.UserType : UserType.Basic);
             return View(user);
         }
 
@@ -68,6 +80,8 @@ namespace Emu.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.UserType = ViewBag.UserType = GetUserTypeList(user != null ? user.UserType : UserType.Basic);
             return View(user);
         }
 
@@ -83,6 +97,8 @@ namespace Emu.Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.UserType = GetUserTypeList(user != null ? user.UserType : UserType.Basic);
             return View(user);
         }
 

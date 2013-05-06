@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,18 +15,26 @@ namespace Emu.Common
         [Key]
         [HiddenInput(DisplayValue = false)]
         public virtual int TicketID { get; set; }
+        [HiddenInput(DisplayValue=false)]
         public virtual int RequestorId { get; set; }
+        [DisplayName("Requestor")]
         public virtual User Requestor { get; set; }
+        [HiddenInput(DisplayValue = false)]
         public virtual int AssignedToId { get; set; }
+        [DisplayName("Assigned To")]
         public virtual User AssignedTo { get; set; }
+        [DisplayName("Type")]
         public virtual TicketType Type { get; set; }
+        [DisplayName("Priority")]
         public virtual TicketPiority Priority { get; set; }
         [Required(AllowEmptyStrings=false, ErrorMessage="Please enter a ticket description")]
+        [DisplayName("Description")]
         public virtual string TicketDescription { get; set; }
         [Required(AllowEmptyStrings=false, ErrorMessage="Please enter a ticket created date")]
         [DataType(DataType.Date)]
+        [DisplayName("Created")]
         public virtual DateTime TicketCreated { get; set; }
-        //[Required(AllowEmptyStrings=true, ErrorMessage="Please enter a ticket closed date")]
+        [DisplayName("Closed")]
         [DataType(DataType.Date)]
         public virtual DateTime? TicketClosed { get; set; }
     }

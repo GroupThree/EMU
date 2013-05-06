@@ -9,48 +9,55 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LicenseKey)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
-        </th>
-        <th></th>
-    </tr>
+<table id="indexList" class="display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LicenseKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicenseKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.SoftwareLicenseId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.SoftwareLicenseId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.SoftwareLicenseId })
+            </td>
+        </tr>
+    
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LicenseKey)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SoftwareLicenseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SoftwareLicenseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SoftwareLicenseId })
-        </td>
-    </tr>
-}
-
+    </tbody>
 </table>
 
+
 @section scripts{
-@*This will go below jquery in the shared layout page*@
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#indexList').dataTable({
             "bPaginate": true,
-            "bLengthChange": false,
+            "bLengthChange": true,
             "bFilter": true,
             "bSort": true,
-            "bInfo": false,
-            "bAutoWidth": true
+            "bInfo": false
         });
     });
+
 </script>
 }

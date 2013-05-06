@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table id="indexList">
+<table id="indexList" class="display">
     <thead>
         <tr>
             <th>
@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.TicketCreated)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TicketClosed)
+                @(item.TicketClosed != null)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.TicketID }) |
@@ -56,23 +56,24 @@
             </td>
         </tr>
     }
+
     </tbody>
 
 </table>
 
 @section scripts{
 @*This will go below jquery in the shared layout page*@
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+@*<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>*@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#indexList').dataTable({
             "bPaginate": true,
-            "bLengthChange": false,
+            "bLengthChange": true,
             "bFilter": true,
             "bSort": true,
-            "bInfo": false,
-            "bAutoWidth": true
+            "bInfo": false
         });
     });
 </script>
+
 }

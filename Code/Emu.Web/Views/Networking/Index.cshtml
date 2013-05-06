@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Emu.Common.NetworkAddress>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Networking";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -9,25 +9,44 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th></th>
-    </tr>
-
+<table id="indexList">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NetworkAddressId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NetworkAddressId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NetworkAddressId })
-        </td>
-    </tr>
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.NetworkAddressId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.NetworkAddressId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.NetworkAddressId })
+            </td>
+        </tr>
 }
-
+    </tbody>
 </table>
+
+@section scripts{
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#indexList').dataTable({
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": false
+        });
+    });
+</script>
+
+}

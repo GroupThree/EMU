@@ -9,49 +9,70 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table id="indexList">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipmentBarCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipmentSerialNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipmentDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipmentLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WarrantyExpiration)
-        </th>
-        <th></th>
-    </tr>
+<table id="indexList" class="display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentBarCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentSerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarrantyExpiration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipmentBarCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipmentSerialNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipmentDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipmentLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WarrantyExpiration)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EquipmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EquipmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EquipmentId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentBarCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentSerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarrantyExpiration)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.EquipmentId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.EquipmentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.EquipmentId })
+            </td>
+        </tr>
+    
+    }
 
+    </tbody>
 </table>
+
+
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#indexList').dataTable({
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": false
+        });
+    });
+</script>
+}

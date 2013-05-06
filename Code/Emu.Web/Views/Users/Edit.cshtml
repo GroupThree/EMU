@@ -30,6 +30,14 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserType)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserType", string.Empty)
+            @Html.ValidationMessageFor(model => model.UserType)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

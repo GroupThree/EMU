@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace Emu.Common
         [HiddenInput(DisplayValue = false)]
         public virtual int SoftwareId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a software bar code")]
+        [DisplayName("Bar Code")]
         public virtual int SoftwareBarCode { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a software serial number")]
+        [DisplayName("Serial Number")]
         public virtual string SoftwareSerialNumber { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a software description")]
+        [DisplayName("Description")]
         public virtual string SoftwareDescription { get; set; }
         public virtual ICollection<SoftwareLicense> Licenses { get; set; }
 

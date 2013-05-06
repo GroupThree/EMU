@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,13 @@ namespace Emu.Common
         [HiddenInput(DisplayValue = false)]
         public virtual int UserId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a username")]
+        [DisplayName("Username")]
         public virtual string UserName { get; set; }
         [Required(AllowEmptyStrings=false, ErrorMessage="Please enter a password")]
         [DataType(DataType.Password)]
+        [DisplayName("Password")]
         public virtual string Password { get; set; }
+        [DisplayName("User Type")]
         public virtual UserType UserType { get; set; }
 
         public ICollection<Equipment> Equipments { get; set; }
