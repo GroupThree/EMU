@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<Emu.Common.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table id="indexList" class="display">
+
+<table id="indexList" class="display table table-hover table-bordered">
     <thead>
         <tr>
             <th>

@@ -65,9 +65,9 @@ namespace Emu.Web.Migrations
 
         #region tickets
 
-        Ticket t1 = new Ticket { TicketDescription = "a", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t2 = new Ticket { TicketDescription = "b", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t3 = new Ticket { TicketDescription = "c", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t1 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Brian's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t2 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Ajay's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t3 = new Ticket { TicketDescription = "", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
         Ticket t4 = new Ticket { TicketDescription = "d", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
         Ticket t5 = new Ticket { TicketDescription = "e", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
         Ticket t6 = new Ticket { TicketDescription = "f", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
