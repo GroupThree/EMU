@@ -13,6 +13,11 @@ namespace Emu.Web.Controllers
     {
         private EmuDb db = new EmuDb();
 
+        SelectList AvailableSoftware
+        {
+            get { return new SelectList(db.Softwares, "SoftwareBarCode", "SoftwareDescription"); }
+        }
+
         //
         // GET: /Licenses/
 
@@ -39,6 +44,7 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Software = db.Softwares;
             return View();
         }
 
