@@ -1,43 +1,36 @@
 ﻿@model Emu.Common.Software
 
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
 <fieldset>
     <legend>Software</legend>
 
-    <div class="row">
-        <div class="span2">
-            <div class="display-label">
-                 @Html.DisplayNameFor(model => model.BarCode)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.BarCode)
-            </div>
-        </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EBarCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EBarCode)
+    </div>
 
-        <div class="span2">
-            <div class="display-label">
-                 @Html.DisplayNameFor(model => model.SerialNumber)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.SerialNumber)
-            </div>
-        </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SerialNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SerialNumber)
+    </div>
 
-        <div class="span2">
-            <div class="display-label">
-                 @Html.DisplayNameFor(model => model.Description)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Description)
-            </div>
-        </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
     </div>
 </fieldset>
-
 <p>
-    &nbsp;
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
-
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.BarCode }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>

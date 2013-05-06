@@ -8,8 +8,9 @@ namespace Emu.Common
 {
     public class Software
     {
-        public int BarCode { get; set; }
-        public string SerialNumber { get; set; }
-        public string Description { get; set; }
+        public virtual int Id { get; set; }
+        public virtual int EBarCode { get; set; }
+        public virtual string SerialNumber { get; set; }
+        public virtual string Description { get; set; }
     }
 }

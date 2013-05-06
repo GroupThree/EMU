@@ -1,33 +1,29 @@
 ﻿@model Emu.Common.User
 
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
 <fieldset>
     <legend>User</legend>
-    <div class="row">
-        <div class="span4">
-            <div class="display-label">
-                 @Html.DisplayNameFor(model => model.UserName)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.UserName)
-            </div>
-        </div>
-        <div class="span4">
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Type)
-            </div>
 
-            <div class ="display-field">
-                @Html.DisplayFor(model => model.Type)
-            </div>
-        </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
     </div>
 </fieldset>
-
 <p>
-    &nbsp;
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
-
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" } )
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-</div>

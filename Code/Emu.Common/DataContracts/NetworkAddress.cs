@@ -9,9 +9,8 @@ namespace Emu.Common
 {
     public class NetworkAddress
     {
-        public int ID { get; set; }
-        public IPAddress IP { get; set; }
-
-        public Equipment InstalledOn { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Address { get; set; }
+        public virtual Equipment InstalledOn { get; set; }
     }
 }

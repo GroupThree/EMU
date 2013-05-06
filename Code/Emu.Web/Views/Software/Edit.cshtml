@@ -1,18 +1,25 @@
 ﻿@model Emu.Common.Software
 
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Software</legend>
 
+        @Html.HiddenFor(model => model.Id)
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.BarCode)
+            @Html.LabelFor(model => model.EBarCode)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.BarCode)
-            @Html.HiddenFor(model => model.BarCode)
-            @Html.ValidationMessageFor(model => model.BarCode)
+            @Html.EditorFor(model => model.EBarCode)
+            @Html.ValidationMessageFor(model => model.EBarCode)
         </div>
 
         <div class="editor-label">
@@ -31,10 +38,12 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div>
-            <input type="submit" class="btn btn-primary" value="Save" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-        </div>
-
+        <p>
+            <input type="submit" value="Save" />
+        </p>
     </fieldset>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

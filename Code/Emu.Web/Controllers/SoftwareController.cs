@@ -1,72 +1,37 @@
-﻿using Emu.Common;
-using Emu.DataLogic;
-using Emu.Web.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Emu.Common;
 
 namespace Emu.Web.Controllers
 {
     public class SoftwareController : Controller
     {
-        #region Properties
+        private EmuDb db = new EmuDb();
 
-        public ISoftwareControl Control { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        public SoftwareController()
-        {
-            Control = Controls.SoftwareControl;
-        }
-
-        #endregion
-
-        #region Methods
-        
         //
         // GET: /Software/
 
         public ActionResult Index()
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
-            var model = new SoftwareModel
-            {
-                Software = Control.Get()
-            };
-            return View( model );
+            return View(db.Softwares.ToList());
         }
 
         //
         // GET: /Software/Details/5
 
-        public ActionResult Details(int id /* barcode */)
+        public ActionResult Details(int id = 0)
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
-            var model = Control.Get( id );
-
-            if( model == null )
+            Software software = db.Softwares.Find(id);
+            if (software == null)
             {
                 return HttpNotFound();
             }
-
-            return View(model);
+            return View(software);
         }
 
         //
@@ -74,13 +39,6 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
             return View();
         }
 
@@ -90,96 +48,73 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Software software)
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
-            try
-            {
-                Control.Create( software );
-
+                db.Softwares.Add(software);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(software);
         }
 
         //
         // GET: /Software/Edit/5
 
-        public ActionResult Edit(int id /* barcode */)
+        public ActionResult Edit(int id = 0)
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
-            var model = Control.Get( id );
-            if( model == null )
+            Software software = db.Softwares.Find(id);
+            if (software == null)
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return View(software);
         }
 
         //
         // POST: /Software/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id /* barcode */, Software software)
+        public ActionResult Edit(Software software)
         {
-            #region Authorization
-            if( Authentication.IsAdmin == false )
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
-            }
-            #endregion
-
-            try
-            {
-                Control.Update( software );
-
+                db.Entry(software).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(software);
         }
 
         //
         // GET: /Software/Delete/5
 
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        public ActionResult Delete(int id = 0)
+        {
+            Software software = db.Softwares.Find(id);
+            if (software == null)
+            {
+                return HttpNotFound();
+            }
+            return View(software);
+        }
 
         //
         // POST: /Software/Delete/5
 
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Software software = db.Softwares.Find(id);
+            db.Softwares.Remove(software);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        #endregion
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

@@ -9,11 +9,9 @@ namespace Emu.Common
 {
     public class License
     {
-        public int ID { get; set; }
-        public Software Software { get; set; }
-        [Required]
-        public string LicenseKey { get; set; }
-        [Required,DataType(DataType.Date)]
-        public DateTime ExpirationDate { get; set; }
+        public virtual int Id { get; set; }
+        public virtual Software Software { get; set; }
+        public virtual string LicenseKey { get; set; }
+        public virtual DateTime? ExpirationDate { get; set; }
     }
 }
