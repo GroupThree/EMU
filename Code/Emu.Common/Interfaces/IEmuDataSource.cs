@@ -12,7 +12,7 @@ namespace Emu.Common
         IQueryable<User> Users { get; }
         IQueryable<Ticket> Tickets { get; }
         IQueryable<Software> Software { get; }
-        IQueryable<License> Licenses { get; }
+        IQueryable<SoftwareLicense> Licenses { get; }
         IQueryable<NetworkAddress> NetworkAddresses { get; }
 
         void Save();

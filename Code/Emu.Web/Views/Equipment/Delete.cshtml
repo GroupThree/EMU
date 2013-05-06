@@ -1,0 +1,53 @@
+﻿@model Emu.Common.Equipment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Equipment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentBarCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentBarCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentSerialNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentSerialNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentDescription)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentDescription)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentLocation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WarrantyExpiration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WarrantyExpiration)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

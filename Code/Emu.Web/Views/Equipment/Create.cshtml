@@ -1,0 +1,67 @@
+﻿@model Emu.Common.Equipment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Equipment</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EquipmentBarCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EquipmentBarCode)
+            @Html.ValidationMessageFor(model => model.EquipmentBarCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EquipmentSerialNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EquipmentSerialNumber)
+            @Html.ValidationMessageFor(model => model.EquipmentSerialNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EquipmentDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EquipmentDescription)
+            @Html.ValidationMessageFor(model => model.EquipmentDescription)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EquipmentLocation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EquipmentLocation)
+            @Html.ValidationMessageFor(model => model.EquipmentLocation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WarrantyExpiration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WarrantyExpiration)
+            @Html.ValidationMessageFor(model => model.WarrantyExpiration)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

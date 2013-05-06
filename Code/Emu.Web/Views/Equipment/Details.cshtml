@@ -1,0 +1,50 @@
+﻿@model Emu.Common.Equipment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Equipment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentBarCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentBarCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentSerialNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentSerialNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentDescription)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentDescription)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipmentLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipmentLocation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WarrantyExpiration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WarrantyExpiration)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.EquipmentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

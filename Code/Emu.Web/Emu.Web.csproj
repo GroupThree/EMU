@@ -171,8 +171,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SoftwareController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="EmuDb.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -310,11 +310,11 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Software\Index.cshtml" />
-    <Content Include="Views\Software\Details.cshtml" />
-    <Content Include="Views\Software\Create.cshtml" />
-    <Content Include="Views\Software\Edit.cshtml" />
-    <Content Include="Views\Software\Delete.cshtml" />
+    <Content Include="Views\Equipment\Index.cshtml" />
+    <Content Include="Views\Equipment\Details.cshtml" />
+    <Content Include="Views\Equipment\Create.cshtml" />
+    <Content Include="Views\Equipment\Edit.cshtml" />
+    <Content Include="Views\Equipment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

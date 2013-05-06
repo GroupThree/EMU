@@ -9,33 +9,33 @@ using Emu.Common;
 
 namespace Emu.Web.Controllers
 {
-    public class SoftwareController : Controller
+    public class EquipmentController : Controller
     {
         private EmuDb db = new EmuDb();
 
         //
-        // GET: /Software/
+        // GET: /Equipment/
 
         public ActionResult Index()
         {
-            return View(db.Softwares.ToList());
+            return View(db.Equipments.ToList());
         }
 
         //
-        // GET: /Software/Details/5
+        // GET: /Equipment/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Software software = db.Softwares.Find(id);
-            if (software == null)
+            Equipment equipment = db.Equipments.Find(id);
+            if (equipment == null)
             {
                 return HttpNotFound();
             }
-            return View(software);
+            return View(equipment);
         }
 
         //
-        // GET: /Software/Create
+        // GET: /Equipment/Create
 
         public ActionResult Create()
         {
@@ -43,70 +43,70 @@ namespace Emu.Web.Controllers
         }
 
         //
-        // POST: /Software/Create
+        // POST: /Equipment/Create
 
         [HttpPost]
-        public ActionResult Create(Software software)
+        public ActionResult Create(Equipment equipment)
         {
             if (ModelState.IsValid)
             {
-                db.Softwares.Add(software);
+                db.Equipments.Add(equipment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(software);
+            return View(equipment);
         }
 
         //
-        // GET: /Software/Edit/5
+        // GET: /Equipment/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Software software = db.Softwares.Find(id);
-            if (software == null)
+            Equipment equipment = db.Equipments.Find(id);
+            if (equipment == null)
             {
                 return HttpNotFound();
             }
-            return View(software);
+            return View(equipment);
         }
 
         //
-        // POST: /Software/Edit/5
+        // POST: /Equipment/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Software software)
+        public ActionResult Edit(Equipment equipment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(software).State = EntityState.Modified;
+                db.Entry(equipment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(software);
+            return View(equipment);
         }
 
         //
-        // GET: /Software/Delete/5
+        // GET: /Equipment/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Software software = db.Softwares.Find(id);
-            if (software == null)
+            Equipment equipment = db.Equipments.Find(id);
+            if (equipment == null)
             {
                 return HttpNotFound();
             }
-            return View(software);
+            return View(equipment);
         }
 
         //
-        // POST: /Software/Delete/5
+        // POST: /Equipment/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Software software = db.Softwares.Find(id);
-            db.Softwares.Remove(software);
+            Equipment equipment = db.Equipments.Find(id);
+            db.Equipments.Remove(equipment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

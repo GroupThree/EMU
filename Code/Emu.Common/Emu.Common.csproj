@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\Equipment.cs" />
-    <Compile Include="DataContracts\License.cs" />
+    <Compile Include="DataContracts\SoftwareLicense.cs" />
     <Compile Include="DataContracts\NetworkAddress.cs" />
     <Compile Include="DataContracts\Software.cs" />
     <Compile Include="DataContracts\Ticket.cs" />
