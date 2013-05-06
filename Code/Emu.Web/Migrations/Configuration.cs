@@ -26,53 +26,55 @@ namespace Emu.Web.Migrations
         #endregion
 
         #region software
-        Software s1 = new Software { SoftwareBarCode = 200000, SoftwareDescription = "Microsoft Windows XP", SoftwareSerialNumber = "asdf1111" };
-        Software s2 = new Software { SoftwareBarCode = 200001, SoftwareDescription = "Microsoft Windows 7", SoftwareSerialNumber = "1111asdf" };
-        Software s3 = new Software { SoftwareBarCode = 200002, SoftwareDescription = "Microsoft Word 2007", SoftwareSerialNumber = "0101asdf" };
-        Software s4 = new Software { SoftwareBarCode = 200003, SoftwareDescription = "Microsoft Word 2010", SoftwareSerialNumber = "1010asdf" };
+
+        Software s1 = new Software { SoftwareBarCode = 200000, SoftwareDescription = "Microsoft Windows XP", SoftwareSerialNumber = "asdf1111", Licenses = new List<SoftwareLicense>() };
+        Software s2 = new Software { SoftwareBarCode = 200001, SoftwareDescription = "Microsoft Windows 7", SoftwareSerialNumber = "1111asdf", Licenses = new List<SoftwareLicense>() };
+        Software s3 = new Software { SoftwareBarCode = 200002, SoftwareDescription = "Microsoft Word 2007", SoftwareSerialNumber = "0101asdf", Licenses = new List<SoftwareLicense>() };
+        Software s4 = new Software { SoftwareBarCode = 200003, SoftwareDescription = "Microsoft Word 2010", SoftwareSerialNumber = "1010asdf", Licenses = new List<SoftwareLicense>() };
+
         #endregion
 
         #region software licenses
 
-        SoftwareLicense sl1 = new SoftwareLicense { LicenseKey = "deadbeef1234", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl2 = new SoftwareLicense { LicenseKey = "deadbeef4321", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl3 = new SoftwareLicense { LicenseKey = "1234deadbeef", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl4 = new SoftwareLicense { LicenseKey = "4321deadbeef", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl5 = new SoftwareLicense { LicenseKey = "deadbea71234", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl6 = new SoftwareLicense { LicenseKey = "deadbea74321", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl7 = new SoftwareLicense { LicenseKey = "1234deadbea7", ExpirationDate = DateTime.MaxValue };
-        SoftwareLicense sl8 = new SoftwareLicense { LicenseKey = "4321deadbea7", ExpirationDate = DateTime.MaxValue };
+        SoftwareLicense sl1 = new SoftwareLicense { LicenseKey = "deadbeef1234"  };
+        SoftwareLicense sl2 = new SoftwareLicense { LicenseKey = "deadbeef4321" };
+        SoftwareLicense sl3 = new SoftwareLicense { LicenseKey = "1234deadbeef" };
+        SoftwareLicense sl4 = new SoftwareLicense { LicenseKey = "4321deadbeef" };
+        SoftwareLicense sl5 = new SoftwareLicense { LicenseKey = "deadbea71234" };
+        SoftwareLicense sl6 = new SoftwareLicense { LicenseKey = "deadbea74321" };
+        SoftwareLicense sl7 = new SoftwareLicense { LicenseKey = "1234deadbea7" };
+        SoftwareLicense sl8 = new SoftwareLicense { LicenseKey = "4321deadbea7" };
 
         #endregion
 
         #region users
 
-        User u1 = new User { UserName = "bnewton", Password = "12345678", UserType = UserType.Admin };
-        User u2 = new User { UserName = "amedury", Password = "12345678", UserType = UserType.Admin };
-        User u3 = new User { UserName = "joerter", Password = "12345678", UserType = UserType.Basic };
-        User u4 = new User { UserName = "twbrown", Password = "12345678", UserType = UserType.Basic };
+        User u1 = new User { UserName = "bnewton", Password = "12345678", UserType = UserType.Admin, AssignedTickets = new List<Ticket>(), RequestedTickets = new List<Ticket>(), Equipments = new List<Equipment>() };
+        User u2 = new User { UserName = "amedury", Password = "12345678", UserType = UserType.Admin, AssignedTickets = new List<Ticket>(), RequestedTickets = new List<Ticket>(), Equipments = new List<Equipment>() };
+        User u3 = new User { UserName = "joerter", Password = "12345678", UserType = UserType.Basic, AssignedTickets = new List<Ticket>(), RequestedTickets = new List<Ticket>(), Equipments = new List<Equipment>() };
+        User u4 = new User { UserName = "twbrown", Password = "12345678", UserType = UserType.Basic, AssignedTickets = new List<Ticket>(), RequestedTickets = new List<Ticket>(), Equipments = new List<Equipment>() };
 
         #endregion
 
         #region equipment
 
-        Equipment e1 = new Equipment { EquipmentBarCode = 100000, Category = UsageCategory.Faculty, EquipmentDescription = "Brian's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "a1b2c3d4", WarrantyExpiration = DateTime.Parse("2010-1-1") };
-        Equipment e2 = new Equipment { EquipmentBarCode = 100001, Category = UsageCategory.Faculty, EquipmentDescription = "Ajay's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "1a2b3c4d", WarrantyExpiration = DateTime.Parse("2010-1-1") };
-        Equipment e3 = new Equipment { EquipmentBarCode = 100002, Category = UsageCategory.Faculty, EquipmentDescription = "John's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "d4c3b2a1", WarrantyExpiration = DateTime.Parse("2010-1-1") };
-        Equipment e4 = new Equipment { EquipmentBarCode = 100003, Category = UsageCategory.Faculty, EquipmentDescription = "Tim's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "4d3c2b1a", WarrantyExpiration = DateTime.Parse("2010-1-1") };
+        Equipment e1 = new Equipment { EquipmentBarCode = 100000, Category = UsageCategory.Faculty, EquipmentDescription = "Brian's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "a1b2c3d4", WarrantyExpiration = DateTime.Parse("2010-1-1"), NetworkAddresses = new List<NetworkAddress>(), SoftwareLicenses = new List<SoftwareLicense>(), UsedBy = new List<User>() };
+        Equipment e2 = new Equipment { EquipmentBarCode = 100001, Category = UsageCategory.Faculty, EquipmentDescription = "Ajay's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "1a2b3c4d", WarrantyExpiration = DateTime.Parse( "2010-1-1" ), NetworkAddresses = new List<NetworkAddress>(), SoftwareLicenses = new List<SoftwareLicense>(), UsedBy = new List<User>() };
+        Equipment e3 = new Equipment { EquipmentBarCode = 100002, Category = UsageCategory.Faculty, EquipmentDescription = "John's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "d4c3b2a1", WarrantyExpiration = DateTime.Parse( "2010-1-1" ), NetworkAddresses = new List<NetworkAddress>(), SoftwareLicenses = new List<SoftwareLicense>(), UsedBy = new List<User>() };
+        Equipment e4 = new Equipment { EquipmentBarCode = 100003, Category = UsageCategory.Faculty, EquipmentDescription = "Tim's Laptop", EquipmentLocation = "Mobile", EquipmentSerialNumber = "4d3c2b1a", WarrantyExpiration = DateTime.Parse( "2010-1-1" ), NetworkAddresses = new List<NetworkAddress>(), SoftwareLicenses = new List<SoftwareLicense>(), UsedBy = new List<User>() };
 
         #endregion
 
         #region tickets
 
-        Ticket t1 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Brian's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t2 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Ajay's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t3 = new Ticket { TicketDescription = "", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t4 = new Ticket { TicketDescription = "d", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t5 = new Ticket { TicketDescription = "e", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t6 = new Ticket { TicketDescription = "f", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t7 = new Ticket { TicketDescription = "g", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
-        Ticket t8 = new Ticket { TicketDescription = "h", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t1 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Brian's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1"), };
+        Ticket t2 = new Ticket { TicketDescription = "Install Microsoft Office 2007 on Brian's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t3 = new Ticket { TicketDescription = "Install Microsoft Windows XP on Ajay's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse( "2013-1-1" ) };
+        Ticket t4 = new Ticket { TicketDescription = "Install Microsoft Office 2007 on Ajay's Macine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t5 = new Ticket { TicketDescription = "Install Microsoft Windows 7 on John's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t6 = new Ticket { TicketDescription = "Install Microsoft Office 2010 on John's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse("2013-1-1") };
+        Ticket t7 = new Ticket { TicketDescription = "Install Microsoft Office 2010 on John's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse( "2013-1-1" ) };
+        Ticket t8 = new Ticket { TicketDescription = "Install Microsoft Office 2010 on Tim's Machine", Type = TicketType.UserRequested, Priority = TicketPiority.Medium, TicketCreated = DateTime.Parse( "2013-1-1" ) };
 
         #endregion
 

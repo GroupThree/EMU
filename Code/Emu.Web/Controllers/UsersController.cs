@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Emu.Common;
+using Emu.Web.Models;
 
 namespace Emu.Web.Controllers
 {
@@ -18,7 +19,64 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             return View(db.Users.ToList());
+        }
+
+        public ActionResult Login()
+        {
+            var model = new LoginModel();
+            return View( model );
+        }
+
+        [HttpPost]
+        public ActionResult Login( string username, string password )
+        {
+            Exception err = null;
+            Common.User user = null;
+            try
+            {
+                user = Authentication.AuthenticateUser( username, password );
+            }
+            catch( Exception e )
+            {
+                err = e;
+            }
+
+            var model = new LoginModel
+            {
+                Username = username,
+                Password = password
+            };
+
+
+            if( user == null )
+            {
+                ViewBag.Error = "Username or password was invalid";
+
+                return View( model );
+            }
+            else if( err != null )
+            {
+                ViewBag.Error = err.Message;
+                return View( model );
+            }
+            else
+            {
+                return RedirectToAction( "Index", "Maintenance" );
+            }
+        }
+
+        public ActionResult LogOut()
+        {
+            Authentication.LogOut();
+            return RedirectToAction( "Login", "Home" );
         }
 
         //
@@ -26,6 +84,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             User user = db.Users.Find(id);
             if (user == null)
             {
@@ -36,7 +101,6 @@ namespace Emu.Web.Controllers
 
         List<SelectListItem> GetUserTypeList(UserType userType)
         {
-
             return new List<SelectListItem>(new List<SelectListItem> 
                 {
                     new SelectListItem { Value = ((int)UserType.Basic).ToString(), Text = "Basic", Selected = UserType.Basic == userType },
@@ -49,6 +113,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             ViewBag.UserType = GetUserTypeList(UserType.Basic);
             return View();
         }
@@ -59,6 +130,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
@@ -75,6 +153,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             User user = db.Users.Find(id);
             if (user == null)
             {
@@ -91,6 +176,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(User user)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
@@ -107,6 +199,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             User user = db.Users.Find(id);
             if (user == null)
             {
@@ -121,6 +220,13 @@ namespace Emu.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();

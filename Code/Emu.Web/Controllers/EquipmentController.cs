@@ -18,6 +18,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             return View(db.Equipments.ToList());
         }
 
@@ -26,6 +33,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             Equipment equipment = db.Equipments.Find(id);
             if (equipment == null)
             {
@@ -39,6 +53,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             return View();
         }
 
@@ -48,6 +69,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Equipment equipment)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Equipments.Add(equipment);
@@ -63,6 +91,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             Equipment equipment = db.Equipments.Find(id);
             if (equipment == null)
             {
@@ -77,6 +112,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Equipment equipment)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Entry(equipment).State = EntityState.Modified;
@@ -91,6 +133,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             Equipment equipment = db.Equipments.Find(id);
             if (equipment == null)
             {
@@ -105,6 +154,13 @@ namespace Emu.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Users", "Login" );
+            }
+            #endregion
+
             Equipment equipment = db.Equipments.Find(id);
             db.Equipments.Remove(equipment);
             db.SaveChanges();
