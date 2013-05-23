@@ -18,6 +18,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             return View(db.NetworkAddresses.ToList());
         }
 
@@ -26,6 +33,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             NetworkAddress networkaddress = db.NetworkAddresses.Find(id);
             if (networkaddress == null)
             {
@@ -39,6 +53,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             return View();
         }
 
@@ -48,6 +69,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(NetworkAddress networkaddress)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.NetworkAddresses.Add(networkaddress);
@@ -63,6 +91,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             NetworkAddress networkaddress = db.NetworkAddresses.Find(id);
             if (networkaddress == null)
             {
@@ -77,6 +112,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(NetworkAddress networkaddress)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Entry(networkaddress).State = EntityState.Modified;
@@ -91,6 +133,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             NetworkAddress networkaddress = db.NetworkAddresses.Find(id);
             if (networkaddress == null)
             {
@@ -105,6 +154,13 @@ namespace Emu.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             NetworkAddress networkaddress = db.NetworkAddresses.Find(id);
             db.NetworkAddresses.Remove(networkaddress);
             db.SaveChanges();

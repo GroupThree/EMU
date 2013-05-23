@@ -22,7 +22,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -76,7 +76,7 @@ namespace Emu.Web.Controllers
         public ActionResult LogOut()
         {
             Authentication.LogOut();
-            return RedirectToAction( "Login", "Home" );
+            return RedirectToAction( "Login", "Users" );
         }
 
         //
@@ -87,7 +87,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -116,7 +116,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -133,7 +133,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -156,7 +156,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -179,7 +179,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -202,7 +202,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 
@@ -223,7 +223,7 @@ namespace Emu.Web.Controllers
             #region Authorization
             if( Authentication.IsAdmin == false )
             {
-                return RedirectToAction( "Users", "Login" );
+                return RedirectToAction( "Login", "Users" );
             }
             #endregion
 

@@ -29,6 +29,7 @@ namespace Emu.Common
         public virtual TicketPiority Priority { get; set; }
         [Required(AllowEmptyStrings=false, ErrorMessage="Please enter a ticket description")]
         [DisplayName("Description")]
+        [DataType(DataType.MultilineText)]
         public virtual string TicketDescription { get; set; }
         [Required(AllowEmptyStrings=false, ErrorMessage="Please enter a ticket created date")]
         [DataType(DataType.Date)]

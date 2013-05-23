@@ -23,6 +23,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             return View(db.Licenses.ToList());
         }
 
@@ -31,6 +38,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             SoftwareLicense softwarelicense = db.Licenses.Find(id);
             if (softwarelicense == null)
             {
@@ -44,6 +58,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Create()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             ViewBag.Software = db.Softwares;
             return View();
         }
@@ -54,6 +75,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(SoftwareLicense softwarelicense)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Licenses.Add(softwarelicense);
@@ -83,6 +111,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(SoftwareLicense softwarelicense)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Entry(softwarelicense).State = EntityState.Modified;
@@ -97,6 +132,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             SoftwareLicense softwarelicense = db.Licenses.Find(id);
             if (softwarelicense == null)
             {
@@ -111,6 +153,13 @@ namespace Emu.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             SoftwareLicense softwarelicense = db.Licenses.Find(id);
             db.Licenses.Remove(softwarelicense);
             db.SaveChanges();

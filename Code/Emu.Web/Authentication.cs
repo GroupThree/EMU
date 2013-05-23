@@ -8,7 +8,7 @@ namespace Emu.Web
 {
     public static class Authentication
     {
-        static bool requireAuthentication = false;
+        static bool requireAuthentication = true;
 
         public static User CurrentUser
         {

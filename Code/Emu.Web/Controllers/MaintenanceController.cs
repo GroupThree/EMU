@@ -18,6 +18,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Index()
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             var tickets = db.Tickets.Include(t => t.Requestor).Include(t => t.AssignedTo);
             return View(tickets.ToList());
         }
@@ -27,6 +34,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             Ticket ticket = db.Tickets.Find(id);
             if (ticket == null)
             {
@@ -38,20 +52,42 @@ namespace Emu.Web.Controllers
         //
         // GET: /Maintenance/Create
 
-        SelectList AvailableRequestors
+        IEnumerable<SelectListItem> AvailableRequestors(User user)
         {
-            get { return new SelectList(db.Users, "UserId", "UserName"); }
+            IEnumerable<SelectListItem> list = new SelectList(db.Users, "UserId", "UserName");
+
+            if( user != null )
+            {
+                list = db.Users.Select( u => new SelectListItem { Selected = u.UserId == user.UserId, Value = u.UserId.ToString(), Text = u.UserName  } ).ToList();
+            }
+
+            return list;
         }
 
-        SelectList AvailableAssignees
+        IEnumerable<SelectListItem> AvailableAssignees( User user )
         {
-            get { return new SelectList(db.Users.Where(u => u.UserType == UserType.Admin), "UserId", "UserName"); }
+            IEnumerable < SelectListItem> list = new SelectList( db.Users.Where( u => u.UserType == UserType.Admin ), "UserId", "UserName" );
+
+            if( user != null )
+            {
+                list = db.Users.Where(u => u.UserType == UserType.Admin).Select( u => new SelectListItem { Selected = u.UserId == user.UserId, Value = u.UserId.ToString(), Text = u.UserName } ).ToList();
+            }
+
+            return list;
         }
 
         public ActionResult Create()
         {
-            ViewBag.RequestorId = AvailableRequestors;
-            ViewBag.AssignedToId = AvailableAssignees;
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
+            ViewBag.Priority = new List<SelectListItem>() { new SelectListItem{ Selected = false, Text = "Low ", Value = 0.ToString() }, new SelectListItem{ Selected = true, Text = "Medium", Value = 1.ToString() }, new SelectListItem{ Selected = false, Text = "High", Value = 2.ToString() } };
+            ViewBag.RequestorId = AvailableRequestors(null);
+            ViewBag.AssignedToId = AvailableAssignees(null);
             return View();
         }
 
@@ -61,6 +97,13 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Create(Ticket ticket)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Tickets.Add(ticket);
@@ -68,8 +111,8 @@ namespace Emu.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RequestorId = AvailableRequestors;
-            ViewBag.AssignedToId = AvailableAssignees;
+            ViewBag.RequestorId = AvailableRequestors(null);
+            ViewBag.AssignedToId = AvailableAssignees(null);
             return View(ticket);
         }
 
@@ -78,13 +121,20 @@ namespace Emu.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             Ticket ticket = db.Tickets.Find(id);
             if (ticket == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RequestorId = AvailableRequestors;
-            ViewBag.AssignedToId = AvailableAssignees;
+            ViewBag.RequestorId = AvailableRequestors(null);
+            ViewBag.AssignedToId = AvailableAssignees(null);
             return View(ticket);
         }
 
@@ -94,14 +144,21 @@ namespace Emu.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Ticket ticket)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             if (ModelState.IsValid)
             {
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RequestorId = AvailableRequestors;
-            ViewBag.AssignedToId = AvailableAssignees;
+            ViewBag.RequestorId = AvailableRequestors(null);
+            ViewBag.AssignedToId = AvailableAssignees(null);
             return View(ticket);
         }
 
@@ -110,6 +167,13 @@ namespace Emu.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             Ticket ticket = db.Tickets.Find(id);
             if (ticket == null)
             {
@@ -124,6 +188,13 @@ namespace Emu.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            #region Authorization
+            if( Authentication.IsAdmin == false )
+            {
+                return RedirectToAction( "Login", "Users" );
+            }
+            #endregion
+
             Ticket ticket = db.Tickets.Find(id);
             db.Tickets.Remove(ticket);
             db.SaveChanges();
